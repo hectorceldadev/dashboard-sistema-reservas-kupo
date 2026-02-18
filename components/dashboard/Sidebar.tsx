@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard } from "lucide-react"
 import { signOut } from "@/app/login/actions"
+import Image from "next/image"
 
 const menuItems = [
     { href: "/dashboard", label: "Dahsboard", icon: LayoutDashboard },
@@ -24,9 +25,12 @@ export function Sidebar({ businessName }: { businessName: string }) {
       {/* Header del Sidebar */}
       <div className="h-24 flex items-center px-8 border-b border-white/5">
         <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center text-zinc-950 font-black text-xl shadow-lg shadow-yellow-500/20">
-            {businessName.charAt(0).toUpperCase()}
-            </div>
+            <Image 
+              src='/icon.png'
+              alt="KUPO LOGO"
+              height={40}
+              width={40}
+            />
             <div className="flex flex-col overflow-hidden">
                 <span className="font-bold text-white truncate text-base leading-tight">{businessName}</span>
                 <span className="text-xs text-zinc-500 font-medium">Panel de control</span>

@@ -1,6 +1,8 @@
 import { Sidebar } from "@/components/dashboard/Sidebar"
 import { createClient } from "@/utils/supabase/server"
+import { AlertTriangle } from "lucide-react"
 import { redirect } from "next/navigation"
+import { signOut } from "../login/actions"
 
 export default async function DashboardLayout({
   children,
@@ -33,12 +35,32 @@ export default async function DashboardLayout({
     console.error("Error fetching profile:", profileError)
     // Opción: Redirigir a una página de error o de "Terminar configuración"
     return (
-        <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">
-            <div className="p-6 border border-red-500 rounded-lg bg-red-900/20">
-                <h1 className="font-bold text-xl mb-2">Error de Cuenta</h1>
-                <p>No se encontraron datos del negocio asociados a este usuario.</p>
-            </div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-950 text-zinc-200 p-4">
+        <div className="max-w-md w-full bg-zinc-900/50 border border-red-500/20 rounded-3xl p-8 backdrop-blur-xl shadow-2xl space-y-6 text-center">
+
+          <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertTriangle className="w-8 h-8 text-red-500" />
+          </div>
+
+          <div className="space-y-2 pb-2">
+            <h1 className="font-bold text-2xl text-white">Error de Cuenta</h1>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              Hemos detectado tu usuario ({user.email}), pero no encontramos un perfil de negocio asociado.
+            </p>
+          </div>
+          <form action={signOut}>
+            <button
+              type="submit"
+              className="w-full flex items-center justify-center gap-2 bg-white hover:bg-zinc-200 text-black font-bold py-3 rounded-xl transition-all"
+            >
+
+              
+                Volver a inciar sesión
+              
+            </button>
+          </form>
         </div>
+      </div>
     )
   }
 

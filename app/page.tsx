@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, Calendar, Users, BarChart3, CheckCircle2, ShieldCheck, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 export default function LandingPage() {
   return (
@@ -15,11 +16,14 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="group">
-                <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center text-zinc-950 font-black text-xl shadow-lg shadow-yellow-500/20 group-hover:scale-105 transition-transform">
-                M
-                </div>
+                <Image 
+                  src='/icon.png'
+                  alt="KUPO"
+                  height={50}
+                  width={50}
+                />
             </Link>
-            <span className="font-bold text-xl tracking-tight text-white">MiSaaS</span>
+            <span className="font-bold text-xl tracking-tight text-white">kupo</span>
           </div>
           <div className="flex items-center gap-6">
             <Link 

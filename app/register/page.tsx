@@ -1,15 +1,15 @@
 'use client'
 
 import Link from "next/link"
-import { login } from "./actions"
+import { createUser } from "./actions"
 import { ArrowRight, Loader2, Mail, KeyRound, TrendingUp, Star } from "lucide-react"
 import { useFormStatus } from 'react-dom'
 import { useActionState, useEffect } from "react"
 import { sileo } from "sileo"
 
-export default function LoginPage() {
+export default function RegisterPage() {
 
-    const [state, action] = useActionState(login, null)
+    const [state, action] = useActionState(createUser, null)
 
     useEffect(() => {
         if (state?.error) {
@@ -49,7 +49,7 @@ export default function LoginPage() {
                             {/* Título más grande (text-3xl -> text-4xl) */}
                             <h1 className="text-3xl font-bold tracking-tight text-white">Bienvenido</h1>
                             {/* Subtítulo más grande (text-base -> text-lg) */}
-                            <p className="text-zinc-400 text-lg mt-2">Accede a tu panel de control.</p>
+                            <p className="text-zinc-400 text-lg mt-2">Crea una cuenta para acceder a tu panel de control.</p>
                         </div>
                     </div>
 
@@ -84,9 +84,6 @@ export default function LoginPage() {
                                     <label htmlFor="password" className="block text-sm font-semibold text-zinc-400 uppercase tracking-wider">
                                         Contraseña
                                     </label>
-                                    <Link href="/login/forgot-password" className="text-sm font-medium text-yellow-500 hover:text-yellow-400 transition-colors">
-                                        ¿Recuperar clave?
-                                    </Link>
                                 </div>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -107,21 +104,6 @@ export default function LoginPage() {
 
                         <SubmitButton />
                     </form>
-
-                    {/* Footer: Más separado y texto más grande */}
-                    <div className="pt-6 border-t border-zinc-900">
-                        <div className="flex items-center justify-between text-sm text-zinc-500">
-                            <span>¿No tienes cuenta?</span>
-                            <a
-                                href="/register"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="font-bold text-zinc-300 hover:text-yellow-500 transition-colors flex items-center gap-2"
-                            >
-                                Solicitar invitación <ArrowRight className="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -208,7 +190,7 @@ function SubmitButton() {
                 </>
             ) : (
                 <>
-                    <span className="relative z-10 text-sm">Entrar al Panel</span>
+                    <span className="relative z-10 text-sm">Crear Cuenta</span>
                     <ArrowRight className="w-4 h-4 ml-2 relative z-10 group-hover:translate-x-1 transition-transform" />
                 </>
             )}

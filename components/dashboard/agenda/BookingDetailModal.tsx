@@ -1,6 +1,7 @@
 'use client'
 
 import { format } from 'date-fns'
+import { formatInTimeZone } from 'date-fns-tz'
 import { es } from 'date-fns/locale'
 import { X, Calendar, User, Scissors, AlertTriangle, Clock, CreditCard } from 'lucide-react'
 import Image from 'next/image'
@@ -10,6 +11,8 @@ interface BookingDetailsModalProps {
     onClose: () => void
     onCancel: (id: string) => void
 }
+
+const TIMEZONE = 'Europe/Madrid'
 
 export default function BookingDetailsModal({ booking, onClose, onCancel }: BookingDetailsModalProps) {
     const isCancellable = booking.status !== 'cancelled' && booking.status !== 'completed'
@@ -31,13 +34,19 @@ export default function BookingDetailsModal({ booking, onClose, onCancel }: Book
     const totalPrice = booking.total_price || itemsList.reduce((acc: number, item: any) => acc + (item.price || 0), 0)
 
     // Formatear la hora
-    const formattedTime = booking.start_time ? booking.start_time.slice(11, 16) : '--:--'
-    const formattedEndTime = booking.end_time ? booking.end_time.slice(11, 16) : '--:--'
+    const formattedTime = booking.start_time 
+        ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm')
+        : '--:--'
+    const formattedEndTime = booking.end_time 
+        ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') 
+        : '--:--'
 
     // Intentar parsear la fecha de forma segura
     let dateObj = new Date()
     try {
-        if (booking.date) dateObj = new Date(`${booking.date}T00:00:00`)
+        if (booking.start_time) {
+            dateObj = new Date(booking.start_time)
+        }
     } catch (e) {
         console.error("Error parseando fecha", e)
     }
@@ -78,7 +87,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel }: Book
 
                     <div className="flex justify-between items-center text-xs text-zinc-500 font-mono bg-zinc-950/50 px-3 py-2 rounded-lg border border-zinc-800/50">
                         <span>Ref: {booking.id.slice(0, 8).toUpperCase()}</span>
-                        <span>{format(dateObj, 'dd/MM/yyyy')}</span>
+                        <span>{formatInTimeZone(dateObj, TIMEZONE, 'dd/MM/yyyy')}</span>
                     </div>
 
                     <div className="space-y-4">
@@ -90,7 +99,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel }: Book
                             <div>
                                 <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider mb-0.5">Cuándo</p>
                                 <p className="font-bold text-zinc-200 capitalize">
-                                    {format(dateObj, 'EEEE d MMMM, yyyy', { locale: es })}
+                                    {formatInTimeZone(dateObj, TIMEZONE, 'EEEE d MMMM, yyyy', { locale: es })}
                                 </p>
                                 <p className="text-sm text-zinc-400 mt-0.5 flex items-center gap-1.5">
                                     <Clock size={12} /> {formattedTime} - {formattedEndTime}

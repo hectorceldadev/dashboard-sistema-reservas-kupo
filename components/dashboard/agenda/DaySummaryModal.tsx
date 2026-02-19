@@ -5,6 +5,7 @@ import { es } from 'date-fns/locale'
 import { X, User, Scissors, ArrowRight, Calendar, Clock } from 'lucide-react'
 import { useState } from 'react'
 import BookingDetailsModal from './BookingDetailModal'
+import { formatInTimeZone } from 'date-fns-tz'
 
 interface DaySummaryModalProps {
     date: Date
@@ -12,6 +13,8 @@ interface DaySummaryModalProps {
     onClose: () => void
     // onBookingClick: (booking: any) => void // Lo usaremos para abrir el detalle
 }
+
+const TIMEZONE = 'Europe/Madrid'
 
 export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryModalProps) {
 
@@ -71,8 +74,12 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                 const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
                                 
                                 // Formatear hora
-                                const formattedTime = booking.start_time ? booking.start_time.slice(11, 16) : '--:--' 
-                                const formattedEndTime = booking.end_time ? booking.end_time.slice(11, 16) : '--:--'
+                                const formattedTime = booking.start_time 
+                                    ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm') 
+                                    : '--:--' 
+                                const formattedEndTime = booking.end_time 
+                                    ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') 
+                                    : '--:--'
                                 
 
                                 return (
@@ -141,21 +148,21 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     </button>
                                 )
                             })}
-                            {
-                                selectedBooking && 
-                                    <BookingDetailsModal 
-                                        booking={selectedBooking}
-                                        onClose={() => setSelectedBooking(null)}
-                                        onCancel={(id) => {
-                                            console.log('Cancelar cita ID: ', id)
-
-                                            //* PREPARAR CANCEL
-                                            setSelectedBooking(null)
-                                        }}
-                                    />
-                            }
                         </div>
                     )}
+                    {
+                        selectedBooking && 
+                            <BookingDetailsModal 
+                                booking={selectedBooking}
+                                onClose={() => setSelectedBooking(null)}
+                                onCancel={(id) => {
+                                    console.log('Cancelar cita ID: ', id)
+
+                                    //* PREPARAR CANCEL
+                                    setSelectedBooking(null)
+                                }}
+                            />
+                    }
                 </div>
             </div>
         </div>

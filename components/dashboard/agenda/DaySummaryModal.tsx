@@ -6,6 +6,8 @@ import { X, User, Scissors, ArrowRight, Calendar, Clock } from 'lucide-react'
 import { useState } from 'react'
 import BookingDetailsModal from './BookingDetailModal'
 import { formatInTimeZone } from 'date-fns-tz'
+import { cancelBookingAction } from '@/app/dashboard/agenda/actions'
+import { sileo } from 'sileo'
 
 interface DaySummaryModalProps {
     date: Date
@@ -19,6 +21,7 @@ const TIMEZONE = 'Europe/Madrid'
 export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryModalProps) {
 
     const [ selectedBooking, setSelectedBooking ] = useState<any>(null)
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
     
     // Filtrar citas solo para este día y ordenarlas por hora
     const dateString = format(date, 'yyyy-MM-dd')
@@ -155,10 +158,25 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                             <BookingDetailsModal 
                                 booking={selectedBooking}
                                 onClose={() => setSelectedBooking(null)}
-                                onCancel={(id) => {
-                                    console.log('Cancelar cita ID: ', id)
+                                isLoading={isLoading}
+                                onCancel={async (id) => {
+                                    setIsLoading(true)
+                                    const result = await cancelBookingAction(id)
 
-                                    //* PREPARAR CANCEL
+                                    if (result.success) {
+                                        setIsLoading(false)
+                                        onClose()
+                                        sileo.success({
+                                            title: 'Reserva cancelada con éxito.',
+                                            description: 'El cliente recibira un correo con la cancelación.'
+                                        })
+                                    } else {
+                                        setIsLoading(false)
+                                        onClose()
+                                        sileo.error({
+                                            title: 'Error al cancelar la reserva.'
+                                        })
+                                    }
                                     setSelectedBooking(null)
                                 }}
                             />

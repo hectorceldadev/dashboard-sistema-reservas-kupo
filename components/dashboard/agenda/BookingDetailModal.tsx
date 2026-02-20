@@ -3,18 +3,19 @@
 import { format } from 'date-fns'
 import { formatInTimeZone } from 'date-fns-tz'
 import { es } from 'date-fns/locale'
-import { X, Calendar, User, Scissors, AlertTriangle, Clock, CreditCard } from 'lucide-react'
+import { X, Calendar, User, Scissors, AlertTriangle, Clock, CreditCard, Loader } from 'lucide-react'
 import Image from 'next/image'
 
 interface BookingDetailsModalProps {
     booking: any
     onClose: () => void
     onCancel: (id: string) => void
+    isLoading: boolean
 }
 
 const TIMEZONE = 'Europe/Madrid'
 
-export default function BookingDetailsModal({ booking, onClose, onCancel }: BookingDetailsModalProps) {
+export default function BookingDetailsModal({ booking, onClose, onCancel, isLoading }: BookingDetailsModalProps) {
     const isCancellable = booking.status !== 'cancelled' && booking.status !== 'completed'
 
     const statusConfig: Record<string, { label: string, color: string }> = {
@@ -28,17 +29,16 @@ export default function BookingDetailsModal({ booking, onClose, onCancel }: Book
 
     // Calcular totales de forma segura
     const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
-    const totalDuration = itemsList.reduce((acc: number, item: any) => acc + (item.services?.duration || 0), 0)
 
     // Usamos el total_price de la reserva principal si existe, si no, sumamos los items
     const totalPrice = booking.total_price || itemsList.reduce((acc: number, item: any) => acc + (item.price || 0), 0)
 
     // Formatear la hora
-    const formattedTime = booking.start_time 
+    const formattedTime = booking.start_time
         ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm')
         : '--:--'
-    const formattedEndTime = booking.end_time 
-        ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') 
+    const formattedEndTime = booking.end_time
+        ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm')
         : '--:--'
 
     // Intentar parsear la fecha de forma segura
@@ -162,12 +162,30 @@ export default function BookingDetailsModal({ booking, onClose, onCancel }: Book
 
                 {/* Botón Cancelar (Fijado abajo) */}
                 <div className="p-4 border-t border-zinc-800 bg-zinc-900 shrink-0">
+
                     {isCancellable ? (
                         <button
                             onClick={() => onCancel(booking.id)}
-                            className="w-full py-3.5 rounded-xl font-bold text-red-500 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 transition-colors flex items-center justify-center gap-2"
+                            disabled={isLoading}
+                            className={`
+                                w-full py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2
+                                ${isLoading
+                                    ? 'bg-red-500/5 text-red-500/50 border border-red-500/10 cursor-not-allowed'
+                                    : 'text-red-500 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30'
+                                }
+                            `}
                         >
-                            <AlertTriangle size={16} /> Cancelar Reserva
+                            {isLoading ? (
+                                <>
+                                    <Loader size={16} className="animate-spin" />
+                                    <span>Cancelando...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <AlertTriangle size={16} />
+                                    <span>Cancelar Reserva</span>
+                                </>
+                            )}
                         </button>
                     ) : (
                         <button

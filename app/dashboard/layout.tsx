@@ -1,4 +1,4 @@
-import { Sidebar } from "@/components/dashboard/Sidebar"
+import { Sidebar } from "@/components/dashboard/menu/Sidebar"
 import { createClient } from "@/utils/supabase/server"
 import { AlertTriangle } from "lucide-react"
 import { redirect } from "next/navigation"

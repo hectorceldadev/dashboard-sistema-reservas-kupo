@@ -12,11 +12,23 @@ export default async function AgendaPage() {
     // 2. Obtener perfil y rol (para saber si cargamos el selector de staff)
     const { data: profile } = await supabase
         .from('profiles')
-        .select('role, business_id')
+        .select(`
+            role, 
+            business_id,
+            businesses(
+                open_hour,
+                close_hour
+            )
+            `)
         .eq('id', user.id)
         .single()
 
     if (!profile) redirect('/login')
+
+    const businessHours = {
+        open: profile.businesses?.open_hour ?? 8,
+        close: profile.businesses?.close_hour ?? 21
+    }
 
     const isAdmin = profile.role === 'admin'
     let staffList: any[] = []
@@ -77,6 +89,7 @@ export default async function AgendaPage() {
                 isAdmin={isAdmin} 
                 currentUserId={user.id} 
                 initialBookings={initialBookings}
+                businessHours={businessHours}
             />
         </div>
     )

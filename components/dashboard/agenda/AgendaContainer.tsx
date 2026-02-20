@@ -34,10 +34,14 @@ interface AgendaContainerProps {
     initialStaff: StaffMember[]
     isAdmin: boolean
     currentUserId: string
-    initialBookings: any[]
+    initialBookings: any[],
+    businessHours: {
+        open: number
+        close: number
+    }
 }
 
-export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, initialBookings }: AgendaContainerProps) {
+export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, initialBookings, businessHours }: AgendaContainerProps) {
     // --- ESTADOS GLOBALES DE LA AGENDA ---
     const [currentDate, setCurrentDate] = useState(new Date())
     const [viewType, setViewType] = useState<ViewType>('month')
@@ -166,7 +170,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                         <WeekView 
                             bookings={filteredBookings}
                             currentDate={currentDate}
-                            
+                            businessHours={businessHours}
                         />
                     </div>
                 )}

@@ -7,16 +7,18 @@ import { useState, useEffect } from 'react'
 import DaySummaryModal from './DaySummaryModal' 
 
 const TIMEZONE = 'Europe/Madrid'
-const START_HOUR = 8  // 08:00 am
-const END_HOUR = 21   // 21:00 pm
 const HOUR_HEIGHT = 120 // 120px exactos por hora
 
 interface WeekViewProps {
     currentDate: Date
     bookings: any[]
+    businessHours: {
+        open: number
+        close: number
+    }
 }
 
-export default function WeekView({ currentDate, bookings }: WeekViewProps) {
+export default function WeekView({ currentDate, bookings, businessHours }: WeekViewProps) {
     const [summaryData, setSummaryData] = useState<{ date: Date, bookings: any[] } | null>(null)
     const [now, setNow] = useState(new Date())
 
@@ -26,10 +28,12 @@ export default function WeekView({ currentDate, bookings }: WeekViewProps) {
         return () => clearInterval(interval)
     }, [])
 
+    const { open: startHour, close: closeHour } = businessHours
+
     // 2. Cálculos de la cuadrícula
     const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 })
     const weekDays = Array.from({ length: 7 }).map((_, i) => addDays(weekStart, i))
-    const hours = Array.from({ length: END_HOUR - START_HOUR + 1 }).map((_, i) => START_HOUR + i)
+    const hours = Array.from({ length: closeHour - startHour + 1 }).map((_, i) => startHour + i)
     const today = startOfDay(new Date())
 
     // 3. Obtener citas de una hora exacta
@@ -46,7 +50,7 @@ export default function WeekView({ currentDate, bookings }: WeekViewProps) {
     const isCurrentWeek = weekDays.some(day => isToday(day))
     const currentHourTZ = parseInt(formatInTimeZone(now, TIMEZONE, 'HH'), 10)
     const currentMinuteTZ = parseInt(formatInTimeZone(now, TIMEZONE, 'mm'), 10)
-    const showTimeLine = isCurrentWeek && currentHourTZ >= START_HOUR && currentHourTZ <= END_HOUR
+    const showTimeLine = isCurrentWeek && currentHourTZ >= startHour && currentHourTZ <= closeHour
 
     return (
         <div className="flex flex-col h-full w-full animate-in fade-in duration-300 gap-4">
@@ -96,10 +100,10 @@ export default function WeekView({ currentDate, bookings }: WeekViewProps) {
                             <div 
                                 className="absolute left-[60px] sm:left-[86px] right-0 z-30 flex items-center pointer-events-none transition-all duration-1000"
                                 style={{
-                                    top: `${((currentHourTZ - START_HOUR) * HOUR_HEIGHT) + (currentMinuteTZ * (HOUR_HEIGHT / 60))}px`
+                                    top: `${((currentHourTZ - startHour) * HOUR_HEIGHT) + (currentMinuteTZ * (HOUR_HEIGHT / 60))}px`
                                 }}
                             >
-                                <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full -ml-1.25 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
+                                <div className="w-2.5 h-2.5 bg-yellow-500 rounded-full -ml-[5px] shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
                                 <div className="flex-1 h-0.5 bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
                             </div>
                         )}
@@ -135,7 +139,7 @@ export default function WeekView({ currentDate, bookings }: WeekViewProps) {
                                                 style={{ height: `${HOUR_HEIGHT}px` }}
                                                 disabled={appointmentsCount === 0}
                                                 className={`
-                                                    relative flex items-center justify-center p-1 sm:p-2 border-b border-zinc-700/30 transition-all group
+                                                    relative flex w-full items-center justify-center p-1 sm:p-2 border-b border-zinc-700/30 transition-all group
                                                     ${isPastCell && !isPastDay ? 'bg-zinc-800/50' : ''}
                                                     ${appointmentsCount > 0 ? 'hover:bg-zinc-800/50 cursor-pointer focus:bg-zinc-800 focus:outline-none hover:opacity-100' : 'cursor-default'}
                                                 `}

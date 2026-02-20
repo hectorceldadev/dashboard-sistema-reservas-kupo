@@ -24,13 +24,19 @@ export async function updateSettings (prevState: any, formData: FormData) {
     const name = formData.get('business_name') as string
     const address = formData.get('address') as string
     const phone = formData.get('phone') as string
+    const openHour = parseInt(formData.get('open_hour') as string, 10)
+    const closeHour = parseInt(formData.get('close_hour') as string, 10)
+
+    if (closeHour <= openHour) return { error: 'La hora de apertura debe ser anterior a la hora de cierre.' }
 
     const { error } = await supabase
         .from('businesses')
         .update({
             name: name,
             address: address,
-            phone: phone
+            phone: phone,
+            open_hour: openHour,
+            close_hour: closeHour
         })
         .eq('id', profile.business_id)
 
@@ -40,6 +46,7 @@ export async function updateSettings (prevState: any, formData: FormData) {
     }
 
     revalidatePath('/dashboard/ajustes')
+    revalidatePath('/dashboard/agenda')
     return { success: 'Información del negocio actualizada correctamente.' }
 
 }

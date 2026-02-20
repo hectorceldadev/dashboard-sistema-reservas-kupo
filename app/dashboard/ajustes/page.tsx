@@ -17,7 +17,9 @@ export default async function SettingsPage () {
             businesses (
                 name,
                 address,
-                phone    
+                phone,
+                open_hour,
+                close_hour    
             )
             `)
             .eq('id', user.id)

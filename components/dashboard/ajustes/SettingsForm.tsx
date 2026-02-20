@@ -3,7 +3,7 @@
 import { updateSettings } from "@/app/dashboard/ajustes/actions"
 import { useActionState, useEffect } from "react"
 import { useFormStatus } from 'react-dom'
-import { Store, MapPin, Phone, Save, Loader2,  AlertCircle } from 'lucide-react'
+import { Store, MapPin, Phone, Save, Loader2,  AlertCircle, Clock } from 'lucide-react'
 import { sileo } from "sileo"
 // import { sileo } from "sileo" // Si usas toast
 
@@ -23,6 +23,8 @@ export function SettingsForm({ initialData }: { initialData: any }) {
             }) 
         }
     }, [state])
+
+    const hoursArray = Array.from({ length: 24 }).map((_, i) => i)
 
     return (
         <form action={action} className="space-y-8">
@@ -47,6 +49,38 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                         className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-lg text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700"
                         placeholder="Ej. Barbería Elite"
                     />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                            <Clock className="w-4 h-4" /> Hora de Apertura
+                        </label>
+                        <select 
+                            name="open_hour"
+                            defaultValue={initialData.open_hour ?? 8}
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all cursor-pointer appearance-none"
+                        >
+                            {hoursArray.map(h => (
+                                <option key={h} value={h}>{h.toString().padStart(2, '0')}:00</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="space-y-3">
+                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                            <Clock className="w-4 h-4" /> Hora de Cierre
+                        </label>
+                        <select 
+                            name="close_hour"
+                            defaultValue={initialData.close_hour ?? 21}
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all cursor-pointer appearance-none"
+                        >
+                            {hoursArray.map(h => (
+                                <option key={h} value={h}>{h.toString().padStart(2, '0')}:00</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 {/* 2. Dirección */}

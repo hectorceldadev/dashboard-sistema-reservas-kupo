@@ -27,6 +27,8 @@ export async function updateSettings (prevState: any, formData: FormData) {
     const openHour = parseInt(formData.get('open_hour') as string, 10)
     const closeHour = parseInt(formData.get('close_hour') as string, 10)
 
+    if (isNaN(openHour) || isNaN(closeHour)) return { error: 'Las horas enviadas no son válidas.' }
+    if (openHour < 0 || closeHour > 24) return { error: 'Las horas deben estar entre 0 y 24.' }
     if (closeHour <= openHour) return { error: 'La hora de apertura debe ser anterior a la hora de cierre.' }
 
     const { error } = await supabase

@@ -126,7 +126,7 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
                             const isPastDay = isBefore(day, today)
 
                             return (
-                                <div key={idx} className={`flex flex-col border-r border-zinc-700/30 last:border-r-0 transition-opacity ${isPastDay ? 'bg-zinc-800/50' : ''}`}>
+                                <div key={idx} className={`flex flex-col border-r border-zinc-700/30 last:border-r-0 transition-opacity ${isPastDay ? 'bg-zinc-800/50' : 'bg-zinc-950'}`}>
                                     {hours.map(hour => {
                                         const isPastCell = isPastDay || (isCurrentDay && hour < currentHourTZ)
                                         const hourBookings = getAppointmentsForHour(day, hour)

@@ -163,13 +163,29 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     setIsLoading(true)
                                     const result = await cancelBookingAction(id)
 
-                                    if (result.success) {
+                                    if (result.error) {
+                                        // 1. Ocurrió un error grave (ej. fallo en BD)
+                                        setIsLoading(false)
+                                        onClose()
+                                        sileo.error({
+                                            title: 'Error al cancelar la reserva.',
+                                            description: result.error
+                                        })
+                                    } else if (result.warning) {
+                                        setIsLoading(false)
+                                        onClose()
+                                        sileo.warning({
+                                            title: 'Reserva cancelada.',
+                                            description: result.warning // "Cita cancelada pero hubo un error al enviar el correo..."
+                                        })
+                                    } else if (result.success) {
                                         setIsLoading(false)
                                         onClose()
                                         sileo.success({
                                             title: 'Reserva cancelada con éxito.',
                                             description: 'El cliente recibira un correo con la cancelación.'
                                         })
+                                        
                                     } else {
                                         setIsLoading(false)
                                         onClose()

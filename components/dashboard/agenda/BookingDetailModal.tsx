@@ -46,9 +46,12 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
     try {
         if (booking.start_time) {
             dateObj = new Date(booking.start_time)
+        } else if (booking.date) {
+            dateObj = new Date(`${booking.date}T00:00:00`)
         }
     } catch (e) {
         console.error("Error parseando fecha", e)
+        dateObj = new Date()
     }
 
     return (

@@ -19,6 +19,14 @@ export async function cancelBookingAction(bookingId: string) {
         const { data: { user } } = await supabase.auth.getUser()
         if (!user) return { error: 'No estás autenticado.' }
 
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('business_id')
+            .eq('id', user.id)
+            .single()
+
+        if (!profile?.business_id) return { error: 'No autorizado' }
+
         // 1. OBTENER LOS DATOS
         const { data: booking, error: fetchError } = await supabase
             .from('bookings')
@@ -30,6 +38,7 @@ export async function cancelBookingAction(bookingId: string) {
                 )
             `)
             .eq('id', bookingId)
+            .eq('business_id', profile.business_id)
             .single()
 
         if (fetchError || !booking) throw new Error('No se encontró la cita')
@@ -39,8 +48,11 @@ export async function cancelBookingAction(bookingId: string) {
             .from('bookings')
             .update({ status: 'cancelled' })
             .eq('id', bookingId)
+            .eq('business_id', profile.business_id)
 
         if (updateError) throw updateError
+
+        let emailSent = true
 
         // 3. ENVIAR CORREO
         try {
@@ -73,12 +85,16 @@ export async function cancelBookingAction(bookingId: string) {
             
         } catch (emailError) {
             console.error('Error enviando el correo con Resend:', emailError)
+            emailSent = false
         }
 
         // 4. REFRESCAR PANTALLA
         revalidatePath('/dashboard/agenda')
 
-        return { success: true }
+        return { 
+            success: true,
+            warning: !emailSent ? 'Cita cancelada pero hubo un error al enviar el correo al cliente.' : null 
+        }
 
     } catch (error) {
         console.error(error)

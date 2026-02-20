@@ -19,6 +19,7 @@ import {
 import { es } from 'date-fns/locale'
 import MonthView from './MonthView'
 import DaySummaryModal from './DaySummaryModal'
+import WeekView from './WeekView'
 
 // Tipos
 type ViewType = 'month' | 'week' | 'day'
@@ -162,8 +163,11 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
 
                 {viewType === 'week' && (
                     <div className="p-8 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
-                        <CalendarIcon size={48} className="mb-4 opacity-20" />
-                        <p>Aquí irá el componente <b>WeekView</b></p>
+                        <WeekView 
+                            bookings={filteredBookings}
+                            currentDate={currentDate}
+                            
+                        />
                     </div>
                 )}
 

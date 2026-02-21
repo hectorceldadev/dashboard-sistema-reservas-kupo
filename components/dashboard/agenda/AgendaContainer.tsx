@@ -20,6 +20,7 @@ import { es } from 'date-fns/locale'
 import MonthView from './MonthView'
 import DaySummaryModal from './DaySummaryModal'
 import WeekView from './WeekView'
+import DayView from './DayView'
 
 // Tipos
 type ViewType = 'month' | 'week' | 'day'
@@ -68,7 +69,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
     // Texto de la cabecera (Ej: "Octubre 2025" o "12 Octubre, 2025")
     const headerDateText = format(
         currentDate, 
-        viewType === 'day' ? "d 'de' MMMM, yyyy" : "MMMM yyyy", 
+        viewType === 'day' ? "d 'de' MMMM" : "MMMM yyyy", 
         { locale: es }
     )
 
@@ -100,7 +101,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                             <ChevronRight size={20} />
                         </button>
                     </div>
-                    <h2 className="text-xl font-bold text-white capitalize w-48">
+                    <h2 className="text-lg lg:text-xl font-bold text-white capitalize w-48">
                         {headerDateText}
                     </h2>
                 </div>
@@ -177,8 +178,11 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
 
                 {viewType === 'day' && (
                     <div className="p-8 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
-                        <CalendarIcon size={48} className="mb-4 opacity-20" />
-                        <p>Aquí irá el componente <b>DayView</b></p>
+                        <DayView 
+                            bookings={filteredBookings}
+                            businessHours={businessHours}
+                            currentDate={currentDate}
+                        />
                     </div>
                 )}
             </div>

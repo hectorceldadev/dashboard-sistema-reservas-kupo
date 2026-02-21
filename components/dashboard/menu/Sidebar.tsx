@@ -82,7 +82,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
         }}>
           <button 
             type="submit"
-            className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-red-600/10 text-red-600 hover:bg-red-600/20 transition-colors shadow-lg shadow-red-600/10"
+            className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-red-600/10 text-red-600 hover:bg-red-600/20 transition-colors"
           >
             <LogOut className="w-5 h-5" />
             Cerrar Sesión

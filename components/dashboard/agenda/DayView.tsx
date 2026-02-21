@@ -34,7 +34,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
 
     const { open: startHour, close: closeHour } = businessHours
     const hours = Array.from({ length: closeHour - startHour + 1 }).map((_, i) => startHour + i)
-    
+
     const today = startOfDay(new Date())
     const currentHourTZ = parseInt(formatInTimeZone(now, TIMEZONE, 'HH'), 10)
     const currentMinuteTZ = parseInt(formatInTimeZone(now, TIMEZONE, 'mm'), 10)
@@ -56,7 +56,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
 
     return (
         <div className="flex flex-col h-full w-full animate-in fade-in duration-300">
-            
+
             {/* Cabecera del Día */}
             <div className="bg-zinc-950 rounded-xl mb-6 p-6 shadow-sm flex items-center justify-between sticky top-0 z-30">
                 <div>
@@ -88,13 +88,13 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                         return (
                             // AÑADIDO: border-b para separar las horas y padding general ajustado
                             <div key={hour} className={`relative flex gap-3 sm:gap-8 group border-b border-zinc-800/30 last:border-b-0 pt-4 pb-6 ${isPastHour ? 'opacity-60' : 'opacity-100'}`}>
-                                
+
                                 {/* Línea vertical del Timeline (Corregida para que baje hasta el final) */}
                                 <div className={`absolute left-[38px] sm:left-[47px] top-0 bottom-0 w-px ${isThisHour ? 'bg-yellow-500/50' : 'bg-zinc-700/50'}`} />
 
                                 {/* AÑADIDO: Línea amarilla de tiempo real interactiva para la hora actual */}
                                 {isThisHour && (
-                                    <div 
+                                    <div
                                         className="absolute left-[38px] sm:left-[47px] right-0 z-30 flex items-center pointer-events-none transition-all duration-1000"
                                         style={{
                                             top: `${Math.max(5, (currentMinuteTZ / 60) * 100)}%` // Calcula la posición exacta dentro del bloque de esta hora
@@ -120,11 +120,11 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                         </div>
                                     ) : (
                                         hourBookings.map(booking => {
-                                            const isPending = booking.status === 'pending_payment'
+                                            const isCompleted = booking.status === 'completed'
                                             const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
                                             const firstServiceTitle = itemsList[0]?.services?.title || 'Servicio'
                                             const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
-                                            
+
                                             const formattedTime = booking.start_time ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm') : '--:--'
                                             const formattedEndTime = booking.end_time ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') : '--:--'
 
@@ -137,19 +137,14 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                     `}
                                                 >
                                                     {/* Línea de estado */}
-                                                    <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isPending ? 'bg-orange-500' : 'bg-yellow-500'}`} />
-                                                    
+                                                    <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isCompleted ? 'bg-emerald-500' : 'bg-yellow-500'}`} />
+
                                                     {/* Info Principal - Optimizada para Móvil */}
                                                     <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
                                                         <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
                                                             <h3 className="font-bold text-sm sm:text-base text-zinc-100 group-hover/card:text-white transition-colors">
                                                                 {booking.customer_name}
                                                             </h3>
-                                                            {isPending && (
-                                                                <span className="shrink-0 text-[10px] font-bold bg-orange-500/10 text-orange-500 px-2 py-1 rounded-md border border-orange-500/20 flex items-center gap-1">
-                                                                    <AlertCircle size={12} /> Debe {booking.total_price}€
-                                                                </span>
-                                                            )}
                                                         </div>
 
                                                         <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
@@ -157,7 +152,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                                 <Clock size={12} className="text-zinc-500" />
                                                                 <span className="font-medium">{formattedTime} - {formattedEndTime}</span>
                                                             </span>
-                                                            
+
                                                             <span className="flex items-center gap-1.5 bg-zinc-950/50 sm:bg-transparent px-2 py-1 sm:p-0 rounded-md">
                                                                 <Scissors size={14} className="text-zinc-600" />
                                                                 <span className="font-medium text-zinc-300">{firstServiceTitle}</span>
@@ -200,8 +195,8 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
             </div>
 
             {/* MODAL DE DETALLE */}
-            {selectedBooking && 
-                <BookingDetailsModal 
+            {selectedBooking &&
+                <BookingDetailsModal
                     booking={selectedBooking}
                     onClose={() => setSelectedBooking(null)}
                     isLoading={isLoading}
@@ -216,7 +211,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                         } else if (result.success) {
                             sileo.success({ title: 'Reserva cancelada con éxito.', description: 'El cliente recibirá un correo de cancelación.' })
                         }
-                        
+
                         setIsLoading(false)
                         setSelectedBooking(null)
                     }}

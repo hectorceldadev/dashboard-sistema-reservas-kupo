@@ -173,14 +173,12 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                         })
                                     } else if (result.warning) {
                                         setIsLoading(false)
-                                        onClose()
                                         sileo.warning({
                                             title: 'Reserva cancelada.',
                                             description: result.warning // "Cita cancelada pero hubo un error al enviar el correo..."
                                         })
                                     } else if (result.success) {
                                         setIsLoading(false)
-                                        onClose()
                                         sileo.success({
                                             title: 'Reserva cancelada con éxito.',
                                             description: 'El cliente recibira un correo con la cancelación.'
@@ -188,7 +186,6 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                         
                                     } else {
                                         setIsLoading(false)
-                                        onClose()
                                         sileo.error({
                                             title: 'Error al cancelar la reserva.'
                                         })

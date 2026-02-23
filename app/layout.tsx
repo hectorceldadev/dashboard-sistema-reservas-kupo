@@ -29,16 +29,18 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Toaster 
-            options={{
-                fill: "black",
-                styles: {
-                    title: 'text-white font-bold',
-                    description: 'text-white',
-                },
-                position: 'top-center'
-            }}
-          />
+          <div className="relative z-9999">
+            <Toaster 
+              options={{
+                  fill: "black",
+                  styles: {
+                      title: 'text-white font-bold',
+                      description: 'text-white',
+                  },
+                  position: 'top-center'
+              }}
+            />
+          </div>
           {children}
         </body>
       </html>

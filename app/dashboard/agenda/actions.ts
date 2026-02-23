@@ -90,6 +90,7 @@ export async function cancelBookingAction(bookingId: string) {
 
         // 4. REFRESCAR PANTALLA
         revalidatePath('/dashboard/agenda')
+        revalidatePath('/dashboard/clientes')
 
         return { 
             success: true,

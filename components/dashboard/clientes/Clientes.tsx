@@ -165,7 +165,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[10px] font-bold text-yellow-500 uppercase tracking-wider">
+                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider">
                                     <th className="px-6 py-4 rounded-tl-2xl">Cliente</th>
                                     <th className="px-6 py-4">Teléfono</th>
                                     <th className="pr-30 py-4 text-center">Email</th>

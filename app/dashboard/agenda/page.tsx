@@ -44,7 +44,7 @@ export default async function AgendaPage() {
         staffList = staff || []
     }
 
-    const { data: rawBookings, error } = await supabase
+    let bookingsQuery = supabase
       .from('bookings')
       .select(`
         id,
@@ -66,6 +66,12 @@ export default async function AgendaPage() {
       `)
       .eq('business_id', profile.business_id)
       .neq('status', 'cancelled')
+
+    if (!isAdmin) {
+        bookingsQuery = bookingsQuery.eq('staff_id', user.id)
+    }
+
+    const { data: rawBookings, error } = await bookingsQuery
 
     if (error) {
         console.error("Error cargando citas:", error)

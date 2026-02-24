@@ -75,8 +75,12 @@ export async function getCustomerData (customerId: string) {
                 `)
             .eq('customer_id', customerId)
             .eq('business_id', profile.business_id)
+            .order('start_time', { ascending: true })
 
-        if (errorBookings) return { error: 'Se ha producido un error obteniendo las reservas del costumer.' }
+        if (errorBookings) {
+          console.log("🔥 ERROR RLS EN BOOKINGS/PROFILES:", errorBookings)  
+          return { error: 'Se ha producido un error obteniendo las reservas del costumer.' }
+        } 
 
         return {
             success: true,

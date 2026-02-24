@@ -25,7 +25,7 @@ export async function cancelBookingAction(bookingId: string) {
             .eq('id', user.id)
             .single()
 
-        if (!profile?.business_id) return { error: 'No autorizado' }
+        if (!profile) return { error: 'No autorizado' }
 
         // 1. OBTENER LOS DATOS
         const { data: booking, error: fetchError } = await supabase

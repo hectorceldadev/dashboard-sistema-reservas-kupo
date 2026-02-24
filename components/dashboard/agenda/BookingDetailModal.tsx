@@ -146,8 +146,8 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                             {itemsList.map((item: any, idx: number) => (
                                 <div key={idx} className="flex justify-between items-center text-sm border-b border-zinc-800/50 last:border-0 pb-3 last:pb-0">
                                     <div>
-                                        <p className="font-bold text-zinc-200">{item.services?.title || 'Servicio'}</p>
-                                        <p className="text-xs text-zinc-500">{item.services?.duration} min</p>
+                                        <p className="font-bold text-zinc-200">{item.service_name || 'Servicio'}</p>
+                                        <p className="text-xs text-zinc-500">{item.duration} min</p>
                                     </div>
                                     <p className="font-bold text-white">{item.price}€</p>
                                 </div>

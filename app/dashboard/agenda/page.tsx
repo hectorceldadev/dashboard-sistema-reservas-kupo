@@ -61,7 +61,8 @@ export default async function AgendaPage() {
           ),
         booking_items (
             price,
-            services ( title, duration )
+            service_name,
+            duration
         )
       `)
       .eq('business_id', profile.business_id)

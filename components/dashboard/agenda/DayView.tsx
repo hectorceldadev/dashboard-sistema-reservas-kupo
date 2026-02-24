@@ -122,7 +122,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                         hourBookings.map(booking => {
                                             const isCompleted = booking.status === 'completed'
                                             const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
-                                            const firstServiceTitle = itemsList[0]?.services?.title || 'Servicio'
+                                            const firstServiceTitle = itemsList[0]?.service_name || 'Servicio'
                                             const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
 
                                             const formattedTime = booking.start_time ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm') : '--:--'

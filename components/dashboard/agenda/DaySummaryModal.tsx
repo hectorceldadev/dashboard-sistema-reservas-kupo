@@ -73,7 +73,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                             {dayBookings.map((booking) => {
                                 // Lógica de servicios (TicketCard Style)
                                 const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
-                                const firstServiceTitle = itemsList[0]?.services?.title || 'Servicio'
+                                const firstServiceTitle = itemsList[0]?.service_name || 'Servicio'
                                 const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
                                 
                                 // Formatear hora

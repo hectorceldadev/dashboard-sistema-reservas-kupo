@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Search, Scissors, Clock, DollarSign, Edit2, Trash2, X, Check, Sparkles, AlignLeft, FolderMinus, LoaderCircle } from 'lucide-react'
+import { Plus, Search, Scissors, Clock, DollarSign, Edit2, Trash2, X, Check, Sparkles, AlignLeft, LoaderCircle } from 'lucide-react'
 import { ProfileDB } from '@/lib/types/databaseTypes'
 import { sileo } from 'sileo'
-import { updateService } from '@/app/dashboard/servicios/actions'
+import { createService, deleteService, updateService } from '@/app/dashboard/servicios/actions'
 
 // --- TIPOS BASADOS EN TU TABLA DE SUPABASE ---
 export type Service = {
@@ -24,48 +24,6 @@ export type Service = {
     metadata?: any // Cambiado de JSON a any para evitar errores de tipado en React
 }
 
-// --- MOCK DATA ---
-const MOCK_SERVICES: Service[] = [
-    {
-        id: '1',
-        title: 'Corte Clásico',
-        short_desc: 'Corte tradicional a tijera o máquina.',
-        full_desc: 'Un corte clásico adaptado a tu estilo. Incluye asesoramiento personalizado, lavado con champú premium, corte y peinado final con productos de fijación.',
-        duration: 30,
-        price: 15.00,
-        icon: 'Scissors',
-        is_active: true,
-        features: ['Lavado incluido', 'Peinado final', 'Asesoramiento'],
-        image_url: null,
-        slug: 'corte-clasico'
-    },
-    {
-        id: '2',
-        title: 'Arreglo de Barba',
-        short_desc: 'Diseño y perfilado de barba con toalla caliente.',
-        full_desc: 'Ritual tradicional de barba que incluye aplicación de aceite pre-afeitado, toalla caliente para abrir el poro, afeitado a navaja, aftershave y bálsamo hidratante.',
-        duration: 45,
-        price: 18.00,
-        icon: 'Scissors',
-        is_active: true,
-        features: ['Toalla caliente', 'Aceites esenciales', 'Afeitado a navaja'],
-        image_url: null,
-        slug: 'arreglo-de-barba'
-    },
-    {
-        id: '3',
-        title: 'Corte + Barba VIP',
-        short_desc: 'El servicio completo para salir impecable.',
-        full_desc: 'La experiencia definitiva. Combina nuestro corte clásico con el ritual de arreglo de barba. Relájate y disfruta de casi hora y media de cuidado personal.',
-        duration: 75,
-        price: 30.00,
-        icon: 'Scissors',
-        is_active: false,
-        features: ['Lavado VIP', 'Masaje facial', 'Bebida de cortesía'],
-        image_url: null,
-        slug: 'corte-barba-vip'
-    }
-]
 
 interface ServiciosProps {
     servicios: Service[]
@@ -74,7 +32,7 @@ interface ServiciosProps {
 
 export function Servicios({ servicios, profile }: ServiciosProps) {
     // Si la BD viene vacía, usamos los Mocks temporalmente para ver la UI
-    const [services, setServices] = useState<Service[]>(servicios && servicios.length > 0 ? servicios : MOCK_SERVICES)
+    const [services, setServices] = useState<Service[]>(servicios && servicios.length > 0 ? servicios : [])
     const [searchTerm, setSearchTerm] = useState('')
     
     // Estados de Modales
@@ -87,6 +45,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
     const [newFeature, setNewFeature] = useState('')
 
     const [isSaving, setIsSaving] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     // Bloquear scroll cuando hay CUALQUIER modal abierto
     useEffect(() => {
@@ -137,7 +96,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
         if (!formData.title || !formData.price || !formData.duration) {
             sileo.error({
                 title: 'Datos inválidos',
-                description: 'Por favor, rellena el nombre precio y duración.'
+                description: 'Por favor, rellena el nombre, precio y duración.'
             })
             return
         }
@@ -154,7 +113,6 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                 is_active: formData.is_active ?? true,
                 features: formData.features || []
             })
-            setServices(prev => prev.map(s => s.id === editingService.id ? { ...s, ...formData } as Service : s))
 
             if (!result) {
                 sileo.error({
@@ -170,7 +128,28 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                 setIsModalOpen(false)
             }
         } else {
-            //* AQUI CREAMOS SERVICIO
+            const result = await createService({
+                title: formData.title,
+                short_desc: formData.short_desc || '',
+                full_desc: formData.full_desc || '',
+                duration: formData.duration,
+                price: formData.price,
+                is_active: formData.is_active ?? true,
+                features: formData.features || []
+            })
+
+            if (result.error) {
+                sileo.error({
+                    title: 'Error creando el servicio'
+                })
+            } else if (result.success) {
+                sileo.success({
+                    title: 'Creado con éxito',
+                    description: 'Servicio creado correctamente.'
+                })
+                setServices(prev => [result.service, ...prev])
+                setIsModalOpen(false)
+            } 
         }
         setIsSaving(false)
     }
@@ -268,7 +247,13 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     <th className="px-6 py-4">Duración</th>
                                     <th className="px-6 py-4">Precio</th>
                                     <th className="px-6 py-4 text-center">Estado</th>
-                                    <th className="px-6 py-4 rounded-tr-2xl text-right">Acciones</th>
+                                    {
+                                        profile.role === 'admin' ? (
+                                            <th className="px-6 py-4 rounded-tr-2xl text-right">Acciones</th>
+                                        ) : (
+                                            <th className="px-6 py-4 rounded-tr-2xl text-right"></th>
+                                        )
+                                    }
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-800/50 text-sm">
@@ -560,8 +545,34 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                         {/* Modal Footer */}
                         <div className="p-4 border-t border-zinc-800 bg-zinc-900 flex justify-between items-center shrink-0">
                             {editingService ? (
-                                <button className="flex items-center gap-2 text-red-500 hover:bg-red-500/10 px-4 py-2.5 rounded-xl font-bold text-sm transition-colors">
-                                    <Trash2 size={16} /> Eliminar
+                                <button
+                                    onClick={async () => {
+                                        setIsLoading(true)
+                                        const result = await deleteService(editingService.id)
+
+                                        if (result.error) {
+                                            sileo.error({
+                                                title: 'Error eliminando',
+                                                description: 'Se ha producido un error eliminando el servicio.'
+                                            })
+                                        } else if (result.success) {
+                                            sileo.success({
+                                                title: 'Eliminado con éxito',
+                                                description: 'Servicio eliminado correctamente.'
+                                            })
+                                            setServices(prev => prev.filter(s => s.id !== editingService.id))
+                                            setIsModalOpen(false)
+                                        }
+                                        setIsLoading(false)
+                                    }} 
+                                    className="flex items-center gap-2">
+                                    {
+                                        isLoading ? (
+                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2.5 rounded-xl font-bold text-sm transition-colors'><LoaderCircle width={16} className='animate-spin'/>Eliminando</span>
+                                        ) : (
+                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2.5 rounded-xl font-bold text-sm transition-colors'><Trash2 size={16} /> Eliminar</span>
+                                        )
+                                    }
                                 </button>
                             ) : <div></div>}
                             

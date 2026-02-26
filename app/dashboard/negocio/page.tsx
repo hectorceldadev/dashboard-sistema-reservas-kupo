@@ -1,9 +1,7 @@
-const page = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+import NegocioDashboard from "@/components/dashboard/negocio/NegocioDashboard";
 
-export default page
+export default function MiNegocioPage() {
+    return (
+        <NegocioDashboard />
+    )
+}

@@ -1,31 +1,26 @@
-import { Equipo } from '@/components/dashboard/equipo/Equipo';
-import { getTeamMembers } from '../../../lib/data/equipo';
-import { createClient } from '@/utils/supabase/server';
-import { redirect } from 'next/navigation';
+import { EquipoManager } from '@/components/dashboard/equipo/EquipoManager';
+import { getTeamMembers } from './actions';
+import { sileo } from 'sileo';
 
 const Page = async () => {
 
-  const supabase = await createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
-
-  const { data: profile, error } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
-
-  if (error || !profile) redirect('/login')
-    
+  const response = await getTeamMembers()
   
+  if (response.error) {
+    sileo.error({
+      title: 'Error obteniendo miembros.'
+    }) 
+    return
+  }
 
-  const teamMembers = await getTeamMembers(profile.business_id) 
+  const teamMembers = response.teamMembers || []
+  const currentUserId = response.currentUserId
+  const role = response.role
 
   return (
     <div className="max-w-7xl mx-auto p-6">
         {/* Pasamos los datos al componente interactivo */}
-        <Equipo members={teamMembers} currentUserId={user.id} currentUserRole={profile.role} />
+        <EquipoManager members={teamMembers} currentUserId={currentUserId} currentUserRole={role} />
     </div>
   )
 }

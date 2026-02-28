@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@supabase/supabase-js'
+import { createClient as createServerClient } from "@/utils/supabase/server"
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
@@ -47,4 +48,39 @@ export async function createTeamMember(formData: FormData) {
   // 4. Refrescamos la UI
   revalidatePath('/dashboard/equipo')
   return { success: true }
+}
+
+export async function getTeamMembers () {
+  try {
+    const supabase = await createServerClient()
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { error: 'No estás autenticado.' }
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('business_id, id, role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile) return { error: 'Error obteniendo datos del negocio.' }
+
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('business_id', profile.business_id)
+
+    if (!profiles) return { error: 'Error obteniendo los miembros.' }
+
+    return {
+      success: true,
+      teamMembers: profiles || [],
+      currentUserId: profile.id,
+      role: profile.role
+    }
+
+  } catch (error) {
+    console.error('Error: ', error)
+    return { error: 'Error interno.' }
+  }
 }

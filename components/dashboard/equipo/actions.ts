@@ -156,3 +156,47 @@ export async function updateMember(prevState: any, formData: FormData) {
     return { success: 'Perfil actualizado correctamente.' }
 
 }
+
+export async function createBlockedPeriod (formData: FormData) {
+  try {
+    const supabase = await createServerClient()
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return { error: 'No estás autenticado.' }
+
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('business_id, role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile) return { error: 'Error obteniendo datos del negocio.' }
+
+    const staff_id = formData.get('staff_id') as string
+    const start_date = formData.get('start_date') as string
+    const end_date = formData.get('end_date') as string
+    const reason = formData.get('reason') as string
+
+    const { error } = await supabase
+      .from('blocked_periods')
+      .insert({
+        business_id: profile.business_id,
+        staff_id,
+        start_date,
+        end_date,
+        reason: reason || null
+      })
+
+    if (error) {
+      console.error('Error: ', error)
+      return { error: 'Error creando el bloqueo de horario' }
+    }
+
+    revalidatePath('/dashboard/equipo')
+    return { success: true }
+
+  } catch (error) {
+    console.error('Error: ', error)
+    return { error: 'Error interno.' }
+  }
+}

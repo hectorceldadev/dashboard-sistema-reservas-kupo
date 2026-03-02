@@ -51,7 +51,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                     </div>
                     <button 
                         onClick={onClose} 
-                        className="relative z-10 p-2.5 bg-zinc-800/50 border border-zinc-700/50 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                        className="relative z-10 p-2.5 bg-zinc-800/50 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer"
                     >
                         <X size={20} />
                     </button>

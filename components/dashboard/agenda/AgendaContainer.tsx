@@ -91,13 +91,13 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                 {/* 1. Controles de Fecha */}
                 <div className="flex items-center gap-4">
                     <div className="flex items-center bg-zinc-950 border border-zinc-800 rounded-xl overflow-hidden">
-                        <button onClick={handlePrevious} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
+                        <button onClick={handlePrevious} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                             <ChevronLeft size={20} />
                         </button>
-                        <button onClick={goToToday} className="px-4 py-2 text-sm font-bold text-zinc-300 hover:text-white hover:bg-zinc-800 border-x border-zinc-800 transition-colors">
+                        <button onClick={goToToday} className="px-4 py-2 text-sm font-bold text-zinc-300 hover:text-white hover:bg-zinc-800 border-x border-zinc-800 transition-colors cursor-pointer">
                             Hoy
                         </button>
-                        <button onClick={handleNext} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
+                        <button onClick={handleNext} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                             <ChevronRight size={20} />
                         </button>
                     </div>
@@ -111,7 +111,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                     
                     {/* Selector de Staff (Solo visible para Admins) */}
                     {isAdmin && initialStaff.length > 0 && (
-                        <div className="flex items-center gap-2 bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-xl flex-1 sm:flex-none min-w-[200px]">
+                        <div className="flex items-center gap-2 bg-zinc-950 border border-zinc-800 px-3 py-2 rounded-xl flex-1 sm:flex-none min-w-[200px] cursor-pointer">
                             <Users size={16} className="text-zinc-500 shrink-0" />
                             <select 
                                 value={selectedStaffId}
@@ -132,19 +132,19 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                     <div className="flex bg-zinc-950 border border-zinc-800 rounded-xl p-1 w-full sm:w-auto">
                         <button 
                             onClick={() => setViewType('month')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'month' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'month' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Mes
                         </button>
                         <button 
                             onClick={() => setViewType('week')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'week' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'week' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Semana
                         </button>
                         <button 
                             onClick={() => setViewType('day')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'day' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'}`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'day' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Día
                         </button>

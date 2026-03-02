@@ -133,7 +133,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                     key={booking.id}
                                                     onClick={() => setSelectedBooking(booking)}
                                                     className={`
-                                                        w-full relative bg-zinc-900 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col sm:flex-row text-left transition-all hover:border-yellow-500/50 hover:shadow-lg hover:-translate-y-0.5 group/card focus:outline-none focus:border-yellow-500
+                                                        w-full relative bg-zinc-900 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col sm:flex-row text-left transition-all hover:border-yellow-500/50 hover:shadow-lg hover:-translate-y-0.5 group/card focus:outline-none focus:border-yellow-500 cursor-pointer
                                                     `}
                                                 >
                                                     {/* Línea de estado */}

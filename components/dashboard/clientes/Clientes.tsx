@@ -223,7 +223,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                         <div className="relative px-6 py-4 border-b border-zinc-800 overflow-hidden shrink-0">
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-yellow-500/5 blur-3xl pointer-events-none" />
 
-                            <button onClick={() => setSelectedCustomerId(null)} className="absolute top-4 right-4 p-2 bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-20">
+                            <button onClick={() => setSelectedCustomerId(null)} className="absolute top-4 right-4 p-2 bg-zinc-900 border border-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors z-20 cursor-pointer">
                                 <X size={16} />
                             </button>
 
@@ -326,7 +326,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                                 <button
                                                     key={booking.id}
                                                     onClick={() => setSelectedBooking(booking)}
-                                                    className="w-full group relative bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden flex text-left transition-all hover:border-yellow-500/50 shadow-sm hover:shadow-md focus:outline-none focus:ring-1 focus:ring-yellow-500"
+                                                    className="w-full group relative bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden flex text-left transition-all hover:border-yellow-500/50 shadow-sm hover:shadow-md focus:outline-none focus:ring-1 focus:ring-yellow-500 cursor-pointer"
                                                 >
                                                     <div className="w-20 shrink-0 flex flex-col items-center justify-center py-3 border-r border-dashed border-zinc-800 bg-zinc-950/50 relative">
                                                         <div className={`absolute left-0 top-0 bottom-0 w-1 ${booking.status === 'completed' ? 'bg-emerald-500' : booking.status === 'cancelled' ? 'bg-red-500' : 'bg-yellow-500'}`} />

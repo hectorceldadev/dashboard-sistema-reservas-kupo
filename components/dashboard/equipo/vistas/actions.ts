@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/server"
 import { deleteService } from '@/app/dashboard/servicios/actions';
+import { error } from "console";
 
 export async function getMemberSchedule (memberId: string) {
     try {
@@ -69,6 +70,53 @@ export async function updateMemberSchedule (memberId: string, memberSchedule: {
 
         if (!profile) return { error: 'Error obteniendo datos del negocio.' }
         if (profile.role !== 'admin' && memberId !== user.id) return { error: 'No tienes permisos para modificar el horario de otro miembro.' }
+
+        const { data: business } = await supabase
+            .from('business')
+            .select('open_hour, close_hour')
+            .eq('id', profile.business_id)
+            .single()
+
+        if (!business) return { error: 'Error obteniendo datos del negocio' }
+        
+        const timeToMins = (time: string) => {
+            if (!time) return
+            const [h, m] = time.split(':').map(Number)
+            return h * 60 + m
+        }
+
+        const openHour = timeToMins(business.open_hour)
+        const closeHour = timeToMins(business.close_hour)
+
+        if (memberSchedule.is_working) {
+            if (!memberSchedule.start_time || !memberSchedule.end_time) {
+                return { error: 'Debes especificar una hora de entrada y una hora de salida para los dias laborables.' }
+            }
+
+
+            const startTime = timeToMins(memberSchedule.start_time)
+            const endTime = timeToMins(memberSchedule.end_time)
+            
+            if (startTime! >= endTime!) {
+                return { error: 'La hora de fin debe ser posterior a la hora de inicio.' }
+            }
+
+            if (memberSchedule.break_start && memberSchedule.break_end) {
+                const breakStart = timeToMins(memberSchedule.break_start!)
+                const breakEnd = timeToMins(memberSchedule.break_end!)
+
+                if (breakStart && breakEnd) {
+                    if (breakStart < startTime!) {
+                        return { error: 'El inicio del break no puede ser menor al inicio del horario.' }
+                    } else if (breakEnd > endTime!) {
+                        return { error: 'El inicio del break no puede ser posterior al fin del horario.' }
+                    } else if (breakStart >= breakEnd) {
+                        return { error: 'El fin del break debe ser mayor al inicio.' }
+                    }
+                }
+            }
+        }
+
 
         const { error: errorUpdate } = await supabase
             .from('staff_schedules')

@@ -82,7 +82,7 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
                 <button 
                     onClick={() => canEditThisMember && handleEditClick(member)} 
                     disabled={!canEditThisMember}
-                    className={`w-full flex items-center justify-center gap-2 border border-zinc-800 py-2.5 rounded-xl transition-all font-medium text-sm group/btn
+                    className={`w-full flex items-center justify-center gap-2 border border-zinc-800 py-2.5 rounded-xl transition-all font-medium text-sm group/btn cursor-pointer
                         ${canEditThisMember ? 'bg-zinc-950 hover:bg-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white' : 'bg-zinc-900/50 text-zinc-600 opacity-50 cursor-not-allowed'}
                     `}
                 >
@@ -107,7 +107,7 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
         {currentUserRole === 'admin' && (
             <button 
             onClick={() => setIsAddModalOpen(true)}
-            className="flex flex-col items-center justify-center gap-5 p-8 rounded-3xl border-2 border-dashed border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900 hover:border-yellow-500/40 text-zinc-500 hover:text-white transition-all h-full min-h-[340px] group"
+            className="flex flex-col items-center justify-center gap-5 p-8 rounded-3xl border-2 border-dashed border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900 hover:border-yellow-500/40 text-zinc-500 hover:text-white transition-all h-full min-h-[340px] group cursor-pointer"
             >
             <div className="w-20 h-20 rounded-full bg-zinc-950 border border-zinc-800 flex items-center justify-center group-hover:border-yellow-500/40 transition-all">
                 <Plus className="w-8 h-8 group-hover:text-yellow-500 transition-colors" />

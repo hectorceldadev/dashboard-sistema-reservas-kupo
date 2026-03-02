@@ -73,7 +73,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
                             className={`
                                 relative group min-h-[80px] md:min-h-[120px] p-1.5 sm:p-2 rounded-md border-r border-b border-zinc-800/50 
                                 flex flex-col items-start justify-start text-left transition-colors 
-                                hover:bg-zinc-800/50 focus:outline-none focus:bg-yellow-500 group
+                                hover:bg-zinc-800/50 focus:outline-none focus:bg-yellow-500 group cursor-pointer
                                 ${!isCurrentMonth 
                                     ? 'bg-zinc-950/30' // Mes anterior/siguiente
                                     : isPastDay && !isCurrentDay 

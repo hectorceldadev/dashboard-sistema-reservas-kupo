@@ -27,7 +27,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
     const [isBlockModalOpen, setIsBlockModalOpen] = useState(false)
 
-    const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false)
+    const [isLoadingDelete, setIsLoadingDelete] = useState<string | null>(null)
 
     const selectedMember = members.find(m => m.id === selectedMemberId)
 
@@ -67,7 +67,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                 if (response.error) {
                     sileo.error({
-                        title: 'Error obteniendo horarios.'
+                        title: 'Error obteniendo horarios.',
+                        description: response.error
                     })
                     return
                 }
@@ -109,7 +110,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 <div className="relative w-full md:w-80">
                     <button
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="flex items-center justify-between w-full bg-zinc-950 border border-zinc-800 p-3 rounded-2xl hover:border-zinc-700 transition-colors"
+                        className="flex items-center justify-between w-full bg-zinc-950 border border-zinc-800 p-3 rounded-2xl hover:border-zinc-700 transition-colors cursor-pointer"
                     >
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center shrink-0 text-sm font-bold border border-zinc-700 text-zinc-400">
@@ -125,14 +126,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                     {isDropdownOpen && (
                         <>
-                            <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)}></div>
+                            <div className="fixed inset-0 z-10 cursor-pointer" onClick={() => setIsDropdownOpen(false)}></div>
                             <div className="absolute top-full mt-2 left-0 w-full bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
                                 <div className="max-h-60 overflow-y-auto custom-scrollbar p-2 space-y-1">
                                     {members.map(member => (
                                         <button
                                             key={member.id}
                                             onClick={() => { setSelectedMemberId(member.id); setIsDropdownOpen(false); }}
-                                            className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all ${selectedMemberId === member.id ? 'bg-yellow-500/10 text-yellow-500' : 'hover:bg-zinc-800 text-zinc-400'}`}
+                                            className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all hover:bg-white/20 ${selectedMemberId === member.id ? 'bg-yellow-500/10 text-yellow-500' : 'hover:bg-zinc-800 text-zinc-400'} cursor-pointer`}
                                         >
                                             <div className="text-sm font-bold truncate">{member.full_name}</div>
                                         </button>
@@ -146,13 +147,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 <div className="flex items-center p-1.5 bg-zinc-950 border border-zinc-800 rounded-xl w-full md:w-auto overflow-x-auto custom-scrollbar">
                     <button
                         onClick={() => setActiveView('schedule')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'}`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <Clock className="w-4 h-4" /> <span>Horario Base</span>
                     </button>
                     <button
                         onClick={() => setActiveView('blocks')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'}`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <CalendarRange className="w-4 h-4" /> <span>Ausencias y Bloqueos</span>
                     </button>
@@ -202,7 +203,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                     });
                                                     setIsScheduleModalOpen(true)
                                                 }}
-                                                className={`relative flex-shrink-0 w-[140px] xl:flex-1 flex flex-col items-center py-4 px-2 rounded-3xl border transition-all group snap-center
+                                                className={`relative flex-shrink-0 w-[140px] xl:flex-1 flex flex-col items-center py-4 px-2 rounded-3xl border transition-all group snap-center cursor-pointer
                                                 ${isWorking
                                                         ? 'bg-zinc-950 border-zinc-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/5'
                                                         : 'bg-zinc-900/30 border-zinc-800/30 opacity-60 hover:opacity-100 hover:border-zinc-700'
@@ -264,7 +265,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     </div>
                                     <button
                                         onClick={() => setIsBlockModalOpen(true)}
-                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-red-500/20 whitespace-nowrap"
+                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-red-500/20 whitespace-nowrap cursor-pointer"
                                     >
                                         <Plus className="w-4 h-4" /> Nuevo Bloqueo
                                     </button>
@@ -297,13 +298,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                             try {
                                                                 if (!selectedMemberId) return
 
-                                                                setIsLoadingDelete(true)
+                                                                setIsLoadingDelete(block.id)
                                                                 const response = await deleteBlockedPeriod(block.id, selectedMemberId)
 
                                                                 if (response.error) {
                                                                     sileo.error({
                                                                         title: 'Error eliminando',
-                                                                        description: 'Por favor intentalo de nuevo.'
+                                                                        description: response.error
                                                                     })
                                                                     return
                                                                 }
@@ -318,11 +319,11 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                                 console.error('Error: ', error)
                                                                 return { error: 'Error interno.' }
                                                             } finally {
-                                                                setIsLoadingDelete(false)
+                                                                setIsLoadingDelete(null)
                                                             }
                                                         }}
-                                                        className="p-2 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 self-start sm:self-center border border-transparent hover:border-red-500/20">
-                                                        {isLoadingDelete ? <LoaderCircle className='w-4 h-4 animate-spin' /> : <Trash className="w-4 h-4" />}
+                                                        className="p-2 text-zinc-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 self-start sm:self-center border border-transparent hover:border-red-500/20 cursor-pointer">
+                                                        {isLoadingDelete === block.id ? <LoaderCircle className='w-4 h-4 animate-spin' /> : <Trash className="w-4 h-4" />}
                                                     </button>
                                                 </div>
                                             ))}
@@ -470,9 +471,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                             setIsLoading(true)
                                             const response = await updateMemberSchedule(selectedMemberId, memberSchedule)
-
+                                            if (!response) return
+                                            
                                             if (response.error) {
-                                                sileo.error({ title: 'Error actualizando horario' })
+                                                sileo.error({ 
+                                                    title: 'Error actualizando horario',
+                                                    description: response.error
+                                                })
                                                 return
                                             }
                                             if (response.success) {
@@ -504,12 +509,12 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
             {isBlockModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
                     <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col">
-                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
+                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 rounded-t-3xl bg-zinc-900/50">
                             <div>
                                 <h3 className="text-xl font-bold text-white flex items-center gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>
                                 <p className="text-sm text-zinc-400">Para: <span className="text-white font-medium">{selectedMember?.full_name}</span></p>
                             </div>
-                            <button onClick={() => setIsBlockModalOpen(false)} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-white"><X className="w-6 h-6" /></button>
+                            <button onClick={() => setIsBlockModalOpen(false)} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-white cursor-pointer"><X className="w-6 h-6" /></button>
                         </div>
                         <div className="flex flex-col">
                             <div className="p-6 space-y-6">
@@ -526,7 +531,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" 
+                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -540,7 +545,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert" />
+                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -551,12 +556,12 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         onChange={(e) => setBlockedPeriod({ ...blockedPeriod, reason: e.target.value })} 
                                         type="text" 
                                         placeholder="Ej: Cita médica, vacaciones..." 
-                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none placeholder:text-zinc-600" 
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none placeholder:text-zinc-600 cursor-pointer" 
                                     />
                                 </div>
                             </div>
-                            <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3">
-                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold transition-colors">Cancelar</button>
+                            <div className="px-6 py-4 bg-zinc-950 border-t rounded-b-3xl border-zinc-800 flex gap-3">
+                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold transition-colors cursor-pointer">Cancelar</button>
                                 <button 
                                     type='button'
                                     onClick={async (e) => {
@@ -575,7 +580,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                             if (response.error) {
                                                 sileo.error({
-                                                    title: 'Error creando el bloqueo'
+                                                    title: 'Error creando el bloqueo',
+                                                    description: response.error
                                                 })
                                                 return
                                             }
@@ -596,8 +602,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         }
                                     }}
                                     disabled={isLoading} 
-                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-500/20">
-                                    {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Bloqueando...</span></> : <><Lock className="w-4 h-4" /><span>Confirmar Bloqueo</span></>}
+                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
+                                    {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Creando...</span></> : <><Lock className="w-4 h-4" /><span>Crear Bloqueo</span></>}
                                 </button>
                             </div>
                         </div>

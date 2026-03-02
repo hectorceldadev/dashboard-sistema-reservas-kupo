@@ -59,13 +59,13 @@ export function EquipoManager({ members, currentUserRole, currentUserId }: Equip
         <div className="flex items-center p-1.5 bg-zinc-900 border border-zinc-800 rounded-xl">
             <button 
                 onClick={() => setActiveTab('team')} 
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === 'team' ? 'bg-yellow-500 text-zinc-950 shadow-lg shadow-yellow-500/10' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === 'team' ? 'bg-yellow-500 text-zinc-950 shadow-lg shadow-yellow-500/10' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
             >
                 <User className="w-4 h-4" /> <span>Mi Equipo</span>
             </button>
             <button 
                 onClick={() => setActiveTab('schedule')} 
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === 'schedule' ? 'bg-yellow-500 text-zinc-950 shadow-lg shadow-yellow-500/10' : 'text-zinc-500 hover:text-zinc-300'}`}
+                className={`flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === 'schedule' ? 'bg-yellow-500 text-zinc-950 shadow-lg shadow-yellow-500/10' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
             >
                 <Clock className="w-4 h-4" /> <span>Horarios</span>
             </button>

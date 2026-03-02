@@ -140,7 +140,8 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
 
             if (result.error) {
                 sileo.error({
-                    title: 'Error creando el servicio'
+                    title: 'Error creando el servicio',
+                    description: result.error
                 })
             } else if (result.success) {
                 sileo.success({
@@ -178,7 +179,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                     {profile.role === 'admin' && (
                         <button 
                             onClick={handleAdd}
-                            className="flex items-center justify-center gap-2 bg-yellow-500 text-zinc-950 px-5 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 shrink-0"
+                            className="flex items-center justify-center gap-2 bg-yellow-500 text-zinc-950 px-5 py-3 rounded-xl font-bold hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 shrink-0 cursor-pointer"
                         >
                             <Plus size={18} /> Nuevo Servicio
                         </button>
@@ -293,7 +294,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                             {profile.role === 'admin' && (
                                                 <button 
                                                     onClick={(e) => handleEdit(service, e)} 
-                                                    className="text-zinc-500 hover:text-yellow-500 p-2 hover:bg-yellow-500/10 rounded-lg transition-all inline-flex"
+                                                    className="text-zinc-500 hover:text-yellow-500 p-2 hover:bg-yellow-500/10 rounded-lg transition-all inline-flex cursor-pointer"
                                                 >
                                                     <Edit2 size={18} />
                                                 </button>
@@ -396,7 +397,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             <div className="p-4 border-t border-zinc-800 bg-zinc-950 shrink-0">
                                 <button 
                                     onClick={(e) => handleEdit(selectedService, e)}
-                                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl font-bold text-white transition-colors"
+                                    className="w-full flex items-center justify-center gap-2 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl font-bold text-white transition-colors cursor-pointer"
                                 >
                                     <Edit2 size={16} /> Editar Servicio
                                 </button>
@@ -422,7 +423,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                 <h2 className="text-xl font-bold text-white">{editingService ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
                                 <p className="text-xs text-zinc-400 mt-1">Completa los detalles para tu catálogo.</p>
                             </div>
-                            <button onClick={() => setIsModalOpen(false)} className="p-2 bg-zinc-900 border border-zinc-800 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors">
+                            <button onClick={() => setIsModalOpen(false)} className="p-2 bg-zinc-900 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                                 <X size={18} />
                             </button>
                         </div>
@@ -523,7 +524,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                         className="flex-1 bg-zinc-950 border placeholder:text-yellow-500/80 border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:border-yellow-500 outline-none"
                                         placeholder="Recomendado 2 features máximo"
                                     />
-                                    <button onClick={addFeature} type="button" className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 rounded-xl text-sm font-bold transition-colors">
+                                    <button onClick={addFeature} type="button" className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 rounded-xl text-sm font-bold transition-colors cursor-pointer">
                                         Añadir
                                     </button>
                                 </div>
@@ -533,7 +534,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                         {formData.features.map((feature, idx) => (
                                             <span key={idx} className="flex items-center gap-1.5 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-3 py-1.5 rounded-lg text-xs font-medium">
                                                 {feature}
-                                                <button onClick={() => removeFeature(idx)} className="hover:text-white transition-colors ml-1"><X size={12}/></button>
+                                                <button onClick={() => removeFeature(idx)} className="hover:text-white transition-colors ml-1 cursor-pointer"><X size={12}/></button>
                                             </span>
                                         ))}
                                     </div>
@@ -553,7 +554,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                         if (result.error) {
                                             sileo.error({
                                                 title: 'Error eliminando',
-                                                description: 'Se ha producido un error eliminando el servicio.'
+                                                description: result.error
                                             })
                                         } else if (result.success) {
                                             sileo.success({
@@ -565,7 +566,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                         }
                                         setIsLoading(false)
                                     }} 
-                                    className="flex items-center gap-2">
+                                    className="flex items-center gap-2 cursor-pointer">
                                     {
                                         isLoading ? (
                                             <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2.5 rounded-xl font-bold text-sm transition-colors'><LoaderCircle width={16} className='animate-spin'/>Eliminando</span>
@@ -577,13 +578,13 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             ) : <div></div>}
                             
                             <div className="flex gap-3">
-                                <button onClick={() => setIsModalOpen(false)} className="px-5 py-2.5 text-sm font-bold text-zinc-400 hover:text-white transition-colors">
+                                <button onClick={() => setIsModalOpen(false)} className="px-5 py-2.5 text-sm font-bold text-zinc-400 hover:text-white transition-colors cursor-pointer">
                                     Cancelar
                                 </button>
                                 <button 
                                     onClick={handleSave}
                                     disabled={isSaving}
-                                    className="bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-yellow-400 transition-transform active:scale-95 shadow-lg shadow-yellow-500/20">
+                                    className="bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-yellow-400 transition-transform active:scale-95 shadow-lg shadow-yellow-500/20 cursor-pointer">
                                     {
                                         isSaving ? <span className='flex gap-2 items-center'><LoaderCircle width={16} className='animate-spin' /> Guardando</span> : 'Guardar Servicio'
                                     }

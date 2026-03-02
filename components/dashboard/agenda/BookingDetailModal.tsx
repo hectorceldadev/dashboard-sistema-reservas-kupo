@@ -79,7 +79,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
 
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 p-2.5 bg-zinc-900 border border-zinc-800 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors z-20"
+                        className="absolute top-4 right-4 p-2.5 bg-zinc-900 border border-zinc-800 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors z-20 cursor-pointer"
                     >
                         <X size={18} />
                     </button>
@@ -171,7 +171,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                             onClick={() => onCancel(booking.id)}
                             disabled={isLoading}
                             className={`
-                                w-full py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2
+                                w-full py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 cursor-pointer
                                 ${isLoading
                                     ? 'bg-red-500/5 text-red-500/50 border border-red-500/10 cursor-not-allowed'
                                     : 'text-red-500 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30'
@@ -193,7 +193,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                     ) : (
                         <button
                             onClick={onClose}
-                            className="w-full py-3.5 rounded-xl font-bold text-zinc-900 bg-white hover:bg-zinc-200 transition-colors"
+                            className="w-full py-3.5 rounded-xl font-bold text-zinc-900 bg-white hover:bg-zinc-200 transition-colors cursor-pointer"
                         >
                             Cerrar
                         </button>

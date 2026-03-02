@@ -1,52 +1,43 @@
 'use client'
 
-import { updateSettings } from "@/app/dashboard/ajustes/actions"
-import { useActionState, useEffect } from "react"
-import { useFormStatus } from 'react-dom'
-import { Store, MapPin, Phone, Save, Loader2,  AlertCircle, Clock } from 'lucide-react'
+import { useEffect, useState } from "react"
+import { Store, MapPin, Phone, Save, Loader2, AlertCircle, Clock } from 'lucide-react'
 import { sileo } from "sileo"
+import { updateSettings } from "@/app/dashboard/ajustes/actions"
 // import { sileo } from "sileo" // Si usas toast
 
 export function SettingsForm({ initialData }: { initialData: any }) {
-    const [state, action] = useActionState(updateSettings, null)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    // Opcional: Mostrar Toast/Alerta al terminar
-    useEffect(() => {
-        if (state?.success) {
-            // sileo.success("Guardado correctamente")
-            sileo.success({
-                title: 'Datos actualizados correctamente.',
-                fill: "black",
-                styles: {
-                    title: 'text-white font-bold'
-                }
-            }) 
-        }
-    }, [state])
-
-    const hoursArray = Array.from({ length: 24 }).map((_, i) => i)
+    const [businessData, setBusinessData] = useState<{
+        name: string | null
+        open_hour: string | null
+        close_hour: string | null
+        address: string | null
+        phone: string | null
+    }>({
+        name: initialData.name,
+        open_hour: initialData.open_hour,
+        close_hour: initialData.close_hour,
+        address: initialData.address,
+        phone: initialData.phone
+    })
 
     return (
-        <form action={action} className="space-y-8">
-             {/* Mensajes de Feedback visual en el propio form */}
-             {state?.error && (
-                <div className="p-4 bg-red-900/20 border border-red-800 rounded-xl text-red-200 flex items-center gap-2">
-                    <AlertCircle className="w-5 h-5" /> {state.error}
-                </div>
-            )}
-            
+        <div className="space-y-8">
+
             <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-8 shadow-xl shadow-black/20">
-                
+
                 {/* 1. Nombre */}
                 <div className="space-y-3">
                     <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                         <Store className="w-4 h-4" /> Nombre del Negocio
                     </label>
-                    <input 
-                        name="business_name" // Coincide con actions.ts
-                        type="text" 
-                        defaultValue={initialData.name} 
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-lg text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700"
+                    <input
+                        type="text"
+                        value={businessData.name || ''}
+                        onChange={(e) => setBusinessData({ ...businessData, name: e.target.value })}
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700"
                         placeholder="Ej. Barbería Elite"
                     />
                 </div>
@@ -56,30 +47,24 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                         <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                             <Clock className="w-4 h-4" /> Hora de Apertura
                         </label>
-                        <select 
-                            name="open_hour"
-                            defaultValue={initialData.open_hour ?? 8}
-                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all cursor-pointer appearance-none"
-                        >
-                            {hoursArray.map(h => (
-                                <option key={h} value={h}>{h.toString().padStart(2, '0')}:00</option>
-                            ))}
-                        </select>
+                        <input
+                            type="time"
+                            value={businessData.open_hour || ''}
+                            onChange={(e) => setBusinessData({ ...businessData, open_hour: e.target.value })}
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                        />
                     </div>
 
                     <div className="space-y-3">
                         <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                             <Clock className="w-4 h-4" /> Hora de Cierre
                         </label>
-                        <select 
-                            name="close_hour"
-                            defaultValue={initialData.close_hour ?? 21}
-                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all cursor-pointer appearance-none"
-                        >
-                            {hoursArray.map(h => (
-                                <option key={h} value={h}>{h.toString().padStart(2, '0')}:00</option>
-                            ))}
-                        </select>
+                        <input
+                            type="time"
+                            defaultValue={businessData.close_hour || ''}
+                            onChange={(e) => setBusinessData({ ...businessData, close_hour: e.target.value })}
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                        />
                     </div>
                 </div>
 
@@ -88,11 +73,11 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                     <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                         <MapPin className="w-4 h-4" /> Dirección Física
                     </label>
-                    <input 
-                        name="address"
-                        type="text" 
-                        defaultValue={initialData.address}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700"
+                    <input
+                        type="text"
+                        value={businessData.address || ''}
+                        onChange={(e) => setBusinessData({ ...businessData, address: e.target.value })}
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700"
                         placeholder="Calle, Número, Ciudad..."
                     />
                 </div>
@@ -102,45 +87,59 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                     <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                         <Phone className="w-4 h-4" /> Teléfono de Contacto
                     </label>
-                    <input 
-                        name="phone"
-                        type="tel" 
-                        defaultValue={initialData.phone}
-                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-5 py-4 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700 font-mono"
+                    <input
+                        type="tel"
+                        value={businessData.phone || ''}
+                        onChange={(e) => setBusinessData({ ...businessData, phone: e.target.value })}
+                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-700 font-mono"
                         placeholder="+34 600 000 000"
                     />
                 </div>
+                <div className="flex justify-end pt-2">
+                    <button
+                        type="submit"
+                        onClick={async () => {
+                            try {
+                                setIsLoading(true)
+                                const response = await updateSettings(businessData)
+                                if (response.error) {
+                                    sileo.error({
+                                        title: 'Error actualizando los datos',
+                                        description: response.error
+                                    })
+                                }
+                                if (response.success) {
+                                    sileo.success({
+                                        title: 'Datos actualizados'
+                                    })
 
+                                }
+                            } catch (error) {
+                                console.error('Error interno: ', error)
+                                sileo.error({ title: 'Error interno' })
+                            } finally {
+                                setIsLoading(false)
+                            }
+                        }}
+                        disabled={isLoading}
+                        className="w-full sm:w-auto px-4 py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-yellow-500/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                                <span>Guardando...</span>
+                            </>
+                        ) : (
+                            <>
+                                <Save className="w-5 h-5" />
+                                <span>Guardar Cambios</span>
+                            </>
+                        )}
+                    </button>
+                </div>
             </div>
 
-            <div className="flex justify-end pt-2">
-                <SubmitButton />
-            </div>
 
-        </form>
-    )
-}
-
-function SubmitButton() {
-    const { pending } = useFormStatus()
-
-    return (
-        <button 
-            type="submit" 
-            disabled={pending}
-            className="w-full sm:w-auto px-8 py-4 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-yellow-500/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
-        >
-            {pending ? (
-                <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    <span>Guardando...</span>
-                </>
-            ) : (
-                <>
-                    <Save className="w-5 h-5" />
-                    <span>Guardar Cambios</span>
-                </>
-            )}
-        </button>
+        </div>
     )
 }

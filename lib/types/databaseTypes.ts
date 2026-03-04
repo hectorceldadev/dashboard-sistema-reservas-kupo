@@ -1,4 +1,4 @@
-export interface ProfileDB {
+export interface Member {
     id: string
     business_id: string
     role: string
@@ -7,4 +7,6 @@ export interface ProfileDB {
     email: string
     is_active: boolean
     avatar_url: string
+    created_at: string
+    metadata: JSON
 }

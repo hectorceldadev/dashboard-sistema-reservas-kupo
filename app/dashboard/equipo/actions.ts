@@ -3,9 +3,23 @@
 import { createClient } from '@supabase/supabase-js'
 import { createClient as createServerClient } from "@/utils/supabase/server"
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export async function createTeamMember(formData: FormData) {
+
+  const supabase = await createServerClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'No estás autenticado.' }
+
+  const { data: profile } = await supabase  
+    .from('profiles')
+    .select('role, business_id')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile) return { error: 'Error obteniendo datos del negocio.' }
+  if (profile?.role !== 'admin') return { error: 'No tienes los permisos necesarios para crear un nuevo miembro.' }
+
   // 1. Creamos un cliente con permisos de ADMIN (Service Role)
   // IMPORTANTE: Este cliente se salta las reglas de seguridad (RLS), úsalo con cuidado.
   const supabaseAdmin = createClient(
@@ -25,15 +39,14 @@ export async function createTeamMember(formData: FormData) {
   const fullName = formData.get('fullName') as string
   const role = formData.get('role') as string // 'admin' o 'worker'
   const description = formData.get('description') as string
-  const businessId = formData.get('businessId') as string // Debes pasar esto en un input hidden
 
   // 3. Creamos el usuario en Auth pasándole los METADATOS
-  const { data, error } = await supabaseAdmin.auth.admin.createUser({
+  const { error } = await supabaseAdmin.auth.admin.createUser({
     email,
     password,
     email_confirm: true, // Confirmamos el email automáticamente para que pueda entrar ya
     user_metadata: {
-      business_id: businessId, // El trigger leerá esto
+      business_id: profile.business_id, // El trigger leerá esto
       full_name: fullName,     // El trigger leerá esto
       role: role,              // El trigger leerá esto
       description: description // El trigger leerá esto

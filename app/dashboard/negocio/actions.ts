@@ -68,15 +68,12 @@ export async function getDashboardData (timeRange: string) {
         const ingresosPorDia: Record<string, number> = {}
         const conteoServicios: Record<string, number> = {}
         const conteoDias: Record<string, number> = {}
-        // Actualizado para guardar el avatar
         const statsStaff: Record<string, { ingresos: number, citas: number, avatar: string | null }> = {}
-        // Actualizado para guardar el teléfono
         const statsClientes: Record<string, { visits: number, spent: number, lastVisit: string, phone: string }> = {}
 
         currentBookings.forEach(booking => {
             const rawPrice = booking.total_price || booking.booking_items?.reduce((sum: number, item: any) => sum + (item.price || 0), 0) || 0
             
-            // LÓGICA DE COMPLETADAS: Solo sumamos dinero si la cita está terminada
             const esCompletada = booking.status === 'completed'
             const precioValido = esCompletada ? rawPrice : 0
 
@@ -86,34 +83,29 @@ export async function getDashboardData (timeRange: string) {
             }
 
             if (esCompletada) citasCompletadas++
-            ingresosTotales += precioValido // Solo suma si esCompletada es true
+            ingresosTotales += precioValido
 
-            // Ingresos por día
             ingresosPorDia[booking.date] = (ingresosPorDia[booking.date] || 0) + precioValido
 
-            // Días Fuertes (Cuenta citas confirmadas o completadas)
             const nombreDia = format(parseISO(booking.date), 'EEE', { locale: es }).replace('.', '')
             conteoDias[nombreDia] = (conteoDias[nombreDia] || 0) + 1
 
-            // Servicios Estrella
             booking.booking_items?.forEach((item: any) => {
                 const nombreServicio = item.service_name || 'General'
                 conteoServicios[nombreServicio] = (conteoServicios[nombreServicio] || 0) + 1
             })
 
-            // Rendimiento Staff
             const nombreStaff = booking.staff?.full_name || 'Sin asignar'
             const avatarStaff = booking.staff?.avatar_url || null
             if (!statsStaff[nombreStaff]) statsStaff[nombreStaff] = { ingresos: 0, citas: 0, avatar: avatarStaff }
-            statsStaff[nombreStaff].ingresos += precioValido // El staff solo factura si se completa
+            statsStaff[nombreStaff].ingresos += precioValido
             statsStaff[nombreStaff].citas += 1
 
-            // Top Clientes
             const nombreCliente = booking.customer_name || 'Cliente sin nombre'
             const tlfCliente = booking.customer_phone || ''
             if (!statsClientes[nombreCliente]) statsClientes[nombreCliente] = { visits: 0, spent: 0, lastVisit: booking.date, phone: tlfCliente }
             statsClientes[nombreCliente].visits += 1
-            statsClientes[nombreCliente].spent += precioValido // El cliente solo gasta si se completa
+            statsClientes[nombreCliente].spent += precioValido
             if (booking.date > statsClientes[nombreCliente].lastVisit) {
                 statsClientes[nombreCliente].lastVisit = booking.date 
             }
@@ -122,6 +114,7 @@ export async function getDashboardData (timeRange: string) {
         // 4. DATOS ANTERIORES (Para el porcentaje)
         let ingresosAnteriores = 0
         let canceladasAnteriores = 0
+        let completadasAnteriores = 0 // <-- NUEVA VARIABLE
         let citasAnterioresValidas = 0
         const prevIngresosPorDia: Record<string, number> = {}
 
@@ -132,6 +125,7 @@ export async function getDashboardData (timeRange: string) {
             } else {
                 citasAnterioresValidas++
                 if (booking.status === 'completed') {
+                    completadasAnteriores++ // <-- SUMAMOS COMPLETADAS
                     ingresosAnteriores += rawPrice
                 }
             }
@@ -140,18 +134,24 @@ export async function getDashboardData (timeRange: string) {
         // 5. DAR FORMA AL JSON FINAL
         const totalCitas = currentBookings.length
         const totalAnteriores = prevBookings.length
-        const validasActuales = totalCitas - canceladas
         const ticketMedio = citasCompletadas > 0 ? (ingresosTotales / citasCompletadas) : 0
         const prevTicketMedio = ingresosAnteriores > 0 ? (ingresosAnteriores / citasAnterioresValidas) : 0
 
+        // <-- NUEVA FUNCIÓN: Para evitar dividir entre 0 y dar un % real
+        const calcCrecimiento = (actual: number, pasado: number) => {
+            if (pasado === 0) return actual > 0 ? 100 : 0;
+            return ((actual - pasado) / pasado) * 100;
+        }
+
         const kpis = {
             ingresos: ingresosTotales,
-            ingresosCrecimiento: ingresosAnteriores ? ((ingresosTotales - ingresosAnteriores) / ingresosAnteriores) * 100 : 0,
+            ingresosCrecimiento: calcCrecimiento(ingresosTotales, ingresosAnteriores),
             completadas: citasCompletadas,
+            completadasCrecimiento: calcCrecimiento(citasCompletadas, completadasAnteriores), // <-- AÑADIDO
             tasaCancelacion: totalCitas > 0 ? (canceladas / totalCitas) * 100 : 0,
             tasaCancelacionCrecimiento: totalAnteriores > 0 ? (((canceladas/totalCitas) - (canceladasAnteriores/totalAnteriores)) * 100) : 0,
             ticketMedio,
-            ticketMedioCrecimiento: prevTicketMedio ? ((ticketMedio - prevTicketMedio) / prevTicketMedio) * 100 : 0
+            ticketMedioCrecimiento: calcCrecimiento(ticketMedio, prevTicketMedio)
         }
         
         const serviciosEstrella = Object.entries(conteoServicios)
@@ -186,7 +186,7 @@ export async function getDashboardData (timeRange: string) {
             return {
                 name: format(addDays(currentStart, i), 'dd/MM'), 
                 actual: ingresosPorDia[fechaIteracion] || 0,
-                pasado: 0 // El cálculo del pasado requiere recorrer prevIngresosPorDia, lo dejamos en 0 por simplicidad visual
+                pasado: 0
             }
         })
 

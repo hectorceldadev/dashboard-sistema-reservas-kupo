@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { 
     DollarSign, CalendarCheck, Ban, TrendingUp, TrendingDown, 
     CreditCard, Scissors, Users, Crown, CalendarDays, User,
-    Phone
+    Phone,
+    Euro
 } from 'lucide-react'
 import { 
     LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, 
@@ -49,18 +50,18 @@ export default function NegocioDashboard() {
                     <div className="h-10 w-full sm:w-48 bg-zinc-800/50 rounded-xl animate-pulse" />
                 </div>
 
-                {/* KPIs Skeleton */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* KPIs Skeleton - Ajustado a 2x2 en móvil */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {[1, 2, 3, 4].map((i) => (
-                        <div key={i} className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl">
+                        <div key={i} className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <div className="h-3 w-24 bg-zinc-800/50 rounded-md animate-pulse mb-3" />
-                                    <div className="h-8 w-32 bg-zinc-800/50 rounded-lg animate-pulse" />
+                                    <div className="h-3 w-16 sm:w-24 bg-zinc-800/50 rounded-md animate-pulse mb-3" />
+                                    <div className="h-6 sm:h-8 w-20 sm:w-32 bg-zinc-800/50 rounded-lg animate-pulse" />
                                 </div>
-                                <div className="w-10 h-10 bg-zinc-800/50 rounded-xl animate-pulse" />
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-zinc-800/50 rounded-xl animate-pulse" />
                             </div>
-                            <div className="mt-5 h-6 w-28 bg-zinc-800/50 rounded-md animate-pulse" />
+                            <div className="mt-auto h-5 sm:h-6 w-20 sm:w-28 bg-zinc-800/50 rounded-md animate-pulse" />
                         </div>
                     ))}
                 </div>
@@ -92,65 +93,6 @@ export default function NegocioDashboard() {
                             <div className="w-full flex flex-col justify-center gap-3">
                                 {[1, 2, 3, 4].map(i => <div key={i} className="h-10 w-full bg-zinc-800/50 rounded-lg animate-pulse" />)}
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Tablas Skeleton */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl">
-                        <div className="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800/50">
-                            <div>
-                                <div className="h-6 w-48 bg-zinc-800/50 rounded-lg animate-pulse mb-2" />
-                                <div className="h-4 w-64 bg-zinc-800/50 rounded-md animate-pulse" />
-                            </div>
-                            <div className="w-10 h-10 bg-zinc-800/50 rounded-lg animate-pulse" />
-                        </div>
-                        <div className="space-y-6 mt-6">
-                            {[1, 2, 3, 4].map(i => (
-                                <div key={i} className="flex items-center gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-zinc-800/50 animate-pulse shrink-0" />
-                                    <div className="flex-1">
-                                        <div className="flex justify-between mb-2">
-                                            <div className="h-4 w-24 bg-zinc-800/50 rounded animate-pulse" />
-                                            <div className="h-4 w-16 bg-zinc-800/50 rounded animate-pulse" />
-                                        </div>
-                                        <div className="h-2.5 w-full bg-zinc-800/30 rounded-full animate-pulse" />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl">
-                        <div className="flex justify-between items-center mb-6 pb-4 border-b border-zinc-800/50">
-                            <div>
-                                <div className="h-6 w-40 bg-zinc-800/50 rounded-lg animate-pulse mb-2" />
-                                <div className="h-4 w-56 bg-zinc-800/50 rounded-md animate-pulse" />
-                            </div>
-                            <div className="w-10 h-10 bg-zinc-800/50 rounded-lg animate-pulse" />
-                        </div>
-                        <div className="space-y-5 mt-6">
-                            <div className="flex justify-between border-b border-zinc-800/50 pb-3">
-                                <div className="h-3 w-16 bg-zinc-800/50 rounded animate-pulse" />
-                                <div className="h-3 w-16 bg-zinc-800/50 rounded animate-pulse" />
-                                <div className="h-3 w-16 bg-zinc-800/50 rounded animate-pulse" />
-                            </div>
-                            {[1, 2, 3, 4, 5].map(i => (
-                                <div key={i} className="flex justify-between items-center">
-                                    <div className="flex gap-3 items-center">
-                                        <div className="w-6 h-6 rounded-full bg-zinc-800/50 animate-pulse shrink-0" />
-                                        <div>
-                                            <div className="h-4 w-24 bg-zinc-800/50 rounded animate-pulse mb-1.5" />
-                                            <div className="h-3 w-20 bg-zinc-800/50 rounded animate-pulse" />
-                                        </div>
-                                    </div>
-                                    <div className="h-6 w-12 bg-zinc-800/50 rounded-md animate-pulse" />
-                                    <div className="flex flex-col items-end">
-                                        <div className="h-4 w-16 bg-zinc-800/50 rounded animate-pulse mb-1.5" />
-                                        <div className="h-3 w-12 bg-zinc-800/50 rounded animate-pulse" />
-                                    </div>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </div>
@@ -195,57 +137,65 @@ export default function NegocioDashboard() {
                 </div>
             </div>
 
-            {/* --- BLOQUE 1: KPIs --- */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors">
+            {/* --- BLOQUE 1: KPIs (2x2 en móvil) --- */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                {/* 1. Ingresos */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Ingresos Confirmados</p>
-                            <h3 className="text-3xl font-black text-yellow-500">{kpis.ingresos.toFixed(2)}€</h3>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ingresos</p>
+                            <h3 className="text-2xl sm:text-3xl font-black text-yellow-500">{kpis.ingresos.toFixed(2)}€</h3>
                         </div>
-                        <div className="p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform"><DollarSign size={20} /></div>
+                        <div className="p-1.5 sm:p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform"><Euro size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-4 flex items-center text-xs font-bold gap-1 w-fit px-2 py-1 rounded-md ${kpis.ingresosCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
-                        {kpis.ingresosCrecimiento >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />} 
-                        {kpis.ingresosCrecimiento > 0 ? '+' : ''}{kpis.ingresosCrecimiento.toFixed(1)}% vs anterior
+                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ingresosCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                        {kpis.ingresosCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
+                        {kpis.ingresosCrecimiento > 0 ? '+' : ''}{kpis.ingresosCrecimiento.toFixed(1)}%
                     </div>
                 </div>
 
-                <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors">
+                {/* 2. Citas Completadas */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Citas Completadas</p>
-                            <h3 className="text-3xl font-black text-white">{kpis.completadas}</h3>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Completadas</p>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.completadas}</h3>
                         </div>
-                        <div className="p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform"><CalendarCheck size={20} /></div>
+                        <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform"><CalendarCheck size={18} className="sm:w-5 sm:h-5" /></div>
+                    </div>
+                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.completadasCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                        {kpis.completadasCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
+                        {kpis.completadasCrecimiento > 0 ? '+' : ''}{kpis.completadasCrecimiento.toFixed(1)}%
                     </div>
                 </div>
 
-                <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors">
+                {/* 3. Tasa Cancelación */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Tasa Cancelación</p>
-                            <h3 className="text-3xl font-black text-white">{kpis.tasaCancelacion.toFixed(1)}%</h3>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Canceladas</p>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.tasaCancelacion.toFixed(1)}%</h3>
                         </div>
-                        <div className="p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform"><Ban size={20} /></div>
+                        <div className="p-1.5 sm:p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform"><Ban size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-4 flex items-center text-xs font-bold gap-1 w-fit px-2 py-1 rounded-md ${kpis.tasaCancelacionCrecimiento <= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
-                        {kpis.tasaCancelacionCrecimiento <= 0 ? <TrendingDown size={14} /> : <TrendingUp size={14} />} 
-                        {kpis.tasaCancelacionCrecimiento > 0 ? '+' : ''}{kpis.tasaCancelacionCrecimiento.toFixed(1)}% vs anterior
+                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.tasaCancelacionCrecimiento <= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                        {kpis.tasaCancelacionCrecimiento <= 0 ? <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" />} 
+                        {kpis.tasaCancelacionCrecimiento > 0 ? '+' : ''}{kpis.tasaCancelacionCrecimiento.toFixed(1)}%
                     </div>
                 </div>
 
-                <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors">
+                {/* 4. Ticket Medio */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Ticket Medio</p>
-                            <h3 className="text-3xl font-black text-white">{kpis.ticketMedio.toFixed(2)}€</h3>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ticket Medio</p>
+                            <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.ticketMedio.toFixed(2)}€</h3>
                         </div>
-                        <div className="p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform"><CreditCard size={20} /></div>
+                        <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform"><CreditCard size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-4 flex items-center text-xs font-bold gap-1 w-fit px-2 py-1 rounded-md ${kpis.ticketMedioCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
-                        {kpis.ticketMedioCrecimiento >= 0 ? <TrendingUp size={14} /> : <TrendingDown size={14} />} 
-                        {kpis.ticketMedioCrecimiento > 0 ? '+' : ''}{kpis.ticketMedioCrecimiento.toFixed(1)}% vs anterior
+                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ticketMedioCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                        {kpis.ticketMedioCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
+                        {kpis.ticketMedioCrecimiento > 0 ? '+' : ''}{kpis.ticketMedioCrecimiento.toFixed(1)}%
                     </div>
                 </div>
             </div>
@@ -355,7 +305,7 @@ export default function NegocioDashboard() {
                     <div className="mb-6 flex justify-between items-center border-b border-zinc-800/50 pb-4">
                         <div>
                             <h3 className="text-lg font-bold text-white">Rendimiento Equipo</h3>
-                            <p className="text-sm text-zinc-500">Facturación generada por barbero.</p>
+                            <p className="text-sm text-zinc-500">Facturación generada por empleado.</p>
                         </div>
                         <div className="p-2 bg-zinc-950 rounded-lg"><Users size={20} className="text-zinc-500" /></div>
                     </div>
@@ -377,11 +327,17 @@ export default function NegocioDashboard() {
                                         
                                         {/* Barras de progreso e Info */}
                                         <div className="flex-1">
-                                            <div className="flex justify-between items-end mb-1.5">
-                                                <span className="font-bold text-zinc-200">{staff.name}</span>
-                                                <span className="font-black text-yellow-500 text-sm">
-                                                    {staff.ingresos.toFixed(2)}€ <span className="text-zinc-500 text-xs font-medium ml-1">({staff.citas} res)</span>
-                                                </span>
+                                            <div className="flex justify-between items-start sm:items-end mb-1.5 gap-2">
+                                                <span className="font-bold text-zinc-200 text-sm sm:text-base truncate">{staff.name}</span>
+                                                {/* Contenedor Flex para alinear reservas debajo en móvil, o al lado en PC */}
+                                                <div className="flex flex-col items-end sm:flex-row sm:items-baseline sm:gap-1.5 shrink-0">
+                                                    <span className="font-black text-yellow-500 text-sm sm:text-base leading-none">
+                                                        {staff.ingresos.toFixed(2)}€
+                                                    </span>
+                                                    <span className="text-zinc-500 text-[10px] sm:text-xs font-medium leading-none mt-1 sm:mt-0">
+                                                        ({staff.citas} res)
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div className="h-2.5 w-full bg-zinc-950 rounded-full overflow-hidden border border-zinc-800/50">
                                                 <div 
@@ -415,7 +371,7 @@ export default function NegocioDashboard() {
                                 <thead>
                                     <tr className="border-b border-zinc-800/50 text-[10px] font-bold text-zinc-500 uppercase tracking-wider">
                                         <th className="pb-3 px-2 font-medium">Cliente</th>
-                                        <th className="pb-3 px-2 font-medium text-center">Citas</th>
+                                        <th className="hidden sm:table-cell pb-3 px-2 font-medium text-center">Citas</th>
                                         <th className="pb-3 px-2 font-medium text-right">Gasto</th>
                                     </tr>
                                 </thead>
@@ -430,14 +386,15 @@ export default function NegocioDashboard() {
                                                     <div>
                                                         <p className="font-bold text-zinc-200 leading-tight">{cliente.name}</p>
                                                         {cliente.phone ? (
-                                                            <p className="text-[11px] text-zinc-400 mt-0.5 items-center flex gap-1"> <Phone className='size-2.5'/> {cliente.phone}</p>
+                                                            <p className="text-[11px] text-zinc-400 mt-0.5 items-center flex gap-1"> <Phone className='w-2.5 h-2.5'/> {cliente.phone}</p>
                                                         ) : (
                                                             <p className="text-[10px] text-zinc-600 mt-0.5">Sin teléfono</p>
                                                         )}
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="py-3 px-2 text-center align-middle">
+                                            {/* Ocultamos esta columna en móvil */}
+                                            <td className="hidden sm:table-cell py-3 px-2 text-center align-middle">
                                                 <span className="bg-zinc-950 border border-zinc-800 px-2.5 py-1 rounded-md text-zinc-300 font-medium">
                                                     {cliente.visits}
                                                 </span>

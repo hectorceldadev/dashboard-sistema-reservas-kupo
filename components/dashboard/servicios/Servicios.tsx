@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Search, Scissors, Clock, DollarSign, Edit2, Trash2, X, Check, Sparkles, AlignLeft, LoaderCircle } from 'lucide-react'
-import { ProfileDB } from '@/lib/types/databaseTypes'
 import { sileo } from 'sileo'
 import { createService, deleteService, updateService } from '@/app/dashboard/servicios/actions'
 
@@ -27,7 +26,7 @@ export type Service = {
 
 interface ServiciosProps {
     servicios: Service[]
-    profile: ProfileDB
+    profile: any
 }
 
 export function Servicios({ servicios, profile }: ServiciosProps) {

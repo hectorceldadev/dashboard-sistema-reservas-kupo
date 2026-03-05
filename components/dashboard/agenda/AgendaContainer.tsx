@@ -156,7 +156,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
             <div className="bg-zinc-900 border border-zinc-800 rounded-2xl min-h-[600px] overflow-hidden relative">
                 
                 {viewType === 'month' && (
-                    <div className="p-4 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
+                    <div className="p-2 lg:p-4 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
                         <MonthView 
                             currentDate={currentDate}
                             selectedStaffId={selectedStaffId}
@@ -167,7 +167,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                 )}
 
                 {viewType === 'week' && (
-                    <div className="p-8 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
+                    <div className="p-2 lg:p-4 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
                         <WeekView 
                             bookings={filteredBookings}
                             currentDate={currentDate}
@@ -177,7 +177,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                 )}
 
                 {viewType === 'day' && (
-                    <div className="p-8 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
+                    <div className="p-2 lg:p-4 flex flex-col items-center justify-center text-zinc-500 h-full min-h-[500px]">
                         <DayView 
                             bookings={filteredBookings}
                             businessHours={businessHours}

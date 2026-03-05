@@ -51,12 +51,9 @@ export default async function DashboardLayout({
           <form action={signOut}>
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-white hover:bg-zinc-200 text-black font-bold py-3 rounded-xl transition-all"
+              className="w-full flex items-center justify-center gap-2 bg-white hover:bg-zinc-200 text-black font-bold py-3 rounded-xl transition-all cursor-pointer"
             >
-
-              
                 Volver a inciar sesión
-              
             </button>
           </form>
         </div>
@@ -64,17 +61,30 @@ export default async function DashboardLayout({
     )
   }
 
-  const businessName = profile.businesses.name || 'Mi Negocio' // Mock data por ahora
+  // Extraemos el negocio evitando errores de tipado de array/objeto
+  const businessData: any = Array.isArray(profile.businesses) 
+      ? profile.businesses[0] 
+      : profile.businesses;
+
+  const businessName = businessData?.name || 'Mi Negocio'
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200">
+      
       <Sidebar businessName={businessName} />
-      <main className="md:ml-72 min-h-screen transition-all duration-300 ease-in-out relative">
+      
+      <main className="md:ml-64 min-h-screen transition-all duration-300 ease-in-out relative">
+        {/* Luz de fondo ambiental */}
         <div className="absolute top-0 left-0 w-full h-96 bg-yellow-500/5 blur-[100px] pointer-events-none -z-10" />
-        <div className="p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in">
+        
+        {/* Contenedor principal.
+            AÑADIDO: pb-24 en móvil (padding-bottom) para que el contenido no quede oculto bajo la Bottom Bar. En md:pb-8 vuelve a la normalidad.
+        */}
+        <div className="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in pb-24 md:pb-12">
           {children}
         </div>
       </main>
+
     </div>
   )
 }

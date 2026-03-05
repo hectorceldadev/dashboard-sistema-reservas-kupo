@@ -131,12 +131,9 @@ export const DashboardHome = () => {
                         <div className="w-16 h-4 bg-zinc-800/60 rounded-md"></div>
                         <div className="w-20 h-7 bg-zinc-800/80 rounded-lg"></div>
                     </div>
-                    <div className="col-span-2 sm:col-span-1 bg-zinc-900 border border-zinc-800/50 p-3.5 sm:p-5 rounded-xl flex flex-row items-center justify-center gap-4 h-[90px] sm:h-[104px]">
-                        <div className="w-10 h-10 bg-zinc-800/60 rounded-xl shrink-0"></div>
-                        <div className="flex flex-col gap-2">
-                            <div className="w-16 h-3 bg-zinc-800/50 rounded-md"></div>
-                            <div className="w-12 h-6 bg-zinc-800/80 rounded-md"></div>
-                        </div>
+                    <div className="bg-zinc-900 border border-zinc-800/50 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-3 h-[90px] sm:h-[104px]">
+                        <div className="w-16 h-4 bg-zinc-800/60 rounded-md"></div>
+                        <div className="w-20 h-7 bg-zinc-800/80 rounded-lg"></div>
                     </div>
                 </div>
 

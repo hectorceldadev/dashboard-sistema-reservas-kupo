@@ -468,7 +468,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             if (!selectedMemberId) return
 
                                             setIsLoading(true)
-                                            const response = await updateMemberSchedule(selectedMemberId, memberSchedule)
+                                            const response = await updateMemberSchedule(selectedMemberId, {
+                                                break_end: memberSchedule.break_end,
+                                                break_start: memberSchedule.break_start,
+                                                day_of_week: memberSchedule.day_of_week || 1,
+                                                end_time: memberSchedule.end_time,
+                                                is_working: memberSchedule.is_working || true ,
+                                                start_time: memberSchedule.start_time
+                                            })
                                             if (!response) return
                                             
                                             if (response.error) {
@@ -574,7 +581,11 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 return;
                                             }
 
-                                            const response = await createBlockedPeriods(selectedMemberId, blockedPeriod)
+                                            const response = await createBlockedPeriods(selectedMemberId, {
+                                                end_date: blockedPeriod.end_date,
+                                                reason: blockedPeriod.reason || '',
+                                                start_date: blockedPeriod.start_date
+                                            })
 
                                             if (response.error) {
                                                 sileo.error({

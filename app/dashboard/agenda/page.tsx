@@ -25,17 +25,21 @@ export default async function AgendaPage() {
 
     if (!profile) redirect('/login')
 
-    const parseHour = (time: string, defaultTime: number) => {
-        if (!time) return defaultTime
+    const parseHour = (time: any, defaultTime: number) => {
+        if (!time || typeof time !== 'string') return defaultTime
 
         const hourString = time.split(':')[0]
         const parseHour = parseInt(hourString, 10)
         return isNaN(parseHour) ? defaultTime : parseHour
     }
 
+    const businessData: any = Array.isArray(profile.businesses)
+        ? profile.businesses[0]
+        : profile.businesses
+
     const businessHours = {
-        open: parseHour(profile.businesses?.open_hour, 8),
-        close: parseHour(profile.businesses?.close_hour, 21)
+        open: parseHour(businessData?.open_hour, 8),
+        close: parseHour(businessData?.close_hour, 21)
     }
 
     const isAdmin = profile.role === 'admin'

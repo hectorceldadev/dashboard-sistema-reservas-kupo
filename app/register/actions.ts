@@ -16,7 +16,6 @@ export async function createUser (prevSate: any, formData: FormData) {
     })
 
     if (error) {
-        throw new Error(error)
         return { error: 'Credenciales inválidas. Inténtelo de nuevo.' }
     }
 

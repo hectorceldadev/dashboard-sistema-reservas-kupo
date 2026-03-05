@@ -101,8 +101,11 @@ export async function getDashboardData (timeRange: string) {
                 conteoServicios[nombreServicio] = (conteoServicios[nombreServicio] || 0) + 1
             })
 
-            const nombreStaff = booking.staff?.full_name || 'Sin asignar'
-            const avatarStaff = booking.staff?.avatar_url || null
+            // Le decimos a TypeScript que 'staff' es un único objeto o un array del cual cogemos el primer elemento
+            const staffData: any = Array.isArray(booking.staff) ? booking.staff[0] : booking.staff;
+
+            const nombreStaff = staffData?.full_name || 'Sin asignar'
+            const avatarStaff = staffData?.avatar_url || null
             if (!statsStaff[nombreStaff]) statsStaff[nombreStaff] = { ingresos: 0, citas: 0, avatar: avatarStaff }
             statsStaff[nombreStaff].ingresos += precioValido
             statsStaff[nombreStaff].citas += 1

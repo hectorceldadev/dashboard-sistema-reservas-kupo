@@ -27,7 +27,6 @@ export default async function SettingsPage () {
     
     if (profile.role !== 'admin') {
         redirect('/dashboard')
-        return { error: 'Necesitas ser admin para acceder a la configuración del negocio.' }
     }
 
     const business = profile?.businesses

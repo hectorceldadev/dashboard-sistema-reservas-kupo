@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { CalendarDays, Plus, Clock, Ban, ArrowRight, Scissors, CheckCircle2, ChevronRight, User, ChevronDown, Loader2, Euro } from "lucide-react"
+import { CalendarDays, Plus, Clock, Ban, ArrowRight, Scissors, CheckCircle2, ChevronRight, User, ChevronDown, Euro } from "lucide-react"
 import { useEffect, useState } from "react"
 import { sileo } from "sileo"
 import { getDashboardData, getMembers } from "./actions"
@@ -43,7 +43,7 @@ export const DashboardHome = () => {
 
     const [selectedBooking, setSelectedBooking] = useState<any | null>(null)
 
-    const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long' }
+    const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE }
     const todayString = new Date().toLocaleDateString('es-ES', dateOptions)
 
     useEffect(() => {
@@ -225,10 +225,10 @@ export const DashboardHome = () => {
             <div className="grid grid-cols-3 gap-3 sm:gap-4">
                 <div className="bg-yellow-500/5 border border-yellow-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
                     <div className="flex items-center gap-2 text-yellow-400">
-                        <CalendarDays size={16} className="text-yellow-500" />
+                        <CalendarDays size={14} className="text-yellow-500" />
                         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Citas Hoy</span>
                     </div>
-                    <div className="flex flex-wrap items-baseline gap-1.5">
+                    <div className="flex flex-wrap items-baseline gap-1.5 mt-auto">
                         <h3 className="text-2xl sm:text-3xl font-black text-yellow-500 leading-none">{kpis.totalBookings || 0}</h3>
                         <span className="text-[10px] sm:text-xs text-yellow-500 font-medium">/{kpis.completedBookings || 0} listas</span>
                     </div>
@@ -236,22 +236,22 @@ export const DashboardHome = () => {
 
                 <div className="bg-emerald-500/5 border border-emerald-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
                     <div className="flex items-center gap-2 text-emerald-500">
-                        <Euro size={16} className="text-emerald-500" />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Caja Estimada</span>
+                        <Euro size={14} className="text-emerald-500" />
+                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Ingresos</span>
                     </div>
-                    <div>
+                    <div className="mt-auto">
                         <h3 className="text-2xl sm:text-3xl font-black text-emerald-500 leading-none">{kpis.totalEarnings?.toFixed(2) || "0.00"}€</h3>
                     </div>
                 </div>
 
                 {/* En móvil ocupa 2 columnas, en PC 1 */}
-                <div className="col-span-2 sm:col-span-1 bg-red-500/5 border border-red-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
+                <div className="col-span-1 bg-red-500/5 border border-red-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
                     <div className="flex items-center gap-2 text-red-500">
-                        <Ban size={16} className="text-red-500" />
+                        <Ban size={14} className="text-red-500" />
                         <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Canceladas</span>
                     </div>
-                    <div>
-                        <h3 className="text-xl sm:text-3xl font-black text-red-500 leading-none">{kpis.cancelledBookings || 0}</h3>
+                    <div className="mt-auto">
+                        <h3 className="text-2xl sm:text-3xl font-black text-red-500 leading-none">{kpis.cancelledBookings || 0}</h3>
                     </div>
                 </div>
             </div>
@@ -279,7 +279,7 @@ export const DashboardHome = () => {
                                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-zinc-400">
                                         <span className="flex items-center gap-1.5 truncate">
                                             <Scissors size={12} className="text-zinc-500 shrink-0" />
-                                            <span className="truncate">{nextBooking.booking_items?.[0]?.service_name + `${nextBooking.booking_items.length > 1 && ` + ${nextBooking.booking_items.length}`}` || 'Servicio'}</span>
+                                            <span className="truncate">{nextBooking.booking_items?.[0]?.service_name + `${nextBooking.booking_items.length > 1 ? ` + ${nextBooking.booking_items.length}` : ''}` || 'Servicio'}</span>
                                         </span>
                                         {isAdmin && nextBooking.staff && (
                                             <>
@@ -291,7 +291,7 @@ export const DashboardHome = () => {
                                 </div>
                             </div>
                             <button 
-                                className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2.5 sm:py-2 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 shrink-0"
+                                className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2.5 sm:py-2 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                                 onClick={() => setSelectedBooking(nextBooking)}
                             >
                                 Ver Detalles <ArrowRight size={16} />
@@ -361,7 +361,7 @@ export const DashboardHome = () => {
                                                     <div className="flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-zinc-500">
                                                         <span className="flex items-center gap-1 truncate">
                                                             <Scissors size={12} className="shrink-0" />
-                                                            <span className="truncate">{booking.booking_items?.[0]?.service_name + `${booking.booking_items.length > 1 && ` + ${booking.booking_items.length}`}` || 'Servicio'}</span>
+                                                            <span className="truncate">{booking.booking_items?.[0]?.service_name + `${booking.booking_items.length > 1 ? ` + ${booking.booking_items.length}` : ''}` || 'Servicio'}</span>
                                                         </span>
                                                         {isAdmin && booking.staff && (
                                                             <>

@@ -6,8 +6,6 @@ import { sileo } from 'sileo'
 import { TeamMember, StaffSchedule, BlockedPeriod } from '../EquipoManager'
 import { getMemberSchedule, updateMemberSchedule, createBlockedPeriods, deleteBlockedPeriod } from './actions'
 
-// --- MOCK ACTION PARA EVITAR ERRORES DE SERVIDOR ---
-
 const getInitials = (name: string) => name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
 
 const DAYS_OF_WEEK = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']

@@ -193,7 +193,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                     ) : (
                         <button
                             onClick={onClose}
-                            className="w-full py-3.5 rounded-xl font-bold text-zinc-900 bg-white hover:bg-zinc-200 transition-colors cursor-pointer"
+                            className="w-full py-3 rounded-xl font-bold text-zinc-900 text-lg bg-yellow-500 hover:bg-yellow-500/70 transition-colors cursor-pointer"
                         >
                             Cerrar
                         </button>

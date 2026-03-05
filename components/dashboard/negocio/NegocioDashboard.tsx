@@ -50,7 +50,7 @@ export default function NegocioDashboard() {
                     <div className="h-10 w-full sm:w-48 bg-zinc-800/50 rounded-xl animate-pulse" />
                 </div>
 
-                {/* KPIs Skeleton - Ajustado a 2x2 en móvil */}
+                {/* KPIs Skeleton */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {[1, 2, 3, 4].map((i) => (
                         <div key={i} className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
@@ -329,7 +329,6 @@ export default function NegocioDashboard() {
                                         <div className="flex-1">
                                             <div className="flex justify-between items-start sm:items-end mb-1.5 gap-2">
                                                 <span className="font-bold text-zinc-200 text-sm sm:text-base truncate">{staff.name}</span>
-                                                {/* Contenedor Flex para alinear reservas debajo en móvil, o al lado en PC */}
                                                 <div className="flex flex-col items-end sm:flex-row sm:items-baseline sm:gap-1.5 shrink-0">
                                                     <span className="font-black text-yellow-500 text-sm sm:text-base leading-none">
                                                         {staff.ingresos.toFixed(2)}€

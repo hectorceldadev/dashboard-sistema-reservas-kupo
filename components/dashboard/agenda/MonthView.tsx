@@ -12,7 +12,6 @@ import {
     isBefore,
     startOfDay
 } from 'date-fns'
-import { es } from 'date-fns/locale'
 
 interface MonthViewProps {
     currentDate: Date

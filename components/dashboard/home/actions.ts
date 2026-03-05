@@ -2,6 +2,9 @@
 
 import { createClient } from "@/utils/supabase/server"
 import { format } from "date-fns"
+import { formatInTimeZone } from "date-fns-tz"
+
+const TIMEZONE = 'Europe/Madrid'
 
 export async function getMembers () {
     try {
@@ -64,7 +67,7 @@ export async function getDashboardData (memberId: string) {
 
         if (!memberProfile) return { error: 'Error obteniendo los datos del miembro.' }
 
-        const today = format(new Date(), 'yyyy-MM-dd')
+        const today = formatInTimeZone(new Date(), TIMEZONE, 'yyyy-MM-dd')
 
         const { data: bookings } = await supabase
             .from('bookings')
@@ -88,7 +91,7 @@ export async function getDashboardData (memberId: string) {
 
         const validBookings = bookings || []
 
-        const now = format(new Date(), 'HH:mm')
+        const now = formatInTimeZone(new Date(), TIMEZONE, 'HH:mm')
 
         const nextBooking = bookings.find(b => 
             (b.status === 'confirmed' || b.status === 'pending_payment') &&

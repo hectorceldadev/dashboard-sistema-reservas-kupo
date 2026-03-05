@@ -133,7 +133,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                                 </span>
                                                 <span className="flex items-center gap-1 shrink-0 border-l border-zinc-800 pl-3">
                                                     <User size={12} className="text-zinc-600" />
-                                                    <span className="truncate">{booking.staff?.full_name?.split(' ')[0] || 'Staff'}</span>
+                                                    <span className="truncate">{booking.staff?.full_name || 'Staff'}</span>
                                                 </span>
                                             </div>
 

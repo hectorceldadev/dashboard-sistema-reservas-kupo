@@ -1,8 +1,11 @@
 'use server'
 
 import { createClient } from "@/utils/supabase/server"
-import { subDays, format, differenceInDays, addDays, parseISO, formatDistanceToNow } from "date-fns"
-import { es } from "date-fns/locale"
+import { subDays, differenceInDays, addDays, parseISO, formatDistanceToNow } from "date-fns"
+import { formatInTimeZone } from "date-fns-tz"
+import { es } from "date-fns/locale"   
+
+const TIMEZONE = 'Europe/Madrid'
 
 export async function getDashboardData (timeRange: string) {
     try {
@@ -21,6 +24,7 @@ export async function getDashboardData (timeRange: string) {
         if (profile.role !== 'admin') return { error: 'No tienes los permisos.' }
 
         // 1. CALCULAMOS LAS FECHAS
+        // Usamos el Date normal. formatInTimeZone se encargará de ajustarlo a Madrid al convertirlo a string.
         const currentEnd = new Date()
         let currentStart = new Date()
         let daysToSubtract = 30
@@ -37,9 +41,9 @@ export async function getDashboardData (timeRange: string) {
         const prevEnd = subDays(currentStart, 1)
         const prevStart = subDays(prevEnd, daysToSubtract - 1)
 
-        const formatDate = (d: Date) => format(d, 'yyyy-MM-dd')
+        const formatDate = (d: Date) => formatInTimeZone(d, TIMEZONE, 'yyyy-MM-dd')
 
-        // 2. TRAEMOS DATOS (Añadido avatar_url y customer_phone)
+        // 2. TRAEMOS DATOS
         const { data: currentBookings } = await supabase
             .from('bookings')
             .select(`
@@ -72,7 +76,8 @@ export async function getDashboardData (timeRange: string) {
         const statsClientes: Record<string, { visits: number, spent: number, lastVisit: string, phone: string }> = {}
 
         currentBookings.forEach(booking => {
-            const rawPrice = booking.total_price || booking.booking_items?.reduce((sum: number, item: any) => sum + (item.price || 0), 0) || 0
+            // BUG CORREGIDO: Usar ?? en lugar de || para respetar los precios de 0€
+            const rawPrice = booking.total_price ?? booking.booking_items?.reduce((sum: number, item: { price: number }) => sum + (item.price || 0), 0) ?? 0
             
             const esCompletada = booking.status === 'completed'
             const precioValido = esCompletada ? rawPrice : 0
@@ -87,10 +92,11 @@ export async function getDashboardData (timeRange: string) {
 
             ingresosPorDia[booking.date] = (ingresosPorDia[booking.date] || 0) + precioValido
 
-            const nombreDia = format(parseISO(booking.date), 'EEE', { locale: es }).replace('.', '')
+            const dateStrWithMidnight = `${booking.date}T12:00:00`
+            const nombreDia = formatInTimeZone(new Date(dateStrWithMidnight), TIMEZONE, 'EEE', { locale: es }).replace('.', '')
             conteoDias[nombreDia] = (conteoDias[nombreDia] || 0) + 1
 
-            booking.booking_items?.forEach((item: any) => {
+            booking.booking_items?.forEach((item: { service_name: string, price: number }) => {
                 const nombreServicio = item.service_name || 'General'
                 conteoServicios[nombreServicio] = (conteoServicios[nombreServicio] || 0) + 1
             })
@@ -114,18 +120,18 @@ export async function getDashboardData (timeRange: string) {
         // 4. DATOS ANTERIORES (Para el porcentaje)
         let ingresosAnteriores = 0
         let canceladasAnteriores = 0
-        let completadasAnteriores = 0 // <-- NUEVA VARIABLE
+        let completadasAnteriores = 0
         let citasAnterioresValidas = 0
-        const prevIngresosPorDia: Record<string, number> = {}
 
         prevBookings.forEach(booking => {
-            const rawPrice = booking.total_price || booking.booking_items?.reduce((sum: number, item: any) => sum + (item.price || 0), 0) || 0
+            // BUG CORREGIDO: Usar ?? también aquí
+            const rawPrice = booking.total_price ?? booking.booking_items?.reduce((sum: number, item: { price: number }) => sum + (item.price || 0), 0) ?? 0
             if (booking.status === 'cancelled') {
                 canceladasAnteriores++
             } else {
                 citasAnterioresValidas++
                 if (booking.status === 'completed') {
-                    completadasAnteriores++ // <-- SUMAMOS COMPLETADAS
+                    completadasAnteriores++ 
                     ingresosAnteriores += rawPrice
                 }
             }
@@ -137,7 +143,6 @@ export async function getDashboardData (timeRange: string) {
         const ticketMedio = citasCompletadas > 0 ? (ingresosTotales / citasCompletadas) : 0
         const prevTicketMedio = ingresosAnteriores > 0 ? (ingresosAnteriores / citasAnterioresValidas) : 0
 
-        // <-- NUEVA FUNCIÓN: Para evitar dividir entre 0 y dar un % real
         const calcCrecimiento = (actual: number, pasado: number) => {
             if (pasado === 0) return actual > 0 ? 100 : 0;
             return ((actual - pasado) / pasado) * 100;
@@ -147,7 +152,7 @@ export async function getDashboardData (timeRange: string) {
             ingresos: ingresosTotales,
             ingresosCrecimiento: calcCrecimiento(ingresosTotales, ingresosAnteriores),
             completadas: citasCompletadas,
-            completadasCrecimiento: calcCrecimiento(citasCompletadas, completadasAnteriores), // <-- AÑADIDO
+            completadasCrecimiento: calcCrecimiento(citasCompletadas, completadasAnteriores),
             tasaCancelacion: totalCitas > 0 ? (canceladas / totalCitas) * 100 : 0,
             tasaCancelacionCrecimiento: totalAnteriores > 0 ? (((canceladas/totalCitas) - (canceladasAnteriores/totalAnteriores)) * 100) : 0,
             ticketMedio,
@@ -175,16 +180,17 @@ export async function getDashboardData (timeRange: string) {
                 phone: stats.phone,
                 visits: stats.visits,
                 spent: stats.spent,
-                lastVisit: formatDistanceToNow(parseISO(stats.lastVisit), { addSuffix: true, locale: es })
+                lastVisit: formatDistanceToNow(parseISO(`${stats.lastVisit}T12:00:00`), { addSuffix: true, locale: es })
             }))
             .sort((a, b) => b.spent - a.spent)
             .slice(0, 5)
 
         const diasDiff = differenceInDays(currentEnd, currentStart) + 1
         const ingresosGrafico = Array.from({ length: diasDiff }).map((_, i) => {
-            const fechaIteracion = formatDate(addDays(currentStart, i))
+            const dateOfIter = addDays(currentStart, i)
+            const fechaIteracion = formatDate(dateOfIter)
             return {
-                name: format(addDays(currentStart, i), 'dd/MM'), 
+                name: formatInTimeZone(dateOfIter, TIMEZONE, 'dd/MM'), // Usamos formatInTimeZone en vez de format nativo
                 actual: ingresosPorDia[fechaIteracion] || 0,
                 pasado: 0
             }

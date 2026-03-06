@@ -72,6 +72,19 @@ export async function updateMemberSchedule(memberId: string, memberSchedule: {
         if (!profile) return { error: 'Error obteniendo datos del negocio.' }
         if (profile.role !== 'admin' && memberId !== user.id) return { error: 'No tienes permisos para modificar el horario de otro miembro.' }
 
+        if (!memberSchedule.is_working) {
+            const { error: errorDelete } = await supabase
+                .from('staff_schedules')
+                .delete()
+                .eq('staff_id', memberId)
+                .eq('business_id', profile.business_id)
+                .eq('day_of_week', memberSchedule.day_of_week)
+
+            if (errorDelete) return { error: 'Error al marcar el dia como libre.' }
+
+            return { success: true }
+        }
+        
         const { data: business } = await supabase
             .from('businesses')
             .select('open_hour, close_hour')
@@ -79,6 +92,7 @@ export async function updateMemberSchedule(memberId: string, memberSchedule: {
             .single()
 
         if (!business) return { error: 'Error obteniendo datos del negocio' }
+
 
         const timeToMins = (time: string) => {
             if (!time) return
@@ -105,7 +119,7 @@ export async function updateMemberSchedule(memberId: string, memberSchedule: {
                 return { error: `El horario excede la apertura del local (${business.open_hour} a ${business.close_hour})` }
             }
 
-            if (memberSchedule.break_start && memberSchedule.break_end) {
+            if (memberSchedule.break_start && memberSchedule.break_end && memberSchedule.break_start !== '' && memberSchedule.break_end !== '') {
                 const breakStart = timeToMins(memberSchedule.break_start!)
                 const breakEnd = timeToMins(memberSchedule.break_end!)
 

@@ -29,20 +29,21 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
     const selectedMember = members.find(m => m.id === selectedMemberId)
 
+    // ✅ Forzamos a que is_working sea un boolean, nunca null
     const [memberSchedule, setMemberSchedule] = useState<{
         start_time: string | null,
         end_time: string | null,
         break_start: string | null,
         break_end: string | null,
         day_of_week: number | null,
-        is_working: boolean | null
+        is_working: boolean 
     }>({
         start_time: null,
         end_time: null,
         break_start: null,
         break_end: null,
         day_of_week: null,
-        is_working: null
+        is_working: false
     })
 
     const [blockedPeriod, setBlockedPeriod] = useState<{
@@ -55,35 +56,28 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
         reason: null,
     })
 
-    useEffect(() => {
-        const fetchMemberData = async () => {
-            try {
-                if (!selectedMemberId) return
-
-                setIsLoading(true)
-                const response = await getMemberSchedule(selectedMemberId)
-
-                if (response.error) {
-                    sileo.error({
-                        title: 'Error obteniendo horarios.',
-                        description: response.error
-                    })
-                    return
-                }
-                setSchedules(response.schedule || [])
-                setBlockedPeriods(response.blockedPeriods || [])
-            } catch {
-                sileo.error({
-                    title: 'Error interno'
-                })
+    // Función aislada para poder recargar desde cualquier sitio
+    const loadMemberData = async (memberId: string) => {
+        setIsLoading(true)
+        try {
+            const response = await getMemberSchedule(memberId)
+            if (response.error) {
+                sileo.error({ title: 'Error', description: response.error })
                 return
-            } finally {
-                setIsLoading(false)
             }
+            setSchedules(response.schedule || [])
+            setBlockedPeriods(response.blockedPeriods || [])
+        } catch {
+            sileo.error({ title: 'Error interno' })
+        } finally {
+            setIsLoading(false)
         }
+    }
 
-        fetchMemberData()
-
+    useEffect(() => {
+        if (selectedMemberId) {
+            loadMemberData(selectedMemberId)
+        }
     }, [selectedMemberId])
 
     const formatDateTime = (dateString: string) => {
@@ -92,18 +86,15 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
     const activeBlocks = blockedPeriods.filter(b => b.status === 'active')
     const completedBlocks = blockedPeriods.filter(b => b.status === 'completed')
-    const activeDaySchedule = schedules.find(s => s.day_of_week === selectedDayIndex)
 
-    // Reordenar los días para que la semana empiece en Lunes visualmente (L M X J V S D)
     const orderedDays = [1, 2, 3, 4, 5, 6, 0]
-
     const hoy = new Date().toISOString().slice(0, 16)
     const limiteMaximo = '2099-12-31T23:59'
 
     return (
         <div className="animate-fade-in space-y-6">
 
-            {/* BARRA SUPERIOR: Selector de Usuario y Pestañas */}
+            {/* BARRA SUPERIOR */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-zinc-900 border border-zinc-800 p-4 rounded-3xl relative z-20">
                 <div className="relative w-full md:w-80">
                     <button
@@ -178,7 +169,6 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     <p className="text-sm text-zinc-400 mt-1">Configura los días y turnos fijos de la semana. Pulsa sobre un día para editarlo.</p>
                                 </div>
 
-                                {/* NUEVO DISEÑO: Fila única horizontal */}
                                 <div className="flex w-full overflow-x-auto pb-4 gap-1 custom-scrollbar snap-x">
                                     {orderedDays.map(dayIndex => {
                                         const dayName = DAYS_OF_WEEK[dayIndex];
@@ -197,14 +187,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                         break_start: daySchedule?.break_start?.slice(0, 5) || "14:00",
                                                         break_end: daySchedule?.break_end?.slice(0, 5) || "16:00",
                                                         day_of_week: dayIndex,
-                                                        is_working: daySchedule?.is_working ?? false
+                                                        is_working: isWorking
                                                     });
                                                     setIsScheduleModalOpen(true)
                                                 }}
                                                 className={`relative flex-shrink-0 w-[140px] xl:flex-1 flex flex-col items-center py-4 px-2 rounded-3xl border transition-all group snap-center cursor-pointer
                                                 ${isWorking
                                                         ? 'bg-zinc-950 border-zinc-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/5'
-                                                        : 'bg-zinc-900/30 border-zinc-800/30 opacity-60 hover:opacity-100 hover:border-zinc-700'
+                                                        : 'bg-zinc-900/30 border-zinc-700 hover:opacity-100 border-dashed hover:border-zinc-700'
                                                     }
                                             `}
                                             >
@@ -214,14 +204,12 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                                 {isWorking ? (
                                                     <div className="flex flex-col items-center w-full gap-3">
-                                                        {/* Tarjeta de horas */}
                                                         <div className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl py-3 flex flex-col items-center justify-center group-hover:border-yellow-500/30 transition-colors">
                                                             <span className="text-sm font-mono font-bold text-zinc-200">{daySchedule?.start_time.slice(0, 5)}</span>
                                                             <div className="w-1/2 border-t border-zinc-800 my-1"></div>
                                                             <span className="text-sm font-mono font-bold text-zinc-200">{daySchedule?.end_time.slice(0, 5)}</span>
                                                         </div>
 
-                                                        {/* Indicador de Descanso */}
                                                         {daySchedule?.break_start ? (
                                                             <div className="flex flex-col items-center gap-1 w-full pt-2">
                                                                 <Coffee className="w-4 h-4 text-yellow-500/70" />
@@ -230,9 +218,11 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                                 </span>
                                                             </div>
                                                         ) : (
-                                                            <div className="flex flex-col items-center gap-1 w-full pt-2 opacity-0">
-                                                                <div className="w-4 h-4"></div>
-                                                                <span className="text-[10px]">Sin pausa</span>
+                                                            <div className="flex flex-col items-center gap-1 w-full pt-2">
+                                                                <Coffee className="w-4 h-4 text-yellow-500/70" />
+                                                                <span className="text-[10px] text-zinc-500 font-medium">
+                                                                    Sin Descansos
+                                                                </span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -300,22 +290,17 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                                 const response = await deleteBlockedPeriod(block.id, selectedMemberId)
 
                                                                 if (response.error) {
-                                                                    sileo.error({
-                                                                        title: 'Error eliminando',
-                                                                        description: response.error
-                                                                    })
+                                                                    sileo.error({ title: 'Error eliminando', description: response.error })
                                                                     return
                                                                 }
                                                                 if (response.success) {
-                                                                    sileo.success({
-                                                                        title: 'Eliminado con éxito'
-                                                                    })
+                                                                    sileo.success({ title: 'Eliminado con éxito' })
                                                                     const optimisticBlockedPeriods = blockedPeriods.filter(b => b.id !== block.id)
                                                                     setBlockedPeriods(optimisticBlockedPeriods)
                                                                 }
                                                             } catch (error) {
                                                                 console.error('Error: ', error)
-                                                                return { error: 'Error interno.' }
+                                                                sileo.error({ title: 'Error interno.' })
                                                             } finally {
                                                                 setIsLoadingDelete(null)
                                                             }
@@ -361,7 +346,6 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                             <button onClick={() => setIsScheduleModalOpen(false)} className="text-zinc-500 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
                         </div>
 
-                        {/* Quitamos la etiqueta form para manejarlo nosotros con onClick */}
                         <div className="flex flex-col">
                             <div className="p-6 space-y-6">
 
@@ -370,10 +354,12 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         <h4 className="text-sm font-bold text-white">Día Laborable</h4>
                                         <p className="text-xs text-zinc-500">¿El trabajador opera este día?</p>
                                     </div>
-                                    {/* Conectamos el botón Toggle al estado */}
                                     <button
                                         type="button"
-                                        onClick={() => setMemberSchedule({ ...memberSchedule, is_working: !memberSchedule.is_working })}
+                                        onClick={() => {
+                                            setMemberSchedule({ ...memberSchedule, is_working: !memberSchedule.is_working })
+                                            setHasBreak(false)
+                                        }}
                                         className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${memberSchedule.is_working ? 'bg-yellow-500' : 'bg-zinc-700'}`}
                                     >
                                         <span className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${memberSchedule.is_working ? 'translate-x-6' : 'translate-x-1'}`} />
@@ -417,11 +403,9 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             onClick={() => {
                                                 const newHasBreak = !hasBreak;
                                                 setHasBreak(newHasBreak);
-                                                // Si desactivamos el descanso, limpiamos las horas en el estado
                                                 if (!newHasBreak) {
                                                     setMemberSchedule({ ...memberSchedule, break_start: null, break_end: null });
                                                 } else {
-                                                    // Si lo activamos, le damos valores por defecto para que no falle
                                                     setMemberSchedule({ ...memberSchedule, break_start: '14:00', break_end: '15:00' });
                                                 }
                                             }}
@@ -434,7 +418,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     {hasBreak && (
                                         <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-top-2">
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-zinc-500 uppercase">Inicio Break</label>
+                                                <label className="text-xs font-bold text-zinc-500 uppercase">Inicio Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_start || ''}
@@ -443,7 +427,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-xs font-bold text-zinc-500 uppercase">Fin Break</label>
+                                                <label className="text-xs font-bold text-zinc-500 uppercase">Fin Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_end || ''}
@@ -458,7 +442,6 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                             <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3">
                                 <button type="button" onClick={() => setIsScheduleModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold transition-colors">Cancelar</button>
 
-                                {/* TU BOTÓN DE GUARDAR ESTABA PERFECTO, SOLO AÑADIMOS EL TYPE BUTTON Y EL PREVENT DEFAULT */}
                                 <button
                                     type="button"
                                     disabled={isLoading}
@@ -468,14 +451,24 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             if (!selectedMemberId) return
 
                                             setIsLoading(true)
+
+                                            const finalBreakStart = hasBreak ? memberSchedule.break_start : null
+                                            const finalBreakEnd = hasBreak ? memberSchedule.break_end : null
+                                            
+                                            // ✅ Pasamos el booleano de forma estricta. Nada de || o ??
+                                            const isWorkingValue = Boolean(memberSchedule.is_working)
+
+                                            console.log("Enviando a BD:", { is_working: isWorkingValue, day: memberSchedule.day_of_week })
+
                                             const response = await updateMemberSchedule(selectedMemberId, {
-                                                break_end: memberSchedule.break_end,
-                                                break_start: memberSchedule.break_start,
-                                                day_of_week: memberSchedule.day_of_week || 1,
+                                                break_end: finalBreakEnd,
+                                                break_start: finalBreakStart,
+                                                day_of_week: memberSchedule.day_of_week ?? 1,
                                                 end_time: memberSchedule.end_time,
-                                                is_working: memberSchedule.is_working || true ,
+                                                is_working: isWorkingValue,
                                                 start_time: memberSchedule.start_time
                                             })
+                                            
                                             if (!response) return
                                             
                                             if (response.error) {
@@ -487,15 +480,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             }
                                             if (response.success) {
                                                 sileo.success({ title: 'Horario actualizado con éxito', fill: 'black', styles: { title: 'text-white' } })
-                                                // 🌟 AQUÍ LLAMAMOS DE NUEVO A LA API PARA RECARGAR LA VISTA 🌟
-                                                const newData = await getMemberSchedule(selectedMemberId)
-                                                if (newData.success) setSchedules(newData.schedule || [])
+                                                
+                                                // Recargamos los datos para ver reflejado el cambio
+                                                await loadMemberData(selectedMemberId)
                                             }
                                         } catch (error) {
                                             console.error('Error: ', error)
                                             sileo.error({ title: 'Error interno.' })
                                         } finally {
-                                            setIsLoading(false)
                                             setIsScheduleModalOpen(false)
                                         }
                                     }}
@@ -510,7 +502,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 </div>
             )}
 
-            {/* MODAL 2: AÑADIR BLOQUEO PUNTUAL */}
+            {/* MODAL DE BLOQUEOS (lo dejo como lo tenías) ... */}
             {isBlockModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
                     <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col">
@@ -599,14 +591,12 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 sileo.success({
                                                     title: 'Bloqueo creado correctamente'
                                                 })
-                                                const newResponse = await getMemberSchedule(selectedMemberId)
-                                                if (newResponse.success) setBlockedPeriods(newResponse.blockedPeriods || [])
+                                                await loadMemberData(selectedMemberId)
                                             }
                                         } catch (error) {
                                             console.error('Error: ', error)
-                                            return { error: 'Error interno.' }
+                                            sileo.error({ title: 'Error interno.' })
                                         } finally {
-                                            setIsLoading(false)
                                             setIsBlockModalOpen(false)
                                         }
                                     }}
@@ -619,7 +609,6 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                     </div>
                 </div>
             )}
-
         </div>
     )
 }

@@ -1,7 +1,6 @@
 'use server'
 
 import { createClient } from "@/utils/supabase/server"
-import { format } from "date-fns"
 import { formatInTimeZone } from "date-fns-tz"
 
 const TIMEZONE = 'Europe/Madrid'
@@ -28,6 +27,12 @@ export async function getMembers () {
             .eq('is_active', true)
 
         if (!profiles) return { error: 'Error obteniendo datos del negocio.', profiles: [] }
+
+        profiles.sort((a, b) => {
+            if (a.id === user.id) return -1
+            if (b.id === user.id) return 1
+            return a.full_name.localeCompare(b.full_name || '')
+        })
 
         return {
             success: true,

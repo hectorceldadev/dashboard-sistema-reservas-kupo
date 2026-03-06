@@ -58,7 +58,10 @@ export const DashboardHome = () => {
                 if (response.success) {
                     setMembers(response.profiles)
                     setIsAdmin(response.isAdmin)
-                    setSelectedMemberId(response.currentUserId || null)
+                    const defaultId = response.profiles.some(p => p.id === response.currentUserId) 
+                        ? response.currentUserId
+                        : (response.profiles[0].id || null)
+                    setSelectedMemberId(defaultId)
                 }
             } catch (error) {
                 console.error('Error: ', error)

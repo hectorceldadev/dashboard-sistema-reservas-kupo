@@ -392,7 +392,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 type="time"
                                                 value={memberSchedule.start_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, start_time: e.target.value })}
-                                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[50%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -401,7 +401,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 type="time"
                                                 value={memberSchedule.end_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, end_time: e.target.value })}
-                                                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[50%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                             />
                                         </div>
                                     </div>
@@ -620,7 +620,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     }}
                                     disabled={isLoading} 
                                     className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
-                                    {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Creando...</span></> : <><Lock className="w-4 h-4" /><span>Crear Bloqueo</span></>}
+                                    {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Bloqueando...</span></> : <><Lock className="w-4 h-4" /><span>Bloquear</span></>}
                                 </button>
                             </div>
                         </div>

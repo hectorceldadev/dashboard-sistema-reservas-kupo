@@ -51,7 +51,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                             type="time"
                             value={businessData.open_hour || ''}
                             onChange={(e) => setBusinessData({ ...businessData, open_hour: e.target.value })}
-                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
 
@@ -63,7 +63,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                             type="time"
                             defaultValue={businessData.close_hour || ''}
                             onChange={(e) => setBusinessData({ ...businessData, close_hour: e.target.value })}
-                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
                 </div>

@@ -49,7 +49,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
             
             {/* Contenedor Modal - Añadida animación de entrada */}
-            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden duration-200 stagger-container">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-zinc-800 bg-zinc-950/80 shrink-0 relative overflow-hidden">

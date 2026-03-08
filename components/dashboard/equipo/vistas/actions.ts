@@ -1,7 +1,10 @@
 'use server'
 
+import { cancelBookingAction } from "@/app/dashboard/agenda/actions"
 import { createClient } from "@/utils/supabase/server"
+import { createClient as createAdminClient } from "@supabase/supabase-js"
 import { fromZonedTime } from "date-fns-tz"
+import { revalidatePath } from "next/cache"
 
 const TIMEZONE = 'Europe/Madrid'
 
@@ -241,5 +244,85 @@ export async function deleteBlockedPeriod(periodId: string, memberId: string) {
     } catch (error) {
         console.error('Error: ', error)
         return { error: 'Error interno.' }
+    }
+}
+
+export async function deleteMember (memberId: string) {
+    try {
+        if (!memberId) return { error: 'ID del miembro no proporcionado.' }
+
+        const supabase = await createClient()
+
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) return { error: 'No estás autenticado.' }
+
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('role, business_id')
+            .eq('id', user.id)
+            .single()
+
+        if (profile?.role !== 'admin') {
+            return { error: "No tienes permisos para eliminar miembros" };
+        }
+        if (memberId === user.id) {
+            return { error: "No puedes eliminar tu propia cuenta de administrador." };
+        }
+
+        const { data: targetProfile } = await supabase
+            .from('profiles')
+            .select('business_id')
+            .eq('id', memberId)
+            .single()
+
+        if (targetProfile?.business_id !== profile.business_id) {
+            return { error: 'Este usuario no pertenece a tu negocio.' }
+        }
+
+        const { data: bookings, error: errorUpdate } = await supabase
+            .from('bookings')
+            .select('*')
+            .eq('business_id', targetProfile?.business_id)
+            .eq('staff_id', memberId)
+            .in('status', ['confirmed', 'pending_payment'])
+
+        if (errorUpdate) return { error: 'Error eliminando las reservas del usuario, vuelve a intentarlo.' }
+
+        if (bookings && bookings.length > 0) {
+            await Promise.all(bookings.map(b => cancelBookingAction(b.id)))
+        }
+
+        const supabaseAdmin = createAdminClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.SUPABASE_SERVICE_ROLE_KEY!   
+        )
+
+        await supabaseAdmin.from('bookings').delete().eq('staff_id', memberId)
+        await supabaseAdmin.from('staff_schedules').delete().eq('staff_id', memberId);
+        await supabaseAdmin.from('blocked_periods').delete().eq('staff_id', memberId);
+
+        const { error: errorDeleteProfile } = await supabaseAdmin
+            .from('profiles')
+            .delete()
+            .eq('id', memberId);
+
+        if (errorDeleteProfile) {
+            console.error('Error borrando el profile:', errorDeleteProfile);
+            return { error: "Error al eliminar el perfil público del trabajador." };
+        }
+
+        const { error: errorDelete } = await supabaseAdmin.auth.admin.deleteUser(memberId)
+
+        if (errorDelete) {
+            console.error('Error interno eliminando auth user: ', errorDelete);
+            return { error: "Error al eliminar el usuario del sistema." };
+        }
+
+        revalidatePath('/dashboard/equipo')
+        return { success: true }
+
+    } catch (error) {
+        console.error('Error: ', error)
+        return { error: 'Error inseperado al eliminar el miembro.' }
     }
 }

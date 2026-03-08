@@ -155,10 +155,10 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
     }
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-300 pb-10">
+        <div className="space-y-8 animate-in fade-in duration-300 pb-10 stagger-container">
             
             {/* Cabecera */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 stagger-container">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Servicios</h1>
                     <p className="text-zinc-400 mt-1 text-sm sm:text-base">Configura los servicios que ofreces, precios y duraciones.</p>
@@ -201,7 +201,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
                     
                     {/* --- VISTA MÓVIL (Tarjetas en Fila) --- */}
-                    <div className="block md:hidden divide-y divide-zinc-800/50">
+                    <div className="block md:hidden divide-y divide-zinc-800/50 stagger-container">
                         {filteredServices.map((service) => (
                             <div 
                                 key={service.id}
@@ -242,7 +242,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                     <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider">
+                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider stagger-container">
                                     <th className="px-6 py-4 rounded-tl-2xl">Servicio</th>
                                     <th className="px-6 py-4">Duración</th>
                                     <th className="px-6 py-4">Precio</th>
@@ -256,7 +256,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     }
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-zinc-800/50 text-sm">
+                            <tbody className="divide-y divide-zinc-800/50 text-sm stagger-container">
                                 {filteredServices.map((service) => (
                                     <tr 
                                         key={service.id} 

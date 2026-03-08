@@ -86,7 +86,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
     return (
         <div className="space-y-6">
             {/* --- BARRA DE HERRAMIENTAS (TOOLBAR) --- */}
-            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl shadow-sm">
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl shadow-sm stagger-container">
                 
                 {/* 1. Controles de Fecha */}
                 <div className="flex items-center gap-4">

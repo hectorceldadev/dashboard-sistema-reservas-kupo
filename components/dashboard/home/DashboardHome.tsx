@@ -104,6 +104,7 @@ export const DashboardHome = () => {
         fetchData()
     }, [selectedMemberId])
 
+
     if (isLoading && !memberInfo.name) {
         return (
             <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 pb-10 animate-pulse">
@@ -181,7 +182,7 @@ export const DashboardHome = () => {
     }
 
     return (
-        <div className={`max-w-5xl mx-auto space-y-6 sm:space-y-8 pb-10 animate-in fade-in duration-300 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+        <div className={`max-w-5xl mx-auto space-y-6 sm:space-y-8 pb-10 animate-in fade-in duration-300 ${isLoading ? 'opacity-50 pointer-events-none' : 'opacity-100'} stagger-container`}>
 
             {/* --- 1. HEADER Y ACCIONES RÁPIDAS --- */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 border-b border-zinc-800 pb-5 sm:pb-6">

@@ -59,7 +59,7 @@ export default function StepForm({ booking, setBooking }: StepFormProps) {
   }
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4">
+    <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4 stagger-container">
       
       <div className="flex flex-col items-start">
         <h3 className="text-white font-bold text-xl">Datos del cliente</h3>

@@ -26,7 +26,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
     return (
         <div className="space-y-8">
 
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-8 shadow-xl shadow-black/20">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-8 shadow-xl shadow-black/20 stagger-container">
 
                 {/* 1. Nombre */}
                 <div className="space-y-3">

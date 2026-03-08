@@ -110,10 +110,10 @@ export default function NegocioDashboard() {
         : 0;
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-300 pb-10">
+        <div className="space-y-6 animate-in fade-in duration-300 pb-10 stagger-container">
             
             {/* --- CABECERA --- */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-800 pb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-800 pb-6 stagger-container">
                 <div>
                     <h1 className="text-3xl font-bold text-white tracking-tight">Mi Negocio</h1>
                     <p className="text-zinc-400 mt-1">Métricas calculadas en tiempo real.</p>
@@ -138,7 +138,7 @@ export default function NegocioDashboard() {
             </div>
 
             {/* --- BLOQUE 1: KPIs (2x2 en móvil) --- */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 stagger-container">
                 {/* 1. Ingresos */}
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">

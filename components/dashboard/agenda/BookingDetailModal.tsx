@@ -5,6 +5,8 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { es } from 'date-fns/locale'
 import { X, Calendar, User, Scissors, AlertTriangle, Clock, CreditCard, Loader } from 'lucide-react'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 interface BookingDetailsModalProps {
     booking: any
@@ -16,6 +18,19 @@ interface BookingDetailsModalProps {
 const TIMEZONE = 'Europe/Madrid'
 
 export default function BookingDetailsModal({ booking, onClose, onCancel, isLoading }: BookingDetailsModalProps) {
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+        // Bloquear scroll adicional
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'unset';
+        }
+    }, [])
+
+    if (!mounted) return null
+
     const isCancellable = booking.status !== 'cancelled' && booking.status !== 'completed'
 
     const statusConfig: Record<string, { label: string, color: string }> = {
@@ -54,13 +69,13 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
         dateObj = new Date()
     }
 
-    return (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 animate-in fade-in duration-300">
+    const modalContent = (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" onClick={onClose} />
 
             {/* Contenedor Modal */}
-            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
+            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
 
                 {/* Header Modal (Centrado en el cliente) */}
                 <div className="py-4 px-6 relative flex flex-col items-center justify-center shrink-0 border-b border-zinc-800 bg-zinc-950/50">
@@ -118,11 +133,9 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                                         src={booking.staff.avatar_url}
                                         alt={booking.staff?.full_name || 'Staff'}
                                         fill
-                                        // 2. Cambiamos a 'object-cover' para que llene el círculo
                                         className='w-full h-full object-cover'
                                     />
                                 ) : (
-                                    // Fallback por si el staff no tiene foto de perfil
                                     <User size={16} className="text-yellow-500" />
                                 )}
                             </div>
@@ -202,4 +215,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
             </div>
         </div>
     )
+
+    // Renderizamos vía Portal al final del document.body
+    return createPortal(modalContent, document.body)
 }

@@ -59,7 +59,7 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
             <div className="flex-1 overflow-x-auto overflow-y-auto custom-scrollbar rounded-xl relative">
                 
                 {/* min-w para que no se aplaste en móviles */}
-                <div className="min-w-[700px] sm:min-w-[800px] flex flex-col h-full relative">
+                <div className="min-w-[700px] sm:min-w-[800px] flex flex-col h-full relative stagger-container">
                     
                     {/* --- CABECERA DE DÍAS --- */}
                     <div className="grid grid-cols-[60px_repeat(7,1fr)] sm:grid-cols-[80px_repeat(7,1fr)] bg-zinc-950 rounded-xl mb-6 sticky top-0 z-40">

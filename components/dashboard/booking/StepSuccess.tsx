@@ -4,6 +4,7 @@ import { Check, ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Booking } from './BookingModal';
+import Link from 'next/link';
 
 interface StepSuccessProps {
   booking: Booking;
@@ -16,13 +17,13 @@ export default function StepSuccess({ booking, onClose }: StepSuccessProps) {
     <div className="flex flex-col h-full overflow-hidden stagger-container pb-6">
       
       {/* 1. HEADER */}
-      <div className="text-center pt-8 pb-6 shrink-0">
+      <div className="text-center pt-2 pb-2 shrink-0 mb-4">
         <div className="flex justify-center mb-6">
-           <div className="h-20 w-20 bg-yellow-500 text-zinc-950 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/20 animate-in zoom-in duration-300">
-             <Check size={40} strokeWidth={3} />
+           <div className="h-16 w-16 bg-yellow-500 text-zinc-950 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/20 animate-in zoom-in duration-300">
+             <Check size={30} strokeWidth={3} />
            </div>
         </div>
-        <h2 className="text-3xl font-bold text-white leading-none mb-3">¡Cita Registrada!</h2>
+        <h2 className="text-3xl font-bold text-white leading-none mb-3">Confirmada</h2>
         <p className="text-zinc-400 text-sm px-6">
           La reserva se ha guardado correctamente en la agenda.
         </p>
@@ -67,13 +68,14 @@ export default function StepSuccess({ booking, onClose }: StepSuccessProps) {
 
       {/* 3. BOTÓN CERRAR */}
       <div className="mt-8 px-5">
-        <button
+        <Link
+          href='/dashboard/agenda'
           onClick={onClose}
-          className="w-full group bg-white text-zinc-950 py-3.5 rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-md text-base"
+          className="w-full group bg-yellow-500 text-zinc-950 py-3.5 rounded-xl font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-md text-base"
         >
           Cerrar e ir a la Agenda
           <ArrowRight className='group-hover:translate-x-1 transition-transform duration-150' size={18} />
-        </button>
+        </Link>
       </div>
 
     </div>

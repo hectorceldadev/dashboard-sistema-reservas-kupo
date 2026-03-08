@@ -55,7 +55,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
     }
 
     return (
-        <div className="flex flex-col h-full w-full animate-in fade-in duration-300">
+        <div className="flex flex-col h-full w-full animate-in fade-in duration-300 stagger-container">
 
             {/* Cabecera del Día */}
             <div className="bg-zinc-950 rounded-xl mb-6 p-6 shadow-sm flex items-center justify-between sticky top-0 z-30">

@@ -45,7 +45,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-zinc-900 animate-in fade-in duration-300 gap-4">
+        <div className="flex flex-col h-full w-full bg-zinc-900 animate-in fade-in duration-300 gap-4 stagger-container">
             
             {/* Cabecera de los días de la semana */}
             <div className="grid grid-cols-7 bg-zinc-950/50 rounded-xl">

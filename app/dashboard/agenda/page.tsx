@@ -93,7 +93,7 @@ export default async function AgendaPage() {
     const initialBookings = rawBookings || []
 
     return (
-        <div className="space-y-6 animate-fade-in">
+        <div className="space-y-6 stagger-container">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-800 pb-6">
                 <div>
                     <h1 className="text-3xl font-bold text-white tracking-tight">Agenda</h1>

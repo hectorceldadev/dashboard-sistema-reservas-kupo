@@ -56,6 +56,20 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
         }
     }, [addState, editState])
 
+    useEffect(() => {
+        if (isEditModalOpen || isAddModalOpen) {
+            document.body.style.overflow = 'hidden'
+            return
+        }
+        if (!isEditModalOpen) {
+            document.body.style.overflow = 'unset'
+            return
+        }
+        if (!isAddModalOpen) {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isEditModalOpen, isAddModalOpen])
+
     const handleEditClick = (member: TeamMember) => {
         setEditingMember(member)
         setIsEditModalOpen(true)
@@ -78,7 +92,7 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
 
     return (
         <>
-            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 stagger-container">
                 {members.map((member) => {
                     const canEditThisMember = currentUserRole === 'admin' || currentUserId === member.id;
                     const isDropdownOpen = activeDropdownId === member.id;
@@ -166,9 +180,9 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
 
             {/* MODAL 1: AÑADIR NUEVO MIEMBRO */}
             {isAddModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in stagger-container">
                     <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-lg shadow-2xl flex flex-col max-h-[90vh]">
-                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
+                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50 rounded-t-3xl">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Nuevo Miembro</h3>
                                 <p className="text-sm text-zinc-400">Invita a un compañero a tu equipo.</p>
@@ -208,7 +222,7 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
                                     <textarea name="description" rows={2} className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none resize-none" />
                                 </div>
                             </div>
-                            <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3 mt-auto">
+                            <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3 mt-auto rounded-b-3xl">
                                 <button type="button" onClick={() => setIsAddModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold cursor-pointer">Cancelar</button>
                                 <SubmitButton />
                             </div>
@@ -219,9 +233,9 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
 
             {/* MODAL 2: EDITAR PERFIL */}
             {isEditModalOpen && editingMember && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 stagger-container">
                     <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-lg shadow-2xl flex flex-col max-h-[90vh]">
-                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
+                        <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50 rounded-t-3xl">
                             <div>
                                 <h3 className="text-xl font-bold text-white">Editar Perfil</h3>
                                 <p className="text-sm text-zinc-400">Editando a: <span className="text-white font-medium">{editingMember.full_name}</span></p>
@@ -277,7 +291,7 @@ export default function VistaEquipo({ members, currentUserRole, currentUserId }:
                                 </div>
                             </div>
 
-                            <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3 mt-auto">
+                            <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3 mt-auto rounded-b-3xl">
                                 <button type="button" onClick={() => setIsEditModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold cursor-pointer">Cancelar</button>
                                 <SaveEditButton />
                             </div>

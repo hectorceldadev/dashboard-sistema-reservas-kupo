@@ -51,7 +51,7 @@ export function EquipoManager({ members, currentUserRole, currentUserId }: Equip
     <div className="space-y-8 animate-fade-in">
       
       {/* HEADER & TABS */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-zinc-800 pb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-zinc-800 pb-8 stagger-container">
         <div>
            <h1 className="text-2xl font-bold text-white">Gestión de Equipo</h1>
            <p className="text-zinc-400 mt-2">Administra los permisos, roles y turnos de trabajo.</p>

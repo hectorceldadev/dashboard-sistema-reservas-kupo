@@ -34,8 +34,8 @@ export default async function SettingsPage () {
     if (!business) return <div>No se encontró el negocio</div>
 
     return (
-    <div className="max-w-2xl mx-auto space-y-8 animate-fade-in py-6">
-      <div className="border-b border-zinc-800 pb-6">
+    <div className="max-w-2xl mx-auto space-y-8 animate-fade-in py-6 stagger-container">
+      <div className="border-b border-zinc-800 pb-6 stagger-container">
         <h1 className="text-3xl font-bold text-white">Configuración</h1>
         <p className="text-zinc-400 mt-2">
           Actualiza la información pública de tu establecimiento.

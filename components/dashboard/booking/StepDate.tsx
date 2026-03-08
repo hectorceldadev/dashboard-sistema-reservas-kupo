@@ -86,14 +86,14 @@ const StepDate = ({ booking, setBooking }: StepDateProps) => {
     }
 
     return (
-        <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
+        <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 stagger-container">
             
             <div className="flex flex-col items-start">
                 <h3 className="text-white font-bold text-xl">¿Cuándo nos vemos?</h3>
                 <p className="text-zinc-400 text-md">Selecciona el día y la hora de la cita.</p>
             </div>
 
-            <div className="bg-zinc-900 p-4 rounded-xl shadow-lg border border-zinc-800 flex justify-center">
+            <div className="bg-zinc-900 p-2 rounded-xl shadow-lg border border-zinc-800 flex justify-center">
                 <DayPicker
                     mode="single"
                     selected={booking.date}

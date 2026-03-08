@@ -96,7 +96,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
     )
 
     return (
-        <div className="space-y-8 animate-fade-in pb-10">
+        <div className="space-y-8 animate-fade-in pb-10 stagger-container">
 
             {/* HEADER & ACTIONS */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -134,7 +134,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl shadow-black/20">
 
                     {/* --- VISTA MÓVIL (Tarjetas) --- */}
-                    <div className="block md:hidden divide-y divide-zinc-800/50">
+                    <div className="block md:hidden divide-y divide-zinc-800/50 stagger-container">
                         {filteredCustomers.map((customer) => (
                             <div
                                 key={customer.id}
@@ -165,13 +165,13 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider">
+                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider stagger-container">
                                     <th className="px-6 py-4 rounded-tl-2xl">Cliente</th>
                                     <th className="px-6 py-4">Teléfono</th>
                                     <th className="pr-30 py-4 text-center">Email</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-zinc-800/50 text-sm">
+                            <tbody className="divide-y divide-zinc-800/50 text-sm stagger-container">
                                 {filteredCustomers.map((customer) => (
                                     <tr
                                         key={customer.id}

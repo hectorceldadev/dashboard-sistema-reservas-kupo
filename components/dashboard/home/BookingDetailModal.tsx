@@ -4,6 +4,7 @@ import { formatInTimeZone } from 'date-fns-tz'
 import { es } from 'date-fns/locale'
 import { X, Calendar, User, Scissors, AlertTriangle, Clock, CreditCard, Loader } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 interface BookingDetailsModalProps {
     booking: any
@@ -40,6 +41,13 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
         ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm')
         : '--:--'
 
+    useEffect(() => {
+        document.body.style.overflow = 'hidden'
+        return () => {
+            document.body.style.overflow = 'unset'
+        }
+    }, [])
+
     // Intentar parsear la fecha de forma segura
     let dateObj = new Date()
     try {
@@ -54,12 +62,12 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
     }
 
     return (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 stagger-container">
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" onClick={onClose} />
 
             {/* Contenedor Modal */}
-            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
+            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[90vh] stagger-container">
 
                 {/* Header Modal (Centrado en el cliente) */}
                 <div className="py-4 px-6 relative flex flex-col items-center justify-center shrink-0 border-b border-zinc-800 bg-zinc-950/50">

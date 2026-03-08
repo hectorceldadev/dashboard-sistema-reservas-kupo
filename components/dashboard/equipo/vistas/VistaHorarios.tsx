@@ -80,6 +80,24 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
         }
     }, [selectedMemberId])
 
+    useEffect(() => {
+        if (isScheduleModalOpen) {
+            document.body.style.overflow = 'hidden'
+        }
+        if (!isScheduleModalOpen) {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isScheduleModalOpen])
+
+    useEffect(() => {
+        if (isBlockModalOpen) {
+            document.body.style.overflow = 'hidden'
+        }
+        if (!isBlockModalOpen) {
+            document.body.style.overflow = 'unset'
+        }
+    }, [isBlockModalOpen])
+
     const formatDateTime = (dateString: string) => {
         return new Date(dateString).toLocaleString('es-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
     }
@@ -92,7 +110,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
     const limiteMaximo = '2099-12-31T23:59'
 
     return (
-        <div className="animate-fade-in space-y-6">
+        <div className="animate-fade-in space-y-6 stagger-container">
 
             {/* BARRA SUPERIOR */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-zinc-900 border border-zinc-800 p-4 rounded-3xl relative z-20">
@@ -117,7 +135,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                         <>
                             <div className="fixed inset-0 z-10 cursor-pointer" onClick={() => setIsDropdownOpen(false)}></div>
                             <div className="absolute top-full mt-2 left-0 w-full bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2">
-                                <div className="max-h-60 overflow-y-auto custom-scrollbar p-2 space-y-1">
+                                <div className="max-h-60 overflow-y-auto custom-scrollbar p-2 space-y-1 stagger-container">
                                     {members.map(member => (
                                         <button
                                             key={member.id}
@@ -136,13 +154,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 <div className="flex items-center p-1.5 bg-zinc-950 border border-zinc-800 rounded-xl w-full md:w-auto overflow-x-auto custom-scrollbar">
                     <button
                         onClick={() => setActiveView('schedule')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs md:text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <Clock className="w-4 h-4" /> <span>Horario Base</span>
                     </button>
                     <button
                         onClick={() => setActiveView('blocks')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs md:text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <CalendarRange className="w-4 h-4" /> <span>Ausencias y Bloqueos</span>
                     </button>
@@ -157,11 +175,11 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                         <p className="text-sm font-medium animate-pulse">Cargando agenda de {selectedMember?.full_name.split(' ')[0]}...</p>
                     </div>
                 ) : (
-                    <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    <div className="">
 
                         {/* VISTA 1: HORARIO BASE */}
                         {activeView === 'schedule' && (
-                            <div>
+                            <div className='stagger-container'>
                                 <div className="mb-6 pb-6 border-b border-zinc-800">
                                     <h2 className="text-xl font-bold text-white flex items-center gap-2">
                                         <Clock className="w-5 h-5 text-yellow-500" /> Planificador Semanal
@@ -169,7 +187,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     <p className="text-sm text-zinc-400 mt-1">Configura los días y turnos fijos de la semana. Pulsa sobre un día para editarlo.</p>
                                 </div>
 
-                                <div className="flex w-full overflow-x-auto pb-4 gap-1 custom-scrollbar snap-x">
+                                <div className="flex w-full overflow-x-auto pb-4 gap-1 custom-scrollbar snap-x stagger-container">
                                     {orderedDays.map(dayIndex => {
                                         const dayName = DAYS_OF_WEEK[dayIndex];
                                         const daySchedule = schedules.find(s => s.day_of_week === dayIndex);
@@ -243,7 +261,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                         {/* VISTA 2: BLOQUEOS Y EXCEPCIONES */}
                         {activeView === 'blocks' && (
-                            <div>
+                            <div className='stagger-container'>
                                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-zinc-800">
                                     <div>
                                         <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -264,7 +282,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Activos / Programados
                                         </h3>
-                                        <div className="space-y-3">
+                                        <div className="space-y-3 stagger-container">
                                             {activeBlocks.length === 0 && (
                                                 <div className="p-6 border border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center text-center">
                                                     <CalendarRange className="w-8 h-8 text-zinc-700 mb-2" />
@@ -336,8 +354,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
             {/* MODAL 1: MODIFICAR HORARIO BASE DEL DÍA */}
             {isScheduleModalOpen && selectedDayIndex !== null && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-                    <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 stagger-container">
+                    <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
                             <div>
                                 <h3 className="text-lg font-bold text-white flex items-center gap-2"><Clock className="w-5 h-5 text-yellow-500" /> Editar Horario</h3>
@@ -504,8 +522,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
             {/* MODAL DE BLOQUEOS (lo dejo como lo tenías) ... */}
             {isBlockModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in">
-                    <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 stagger-container">
+                    <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 rounded-t-3xl bg-zinc-900/50">
                             <div>
                                 <h3 className="text-xl font-bold text-white flex items-center gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>

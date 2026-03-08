@@ -3,7 +3,8 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { X, User, Scissors, ArrowRight, Calendar, Clock } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react' // Añadido useEffect
+import { createPortal } from 'react-dom' // Añadido createPortal
 import BookingDetailsModal from './BookingDetailModal'
 import { formatInTimeZone } from 'date-fns-tz'
 import { cancelBookingAction } from '@/app/dashboard/agenda/actions'
@@ -13,7 +14,6 @@ interface DaySummaryModalProps {
     date: Date
     bookings: any[]
     onClose: () => void
-    // onBookingClick: (booking: any) => void // Lo usaremos para abrir el detalle
 }
 
 const TIMEZONE = 'Europe/Madrid'
@@ -22,20 +22,34 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
 
     const [ selectedBooking, setSelectedBooking ] = useState<any>(null)
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
+    const [ mounted, setMounted ] = useState(false) // Nuevo estado para el portal
     
+    // Configuración del Portal: Solo en el cliente y bloqueando scroll
+    useEffect(() => {
+        setMounted(true)
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'unset';
+        }
+    }, [])
+
     // Filtrar citas solo para este día y ordenarlas por hora
     const dateString = format(date, 'yyyy-MM-dd')
     const dayBookings = bookings
         .filter(b => b.date === dateString)
         .sort((a, b) => a.start_time.localeCompare(b.start_time))
 
-    return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+    // Si no estamos en el navegador aún, no renderizamos el portal
+    if (!mounted) return null
+
+    // Guardamos todo tu diseño en una variable
+    const modalContent = (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4 sm:p-6">
             {/* Backdrop oscuro */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
             
-            {/* Contenedor Modal */}
-            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden animate-in zoom-in-95 duration-300">
+            {/* Contenedor Modal - Añadida animación de entrada */}
+            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-3xl shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 border-b border-zinc-800 bg-zinc-950/80 shrink-0 relative overflow-hidden">
@@ -71,19 +85,16 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                     ) : (
                         <div className="space-y-4">
                             {dayBookings.map((booking) => {
-                                // Lógica de servicios (TicketCard Style)
                                 const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
                                 const firstServiceTitle = itemsList[0]?.service_name || 'Servicio'
                                 const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
                                 
-                                // Formatear hora
                                 const formattedTime = booking.start_time 
                                     ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm') 
                                     : '--:--' 
                                 const formattedEndTime = booking.end_time 
                                     ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') 
                                     : '--:--'
-                                
 
                                 return (
                                     <button 
@@ -93,7 +104,6 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     >
                                         {/* Lado Izquierdo (Hora) */}
                                         <div className="w-20 shrink-0 flex flex-col items-center justify-center gap-0.5 py-4 border-r border-dashed border-zinc-800 bg-zinc-950/50 relative">
-                                            {/* Indicador de estado lateral */}
                                             <div className={`absolute left-0 top-0 bottom-0 w-1 bg-yellow-500`} />
                                             <span className="text-lg font-black text-white leading-none group-hover:text-yellow-500 transition-colors">
                                                 {formattedTime}
@@ -109,7 +119,6 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                                     {booking.customer_name}
                                                 </h3>
                                                 
-                                                {/* Badge: Debe (si aplica) o Pack */}
                                                 {booking.status === 'pending_payment' ? (
                                                     <span className="shrink-0 text-[10px] font-bold bg-orange-500/10 text-orange-500 px-1.5 py-0.5 rounded-md border border-orange-500/20">
                                                         Debe {booking.total_price}€
@@ -164,9 +173,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     const result = await cancelBookingAction(id)
 
                                     if (result.error) {
-                                        // 1. Ocurrió un error grave (ej. fallo en BD)
                                         setIsLoading(false)
-                                        onClose()
                                         sileo.error({
                                             title: 'Error al cancelar la reserva.',
                                             description: result.error
@@ -175,13 +182,13 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                         setIsLoading(false)
                                         sileo.warning({
                                             title: 'Reserva cancelada.',
-                                            description: result.warning // "Cita cancelada pero hubo un error al enviar el correo..."
+                                            description: result.warning
                                         })
                                     } else if (result.success) {
                                         setIsLoading(false)
                                         sileo.success({
                                             title: 'Reserva cancelada con éxito.',
-                                            description: 'El cliente recibira un correo con la cancelación.'
+                                            description: 'El cliente recibirá un correo con la cancelación.'
                                         })
                                         
                                     } else {
@@ -198,4 +205,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
             </div>
         </div>
     )
+
+    // Aquí enviamos el HTML al final de la página web
+    return createPortal(modalContent, document.body)
 }

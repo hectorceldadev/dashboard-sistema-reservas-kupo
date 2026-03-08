@@ -60,7 +60,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
             <div className="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity" onClick={onClose} />
 
             {/* Contenedor Modal */}
-            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
+            <div className="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh] stagger-container">
 
                 {/* Header Modal (Centrado en el cliente) */}
                 <div className="py-4 px-6 relative flex flex-col items-center justify-center shrink-0 border-b border-zinc-800 bg-zinc-950/50">
@@ -193,7 +193,7 @@ export default function BookingDetailsModal({ booking, onClose, onCancel, isLoad
                     ) : (
                         <button
                             onClick={onClose}
-                            className="w-full py-3.5 rounded-xl font-bold text-zinc-900 bg-white hover:bg-zinc-200 transition-colors cursor-pointer"
+                            className="w-full py-3.5 rounded-xl font-bold text-zinc-900 bg-yellow-500 hover:bg-yellow-500/70 transition-colors cursor-pointer"
                         >
                             Cerrar
                         </button>

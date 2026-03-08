@@ -33,7 +33,7 @@ export default function StepStaff({ booking, setBooking, staffList, isLoading }:
   }
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4">
+    <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4 stagger-container">
       
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-white">
@@ -41,7 +41,7 @@ export default function StepStaff({ booking, setBooking, staffList, isLoading }:
         </h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 stagger-container">
         {staffList.map((member: Profile) => {
           const isSelected = booking.staff?.id === member.id;
           const isAny = member.id === 'any';

@@ -38,7 +38,7 @@ export default function StepSummary({ booking }: StepSummaryProps) {
     const endTime = getEndTime(endMins)
 
   return (
-    <div className="h-full overflow-hidden flex flex-col gap-4 animate-in fade-in slide-in-from-right-8 duration-500 pb-4">
+    <div className="h-full overflow-hidden flex flex-col gap-4 animate-in fade-in slide-in-from-right-8 duration-500 p-8 stagger-container">
       
       <div className="flex flex-col items-start mb-2">
         <h3 className="text-white font-bold text-xl">Resumen de la cita</h3>
@@ -46,11 +46,8 @@ export default function StepSummary({ booking }: StepSummaryProps) {
       </div>
 
       {/* Tarjeta de Resumen */}
-      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex flex-col gap-4 shadow-sm relative overflow-hidden">
+      <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 flex flex-col gap-4 shadow-sm relative overflow-hidden stagger-container">
         
-        {/* Decoración del ticket */}
-        <div className="absolute top-1/2 -translate-y-1/2 -left-3 w-6 h-6 bg-zinc-950 rounded-full border-r border-zinc-800" />
-        <div className="absolute top-1/2 -translate-y-1/2 -right-3 w-6 h-6 bg-zinc-950 rounded-full border-l border-zinc-800" />
 
         {/* Cliente */}
         <div className="flex flex-col gap-1 pb-3 border-b border-zinc-800/80">

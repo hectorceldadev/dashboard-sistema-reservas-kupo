@@ -58,10 +58,10 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
   }
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-bottom-4 fade-in duration-500 pb-4">
+    <div className="space-y-6 animate-in slide-in-from-bottom-4 fade-in duration-500 pb-4 stagger-container">
       
       {/* CABECERA */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between stagger-container">
         <h3 className="text-xl font-bold text-white">
             Selecciona servicios
         </h3>
@@ -71,7 +71,7 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
       </div>
       
       {/* GRID DE SERVICIOS */}
-      <div className="grid grid-cols-1 gap-3">
+      <div className="grid grid-cols-1 gap-3 stagger-container">
         {servicesList.map((service) => {
           const isSelected = booking.services?.some((s: Service) => s.id === service.id);
           

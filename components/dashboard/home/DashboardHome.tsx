@@ -9,6 +9,7 @@ import { Member } from "@/lib/types/databaseTypes"
 import { formatInTimeZone } from "date-fns-tz"
 import BookingDetailsModal from "./BookingDetailModal"
 import { cancelBookingAction } from "@/app/dashboard/agenda/actions"
+import { useAdminBooking } from "@/context/AdminBookingContext"
 
 const TIMEZONE = 'Europe/Madrid'
 
@@ -42,6 +43,8 @@ export const DashboardHome = () => {
     const [bookings, setBookings] = useState<any[]>([])
 
     const [selectedBooking, setSelectedBooking] = useState<any | null>(null)
+
+    const { openModal } = useAdminBooking()
 
     const dateOptions: Intl.DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', timeZone: TIMEZONE }
     const todayString = new Date().toLocaleDateString('es-ES', dateOptions)
@@ -213,10 +216,13 @@ export const DashboardHome = () => {
 
                     {/* BOTONERA (Adaptada para pulgares en móvil) */}
                     <div className="col-span-2 col-start-4 flex items-center gap-2 w-full sm:w-auto">
-                        <Link href="/dashboard/agenda" className="flex-1 sm:flex-none h-11 flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-yellow-500/20">
+                        <button 
+                            className="flex-1 sm:flex-none h-11 flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
+                            onClick={openModal}    
+                        >
                             <Plus size={18} />
                             Nueva Cita
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>

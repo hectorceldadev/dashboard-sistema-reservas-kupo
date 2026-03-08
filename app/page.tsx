@@ -197,7 +197,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 bg-zinc-800 rounded-md flex items-center justify-center text-zinc-400 text-xs font-bold">M</div>
             <div className="text-zinc-500 text-sm">
-                © {new Date().getFullYear()} MiSaaS Inc.
+                © {new Date().getFullYear()} Kupo.
             </div>
           </div>
           <div className="flex gap-8">

@@ -27,7 +27,7 @@ export default function LoginPage() {
 
     return (
         // Usamos h-screen y overflow-hidden para garantizar que no haya scroll
-        <div className="h-screen w-full grid lg:grid-cols-2 bg-zinc-950 overflow-hidden">
+        <div className="h-screen w-full grid lg:grid-cols-2 bg-zinc-950 overflow-hidden stagger-container">
 
             {/* COLUMNA IZQUIERDA: Formulario */}
             <div className="flex flex-col justify-center px-6 py-12 md:px-12 lg:px-24 relative h-full">
@@ -35,7 +35,7 @@ export default function LoginPage() {
                 <div className="absolute top-0 left-0 w-full h-full bg-radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops)) from-zinc-900/40 via-zinc-950 to-zinc-950 -z-10" />
 
                 {/* AUMENTADO: Ancho máximo de 400px a 480px y más espaciado vertical */}
-                <div className="w-full max-w-480px mx-auto space-y-8">
+                <div className="w-full max-w-480px mx-auto space-y-8 stagger-container">
                     
                     {/* Header: Tamaños aumentados */}
                     <div className="space-y-4">
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 <div className="absolute bottom-0 right-0 w-500px h-500px bg-yellow-600/10 rounded-full blur-[120px] translate-y-1/2 translate-x-1/2" />
 
                 {/* 3. Contenedor Central Flotante */}
-                <div className="relative z-10 w-full max-w-md">
+                <div className="relative z-10 w-full max-w-md stagger-container">
 
                     {/* Tarjeta Visual Abstracta (Simulación de Dashboard) */}
                     <div className="bg-zinc-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/50 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500">

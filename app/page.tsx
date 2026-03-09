@@ -23,7 +23,6 @@ export default function LandingPage() {
                   width={50}
                 />
             </Link>
-            <span className="font-bold text-xl tracking-tight text-white">kupo</span>
           </div>
           <div className="flex items-center gap-6">
             <Link 

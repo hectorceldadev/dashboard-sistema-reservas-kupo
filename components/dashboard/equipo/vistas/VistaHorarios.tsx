@@ -546,7 +546,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-[90%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
+                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
                                         />
                                     </div>
                                     <div className="space-y-2 flex flex-col justify-center items-center">
@@ -560,7 +560,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-[90%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
+                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">

@@ -99,13 +99,13 @@ export function Clientes({ customers }: { customers: Customer[] }) {
         <div className="space-y-8 animate-fade-in pb-10 stagger-container">
 
             {/* HEADER & ACTIONS */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Directorio de Clientes</h1>
                     <p className="text-zinc-400 mt-1 text-sm sm:text-base">Gestiona tu base de datos y fideliza a tus clientes.</p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                     <div className="relative group flex-1 sm:min-w-[320px]">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-yellow-500 transition-colors" />
                         <input
@@ -134,7 +134,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl shadow-black/20">
 
                     {/* --- VISTA MÓVIL (Tarjetas) --- */}
-                    <div className="block md:hidden divide-y divide-zinc-800/50 stagger-container">
+                    <div className="block lg:hidden divide-y divide-zinc-800/50 stagger-container">
                         {filteredCustomers.map((customer) => (
                             <div
                                 key={customer.id}
@@ -162,7 +162,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     </div>
 
                     {/* --- VISTA ESCRITORIO (Tabla Clásica) --- */}
-                    <div className="hidden md:block overflow-x-auto">
+                    <div className="hidden lg:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
                                 <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider stagger-container">

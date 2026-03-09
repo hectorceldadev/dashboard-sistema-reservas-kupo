@@ -61,7 +61,7 @@ export const DashboardHome = () => {
                 if (response.success) {
                     setMembers(response.profiles)
                     setIsAdmin(response.isAdmin)
-                    const defaultId = response.profiles.some(p => p.id === response.currentUserId) 
+                    const defaultId = response.profiles.some(p => p.id === response.currentUserId)
                         ? response.currentUserId
                         : (response.profiles[0].id || null)
                     setSelectedMemberId(defaultId)
@@ -107,7 +107,7 @@ export const DashboardHome = () => {
 
     if (isLoading && !memberInfo.name) {
         return (
-            <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8 pb-10 animate-pulse">
+            <div className="max-w-5xl mx-auto space-y-6 lg:space-y-8 pb-10 animate-pulse">
                 {/* --- 1. HEADER SKELETON --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 border-b border-zinc-800 pb-5 sm:pb-6">
                     <div>
@@ -118,7 +118,7 @@ export const DashboardHome = () => {
                     <div className="grid grid-cols-5 justify-center items-center gap-3 w-full lg:w-auto mt-2 lg:mt-0">
                         {/* Selector falso */}
                         <div className="w-full sm:w-48 h-11 bg-zinc-800/50 rounded-xl col-span-3"></div>
-                        
+
                         {/* Botones falsos */}
                         <div className="col-span-2 col-start-4 flex items-center gap-2 w-full sm:w-auto">
                             <div className="hidden sm:block w-11 h-11 bg-zinc-800/50 rounded-xl shrink-0"></div>
@@ -162,7 +162,7 @@ export const DashboardHome = () => {
                     <div className="h-4 w-32 bg-zinc-800/60 rounded-md mb-3 sm:mb-4"></div>
                     <div className="bg-zinc-900 border border-zinc-800/50 rounded-xl sm:rounded-3xl p-3 sm:p-6 space-y-4 sm:space-y-6 min-h-[200px] flex flex-col relative">
                         <div className="absolute left-[39px] sm:left-[61px] top-6 bottom-6 w-[2px] bg-zinc-800/50 rounded-full" />
-                        
+
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="flex items-center gap-3 sm:gap-4 relative z-10">
                                 <div className="w-[45px] sm:w-[60px] shrink-0 flex justify-end">
@@ -199,11 +199,11 @@ export const DashboardHome = () => {
 
                     {/* SELECTOR DE MIEMBRO */}
                     {isAdmin && members.length > 0 && (
-                        <div className="relative w-full sm:w-auto col-span-3">
+                        <div className="relative w-full lg:w-auto col-span-3">
                             <select
                                 value={selectedMemberId || ''}
                                 onChange={(e) => setSelectedMemberId(e.target.value)}
-                                className="w-full sm:w-48 appearance-none bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl text-sm font-medium outline-none transition-colors cursor-pointer"
+                                className="w-full lg:w-48 appearance-none bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl text-sm font-medium outline-none transition-colors cursor-pointer"
                             >
                                 {members.map(p => (
                                     <option key={p.id} value={p.id}>
@@ -214,12 +214,24 @@ export const DashboardHome = () => {
                             <ChevronDown size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 pointer-events-none" />
                         </div>
                     )}
+                    {
+                        !isAdmin &&
+                        <div className="relative w-full lg:w-auto col-span-3">
+                            <div
+                                className="w-full lg:w-48 flex justify-center items-center bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl text-sm font-medium outline-none transition-colors cursor-pointer"
+                            >
+                                {memberInfo.name}
+                            </div>
+
+                        </div>
+
+                    }
 
                     {/* BOTONERA (Adaptada para pulgares en móvil) */}
-                    <div className="col-span-2 col-start-4 flex items-center gap-2 w-full sm:w-auto">
-                        <button 
-                            className="flex-1 sm:flex-none h-11 flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
-                            onClick={openModal}    
+                    <div className="col-span-2 col-start-4 flex items-center gap-2 w-full lg:w-auto">
+                        <button
+                            className="flex-1 lg:flex-none h-11 flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
+                            onClick={openModal}
                         >
                             <Plus size={18} />
                             Nueva Cita
@@ -269,7 +281,7 @@ export const DashboardHome = () => {
                     <Clock size={16} className="text-yellow-500" /> Tu Próxima Cita
                 </h2>
                 {nextBooking ? (
-                    <div 
+                    <div
                         onClick={() => setSelectedBooking(nextBooking)}
                         className="relative bg-zinc-900 border border-yellow-500/30 rounded-xl sm:rounded-3xl p-4 sm:p-6 overflow-hidden group cursor-pointer">
                         <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-yellow-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
@@ -297,7 +309,7 @@ export const DashboardHome = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button 
+                            <button
                                 className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2.5 sm:py-2 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
                                 onClick={() => setSelectedBooking(nextBooking)}
                             >
@@ -330,8 +342,8 @@ export const DashboardHome = () => {
                                     const isNext = nextBooking?.id === booking.id
 
                                     return (
-                                        <div 
-                                            key={booking.id} 
+                                        <div
+                                            key={booking.id}
                                             onClick={() => setSelectedBooking(booking)}
                                             className="flex items-stretch gap-3 sm:gap-4 relative cursor-pointer group">
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Plus, Search, Scissors, Clock, DollarSign, Edit2, Trash2, X, Check, Sparkles, AlignLeft, LoaderCircle } from 'lucide-react'
+import { Plus, Search, Scissors, Clock, Edit2, Trash2, X, Check, Sparkles, AlignLeft, LoaderCircle, Euro } from 'lucide-react'
 import { sileo } from 'sileo'
 import { createService, deleteService, updateService } from '@/app/dashboard/servicios/actions'
 
@@ -158,14 +158,14 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
         <div className="space-y-8 animate-in fade-in duration-300 pb-10 stagger-container">
             
             {/* Cabecera */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 stagger-container">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 stagger-container">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Servicios</h1>
                     <p className="text-zinc-400 mt-1 text-sm sm:text-base">Configura los servicios que ofreces, precios y duraciones.</p>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <div className="relative group flex-1 sm:min-w-[300px]">
+                <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                    <div className="relative group flex-1 lg:min-w-[300px]">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-yellow-500 transition-colors" />
                         <input 
                             type="text" 
@@ -228,7 +228,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                 <div className="flex items-center justify-between text-sm bg-zinc-950/50 p-3.5 rounded-lg border border-zinc-800/50">
                                     <div className="flex items-center gap-4 text-zinc-400">
                                         <span className="flex items-center gap-1.5"><Clock size={14} className="text-zinc-500" /> {service.duration} min</span>
-                                        <span className="flex items-center gap-1.5 font-bold text-yellow-500"><DollarSign size={14} /> {service.price}€</span>
+                                        <span className="flex items-center gap-1.5 font-bold text-yellow-500"><Euro size={14} /> {service.price}€</span>
                                     </div>
                                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${service.is_active ? 'bg-emerald-500/10 text-emerald-500' : 'bg-zinc-800 text-zinc-500'}`}>
                                         {service.is_active ? 'Activo' : 'Inactivo'}
@@ -349,7 +349,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     <span className="text-[10px] text-zinc-500 uppercase font-bold mt-1 tracking-wider">Duración</span>
                                 </div>
                                 <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-2xl flex flex-col items-center text-center relative overflow-hidden">
-                                    <DollarSign size={18} className="text-yellow-500 mb-2 relative z-10" />
+                                    <Euro size={18} className="text-yellow-500 mb-2 relative z-10" />
                                     <span className="text-lg font-black text-yellow-500 relative z-10">{selectedService.price}€</span>
                                     <span className="text-[10px] text-yellow-500/80 uppercase font-bold mt-1 tracking-wider relative z-10">Precio Base</span>
                                 </div>
@@ -458,7 +458,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                 <div className="space-y-2">
                                     <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Precio (€) *</label>
                                     <div className="relative">
-                                        <DollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+                                        <Euro className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
                                         <input 
                                             type="number" 
                                             value={formData.price || ''}

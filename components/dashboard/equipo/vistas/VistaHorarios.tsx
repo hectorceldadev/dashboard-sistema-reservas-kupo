@@ -386,22 +386,22 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className={`transition-opacity ${!memberSchedule.is_working ? 'opacity-50 pointer-events-none' : ''}`}>
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
+                                        <div className="space-y-2 flex flex-col justify-center items-center">
                                             <label className="text-xs font-bold text-zinc-500 uppercase">Entrada</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.start_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, start_time: e.target.value })}
-                                                className="w-[50%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                             />
                                         </div>
-                                        <div className="space-y-2">
+                                        <div className="space-y-2 flex flex-col justify-center items-center">
                                             <label className="text-xs font-bold text-zinc-500 uppercase">Salida</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.end_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, end_time: e.target.value })}
-                                                className="w-[50%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                             />
                                         </div>
                                     </div>
@@ -435,22 +435,22 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                     {hasBreak && (
                                         <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-top-2">
-                                            <div className="space-y-2">
+                                            <div className="space-y-2 flex flex-col justify-center items-center">
                                                 <label className="text-xs font-bold text-zinc-500 uppercase">Inicio Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_start || ''}
                                                     onChange={(e) => setMemberSchedule({ ...memberSchedule, break_start: e.target.value })}
-                                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                                 />
                                             </div>
-                                            <div className="space-y-2">
+                                            <div className="space-y-2 flex flex-col justify-center items-center">
                                                 <label className="text-xs font-bold text-zinc-500 uppercase">Fin Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_end || ''}
                                                     onChange={(e) => setMemberSchedule({ ...memberSchedule, break_end: e.target.value })}
-                                                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                                                 />
                                             </div>
                                         </div>
@@ -536,7 +536,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 <input type="hidden" name="staff_id" value={selectedMemberId || ''} />
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 flex flex-col justify-center items-center">
                                         <label className="text-xs font-bold text-zinc-500 uppercase">Inicio</label>
                                         <input 
                                             name="start_date" 
@@ -546,10 +546,10 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
+                                            className="w-[90%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
                                         />
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 flex flex-col justify-center items-center">
                                         <label className="text-xs font-bold text-zinc-500 uppercase">Fin</label>
                                         <input 
                                             name="end_date" 
@@ -560,7 +560,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
+                                            className="w-[90%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">

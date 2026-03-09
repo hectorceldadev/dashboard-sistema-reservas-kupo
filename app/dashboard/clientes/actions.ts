@@ -75,7 +75,7 @@ export async function getCustomerData (customerId: string) {
                 `)
             .eq('customer_id', customerId)
             .eq('business_id', profile.business_id)
-            .order('start_time', { ascending: true })
+            .order('start_time', { ascending: false })
 
         if (errorBookings) {
           console.log("🔥 ERROR RLS EN BOOKINGS/PROFILES:", errorBookings)  

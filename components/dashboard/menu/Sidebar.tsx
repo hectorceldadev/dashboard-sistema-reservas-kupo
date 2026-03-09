@@ -67,7 +67,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
       {/* ========================================== */}
       {/* 💻 VISTA ESCRITORIO (Sidebar Izquierdo) */}
       {/* ========================================== */}
-      <aside className="hidden md:flex flex-col w-64 bg-zinc-950 border-r border-white/5 h-screen fixed left-0 top-0 z-40 shadow-2xl shadow-black/50">
+      <aside className="hidden lg:flex flex-col w-64 bg-zinc-950 border-r border-white/5 h-screen fixed left-0 top-0 z-40 shadow-2xl shadow-black/50">
         
         {/* Header del Sidebar */}
         <div className="h-24 flex items-center px-8 border-b border-white/5">
@@ -127,7 +127,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
       {/* ========================================== */}
       {/* 📱 VISTA MÓVIL (Bottom Navigation Bar) */}
       {/* ========================================== */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 z-40 pb-safe">
+      <nav className="lg:hidden fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 z-40 pb-safe">
         <div className="flex items-center justify-around px-2 py-2">
             
             {/* Items Principales */}
@@ -158,7 +158,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
       {/* 📱 PANEL "MÁS" MÓVIL (Bottom Sheet) */}
       {/* ========================================== */}
       {isMobileMenuOpen && (
-          <div className="md:hidden fixed inset-0 z-50 flex flex-col justify-end">
+          <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end">
               {/* Fondo oscuro desenfocado */}
               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />
               

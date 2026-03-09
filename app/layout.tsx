@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     // "default": Fondo blanco con texto negro.
     // "black": Fondo negro con texto blanco.
     // "black-translucent": La app ocupa toda la pantalla por debajo de la hora/batería (estilo nativo moderno).
-    statusBarStyle: "black-translucent", 
+    statusBarStyle: "black", 
   },
 };
 

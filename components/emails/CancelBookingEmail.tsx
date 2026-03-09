@@ -1,16 +1,4 @@
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Html,
-  Preview,
-  Section,
-  Text,
-  Tailwind,
-  Hr,
-  Img
-} from '@react-email/components';
+import { Body, Container, Head, Heading, Html, Preview, Section, Text, Tailwind, Hr, Img } from '@react-email/components';
 import * as React from 'react';
 
 interface CancelBookingEmailProps {

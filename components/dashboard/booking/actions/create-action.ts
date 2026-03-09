@@ -4,6 +4,11 @@ import { createClient } from "@/utils/supabase/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js"; // <-- Importamos el cliente normal para el Admin
 import { revalidatePath } from "next/cache";
 import { fromZonedTime } from "date-fns-tz";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+import { Resend } from "resend";
+import React from "react";
+import BookingEmail from "@/components/emails/BookingEmail";
 // import { format } from "date-fns"; // Descomentar cuando actives notificaciones
 // import { es } from "date-fns/locale"; // Descomentar cuando actives notificaciones
 
@@ -12,6 +17,8 @@ const timeToMins = (time: string) => {
     const [h, m] = time.split(':').map(Number);
     return h * 60 + m;
 }
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Interfaz estricta para los parámetros de entrada del modal
 interface CreateManualBookingParams {
@@ -35,12 +42,28 @@ export async function createManualBookingAction(params: CreateManualBookingParam
         // Obtenemos el business_id del admin logueado
         const { data: profile } = await supabase
             .from('profiles')
-            .select('business_id')
+            .select(`
+                role,
+                business_id,
+                businesses (
+                    name,
+                    address,
+                    logo_url
+                )
+                `)
             .eq('id', user.id)
             .single();
 
         if (!profile?.business_id) return { error: 'Error obteniendo datos del negocio.' };
         const businessId = profile.business_id;
+        
+        const businessData = Array.isArray(profile.businesses)
+            ? profile.businesses[0]
+            : profile.businesses
+
+        const localName = businessData?.name || 'Nuestro Local'
+        const localAddress = businessData?.address || 'Dirección no disponible'
+        const localLogo = businessData?.logo_url || ''
 
         // Validación básica
         if (!bookingDate || !bookingTime || !staffId || !services || services.length === 0 || !client.name) {
@@ -274,29 +297,47 @@ export async function createManualBookingAction(params: CreateManualBookingParam
         // ---> ACTUALIZA LA AGENDA AUTOMÁTICAMENTE <---
         revalidatePath('/dashboard/agenda');
 
+        const { data: staffName } = await supabase
+            .from('profiles')
+            .select('full_name')
+            .eq('id', assignedStaffId)
+            .single()
 
-        // 8. NOTIFICACIONES AL CLIENTE (Descomentar en el futuro)
-        // if (client.email && client.email.trim() !== '') {
-        //     const serviceNames = dbServices.map(s => s.title);
-        //     const staffName = newBooking.staff?.full_name || 'El equipo';
-        //     const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es });
-        //     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        if (client.email && client.email.trim() !== '') {
+            const sendEmail = async () => {
+                try {
+                    const serviceNames = dbServices.map(s => s.title)
+                    const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM")
+                    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+                    const emailComponent = React.createElement(BookingEmail, {
+                        customerName: client.name,
+                        date: formattedDate,
+                        time: bookingTime,
+                        services: serviceNames,
+                        totalPrice: safeTotalPrice,
+                        staffName: staffName?.full_name,
+                        businessName: localName,
+                        businessAddress: localAddress,
+                        logoUrl: localLogo,
+                        cancelLink: `${appUrl}/mis-reservas`,
+                        businessMap: `https://maps.google.com/?q=${encodeURIComponent(localAddress)}`
+                    })
 
-        //     // Disparamos en segundo plano sin bloquear el retorno
-        //     Promise.allSettled([
-        //         fetch(`${appUrl}/api/emails`, {
-        //             method: 'POST',
-        //             headers: {'Content-Type': 'application/json'},
-        //             body: JSON.stringify({
-        //                 customerName: client.name, 
-        //                 email: client.email, 
-        //                 date: format(new Date(bookingDate), 'dd/MM/yyyy'), 
-        //                 time: bookingTime, 
-        //                 services: serviceNames, 
-        //                 price: safeTotalPrice, 
-        //                 staffName: staffName,
-        //             })
-        //         }),
+                    await resend.emails.send({
+                        from: 'Reservas Kupo <onboarding@resend.dev>', //* CAMBIAR AL VERIFICAR TU DOMINIO
+                        to: [client.email],
+                        subject: `Tu cita en ${localName} ha sido cancelada`,
+                        react: emailComponent 
+                    })
+
+                    console.log('Correo enviado correctamente a: ', client.email)
+                } catch (error) {
+                    console.error('Error al enviar el correo: ', error)
+                }
+            }
+            sendEmail()
+        }
+
         //         fetch(`${appUrl}/api/notifications/send`, {
         //             method: 'POST',
         //             headers: {'Content-Type': 'application/json'},

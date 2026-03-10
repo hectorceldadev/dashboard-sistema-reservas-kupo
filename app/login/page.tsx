@@ -160,13 +160,13 @@ export default function LoginPage() {
                             <div className="grid grid-cols-2 gap-3 pt-2">
                                 <div className="bg-zinc-950/50 rounded-xl p-3 border border-white/5">
                                     <div className="text-zinc-500 text-xs mb-1">Clientes hoy</div>
-                                    <div className="text-white font-mono font-bold text-lg flex items-center gap-2">
+                                    <div className="text-emerald-500 font-mono font-bold text-lg flex items-center gap-2">
                                         +42 <span className="text-emerald-500 text-[10px] bg-emerald-500/10 px-1.5 py-0.5 rounded-full">▲ 12%</span>
                                     </div>
                                 </div>
                                 <div className="bg-zinc-950/50 rounded-xl p-3 border border-white/5">
                                     <div className="text-zinc-500 text-xs mb-1">Ingresos</div>
-                                    <div className="font-mono flex items-center gap-2 font-bold text-lg">
+                                    <div className="font-mono text-emerald-500 flex items-center gap-2 font-bold text-lg">
                                         2400€ <span className="text-emerald-500 text-[10px] bg-emerald-500/10 px-1.5 py-0.5 rounded-full">▲ 46%</span>
                                     </div>
                                 </div>

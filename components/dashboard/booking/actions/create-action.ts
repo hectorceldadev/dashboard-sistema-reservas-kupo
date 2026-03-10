@@ -304,12 +304,22 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             .single()
 
         if (client.email && client.email.trim() !== '') {
-            const sendEmail = async () => {
-                try {
-                    const serviceNames = dbServices.map(s => s.title)
-                    const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM")
-                    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-                    const emailComponent = React.createElement(BookingEmail, {
+            const DASHBOARD_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'
+            const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
+
+            const serviceNames = dbServices.map(s => s.title)
+            const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es })
+
+            try {
+                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.API_SECRET_KEY}`
+                    },
+                    body: JSON.stringify({
+                        type: 'booking_confirmation',
+                        email: client.email,
                         customerName: client.name,
                         date: formattedDate,
                         time: bookingTime,
@@ -319,37 +329,13 @@ export async function createManualBookingAction(params: CreateManualBookingParam
                         businessName: localName,
                         businessAddress: localAddress,
                         logoUrl: localLogo,
-                        cancelLink: `${appUrl}/mis-reservas`,
-                        businessMap: `https://maps.google.com/?q=${encodeURIComponent(localAddress)}`
+                        appUrl: FRONTEND_URL 
                     })
-
-                    await resend.emails.send({
-                        from: 'Reservas Kupo <onboarding@resend.dev>', //* CAMBIAR AL VERIFICAR TU DOMINIO
-                        to: [client.email],
-                        subject: `Tu cita en ${localName} ha sido cancelada`,
-                        react: emailComponent 
-                    })
-
-                    console.log('Correo enviado correctamente a: ', client.email)
-                } catch (error) {
-                    console.error('Error al enviar el correo: ', error)
-                }
+                })
+            } catch (error) {
+                console.error('Error al comunicar con el dispatcher desde el server action: ', error)
             }
-            sendEmail()
         }
-
-        //         fetch(`${appUrl}/api/notifications/send`, {
-        //             method: 'POST',
-        //             headers: {'Content-Type': 'application/json'},
-        //             body: JSON.stringify({
-        //                 email: client.email,
-        //                 title: '✅ ¡Reserva Confirmada!',
-        //                 message: `Hola ${client.name}, tu cita es el ${formattedDate} a las ${bookingTime}`,
-        //                 url: `${appUrl}/reserva`
-        //             })
-        //         })
-        //     ]).catch(err => console.error('Error notificaciones:', err));
-        // }
 
         return { success: true, bookingId: newBooking.id };
 

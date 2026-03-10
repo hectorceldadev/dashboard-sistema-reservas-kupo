@@ -10,16 +10,16 @@ import { getRole } from "./actions"
 
 // 1. Dividimos el menú en principal (barra inferior) y secundario (panel "Más")
 const MAIN_MENU = [
-  { href: "/dashboard", label: "Inicio", icon: LayoutDashboard },
-  { href: "/dashboard/agenda", label: "Agenda", icon: CalendarDays },
-  { href: "/dashboard/clientes", label: "Clientes", icon: Users },
+    { href: "/dashboard", label: "Inicio", icon: LayoutDashboard },
+    { href: "/dashboard/agenda", label: "Agenda", icon: CalendarDays },
+    { href: "/dashboard/equipo", label: "Equipo", icon: Briefcase },
 ]
 
 const MORE_MENU = [
-  { href: "/dashboard/equipo", label: "Equipo", icon: Briefcase },
-  { href: "/dashboard/servicios", label: "Servicios", icon: Scissors },
-  { href: "/dashboard/negocio", label: "Negocio", icon: Store },
-  { href: "/dashboard/ajustes", label: "Ajustes", icon: Settings },
+    { href: "/dashboard/clientes", label: "Clientes", icon: Users },
+    { href: "/dashboard/servicios", label: "Servicios", icon: Scissors },
+    { href: "/dashboard/negocio", label: "Negocio", icon: Store },
+    { href: "/dashboard/ajustes", label: "Ajustes", icon: Settings },
 ]
 
 // Rutas restringidas a Admins

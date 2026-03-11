@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, X } from "lucide-react"
+import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, Download } from "lucide-react"
 import { signOut } from "@/app/login/actions"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -31,186 +31,184 @@ const ADMIN_ONLY_ROUTES = [
 ]
 
 export function Sidebar({ businessName }: { businessName: string }) {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [role, setRole] = useState<string | null>(null)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // Estado para el panel "Más"
-  
-  const pathname = usePathname()
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [role, setRole] = useState<string | null>(null)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // Estado para el panel "Más"
 
-  usePWA()
+    const pathname = usePathname()
 
-  useEffect(() => {
-    const fetchRole = async () => {
-      try {
-        setIsLoading(true)
-        const response = await getRole()
-        if (response.success && response.role) {
-            setRole(response.role)
+    const { isInstallable, installPWA } = usePWA()
+
+    useEffect(() => {
+        const fetchRole = async () => {
+            try {
+                setIsLoading(true)
+                const response = await getRole()
+                if (response.success && response.role) {
+                    setRole(response.role)
+                }
+            } catch (error) {
+                console.error('Error: ', error)
+            } finally {
+                setIsLoading(false)
+            }
         }
-      } catch (error) {
-        console.error('Error: ', error)
-      } finally {
-        setIsLoading(false)
-      }
+        fetchRole()
+    }, [])
+
+    // Función auxiliar para saber si el usuario puede ver un item
+    const canView = (href: string) => {
+        if (role !== 'admin' && ADMIN_ONLY_ROUTES.includes(href)) return false;
+        return true;
     }
-    fetchRole()
-  }, [])
 
-  // Función auxiliar para saber si el usuario puede ver un item
-  const canView = (href: string) => {
-      if (role !== 'admin' && ADMIN_ONLY_ROUTES.includes(href)) return false;
-      return true;
-  }
+    // Unimos todos para la vista de PC (Desktop)
+    const ALL_MENU = [...MAIN_MENU, ...MORE_MENU]
 
-  // Unimos todos para la vista de PC (Desktop)
-  const ALL_MENU = [...MAIN_MENU, ...MORE_MENU]
+    return (
+        <>
+            {/* ========================================== */}
+            {/* 💻 VISTA ESCRITORIO (Sidebar Izquierdo) */}
+            {/* ========================================== */}
+            <aside className="hidden lg:flex flex-col w-64 bg-zinc-950 border-r border-white/5 h-screen fixed left-0 top-0 z-40 shadow-2xl shadow-black/50">
 
-  return (
-    <>
-      {/* ========================================== */}
-      {/* 💻 VISTA ESCRITORIO (Sidebar Izquierdo) */}
-      {/* ========================================== */}
-      <aside className="hidden lg:flex flex-col w-64 bg-zinc-950 border-r border-white/5 h-screen fixed left-0 top-0 z-40 shadow-2xl shadow-black/50">
-        
-        {/* Header del Sidebar */}
-        <div className="h-24 flex items-center px-8 border-b border-white/5">
-          <div className="flex items-center gap-3">
-              <Image src='/icon.png' alt="KUPO LOGO" height={40} width={40} />
-              <div className="flex flex-col overflow-hidden">
-                  <span className="font-bold text-white truncate text-base leading-tight">{businessName}</span>
-                  <span className="text-xs text-zinc-500 font-medium">Panel de control</span>
-              </div>
-          </div>
-        </div>
-
-        {/* Navegación Desktop */}
-        <nav className="flex-1 px-4 py-8 space-y-1 overflow-y-auto">
-          <p className="px-4 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-4">Menu Principal</p>
-          
-          {isLoading ? (
-              <div className="space-y-2 px-4 animate-pulse">
-                  {[1,2,3,4,5].map(i => <div key={i} className="h-10 w-full bg-zinc-900 rounded-xl" />)}
-              </div>
-          ) : (
-              ALL_MENU.map((item) => {
-                  if (!canView(item.href)) return null
-                  const isActive = pathname === item.href
-                  
-                  return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 relative overflow-hidden ${
-                            isActive ? "bg-yellow-500/10 text-yellow-500 shadow-lg shadow-yellow-500/5" : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
-                        }`}
-                      >
-                        {!isActive && <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />}
-                        <div className="flex items-center gap-3 relative z-10">
-                            <item.icon className={`w-5 h-5 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
-                            {item.label}
+                {/* Header del Sidebar */}
+                <div className="h-24 flex items-center px-8 border-b border-white/5">
+                    <div className="flex items-center gap-3">
+                        <Image src='/icon.png' alt="KUPO LOGO" height={40} width={40} />
+                        <div className="flex flex-col overflow-hidden">
+                            <span className="font-bold text-white truncate text-base leading-tight">{businessName}</span>
+                            <span className="text-xs text-zinc-500 font-medium">Panel de control</span>
                         </div>
-                        {isActive && <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />}
-                      </Link>
-                  )
-              })
-          )}
-        </nav>
+                    </div>
+                </div>
 
-        {/* Footer del Sidebar (Perfil + Logout) */}
-        <div className="p-4 border-t border-white/5">
-          <form action={async () => { await signOut() }}>
-            <button type="submit" className="flex w-full items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-red-600/10 text-red-600 hover:bg-red-600/20 transition-colors cursor-pointer">
-              <LogOut className="w-5 h-5" /> Cerrar Sesión
-            </button>
-          </form>
-        </div>
-      </aside>
+                {/* Navegación Desktop */}
+                <nav className="flex-1 px-4 py-8 space-y-1 overflow-y-auto">
+                    <p className="px-4 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-4">Menu Principal</p>
+
+                    {isLoading ? (
+                        <div className="space-y-2 px-4 animate-pulse">
+                            {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-10 w-full bg-zinc-900 rounded-xl" />)}
+                        </div>
+                    ) : (
+                        ALL_MENU.map((item) => {
+                            if (!canView(item.href)) return null
+                            const isActive = pathname === item.href
+
+                            return (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 relative overflow-hidden ${isActive ? "bg-yellow-500/10 text-yellow-500 shadow-lg shadow-yellow-500/5 border border-yellow-500/20" : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
+                                        }`}
+                                >
+                                    {!isActive && <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />}
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        <item.icon className={`w-5 h-5 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
+                                        {item.label}
+                                    </div>
+                                    {isActive && <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />}
+                                </Link>
+                            )
+                        })
+                    )}
+                </nav>
+
+                {/* Footer del Sidebar (Perfil + Logout) */}
+                <div className="p-4 flex flex-col gap-2 border-t border-white/5">
+                    {isInstallable && (
+                        <button onClick={installPWA} className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 transition-colors cursor-pointer">
+                            <Download className="w-5 h-5"/>Instalar App
+                        </button>
+                    )}
+                    <form action={async () => { await signOut() }}>
+                        <button type="submit" className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-red-600/10 text-red-600 hover:bg-red-600/20 border border-red-500/20 transition-colors cursor-pointer">
+                            <LogOut className="w-5 h-5" /> Cerrar Sesión
+                        </button>
+                    </form>
+                </div>
+            </aside>
 
 
-      {/* ========================================== */}
-      {/* 📱 VISTA MÓVIL (Bottom Navigation Bar) */}
-      {/* ========================================== */}
-      <nav className="lg:hidden fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 z-40 pb-safe">
-        <div className="flex items-center justify-around px-2 py-2">
-            
-            {/* Items Principales */}
-            {MAIN_MENU.map(item => {
-                if (!canView(item.href)) return null
-                const isActive = pathname === item.href
-                return (
-                    <Link key={item.href} href={item.href} className="flex flex-col items-center gap-1 p-2 w-16 group relative">
-                        <item.icon className={`w-6 h-6 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
-                        <span className={`text-[10px] font-medium transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`}>
-                            {item.label}
-                        </span>
-                        {isActive && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-yellow-500 rounded-b-full shadow-[0_0_8px_rgba(234,179,8,0.8)]" />}
-                    </Link>
-                )
-            })}
+            {/* ========================================== */}
+            {/* 📱 VISTA MÓVIL (Bottom Navigation Bar) */}
+            {/* ========================================== */}
+            <nav className="lg:hidden fixed bottom-0 left-0 w-full bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800 z-40 pb-safe">
+                <div className="flex items-center justify-around px-2 py-2">
 
-            {/* Botón "Más" (Hamburguesa) */}
-            <button onClick={() => setIsMobileMenuOpen(true)} className="flex flex-col items-center gap-1 p-2 w-16 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
-                <Menu className="w-6 h-6" />
-                <span className="text-[10px] font-medium">Más</span>
-            </button>
+                    {/* Items Principales */}
+                    {MAIN_MENU.map(item => {
+                        if (!canView(item.href)) return null
+                        const isActive = pathname === item.href
+                        return (
+                            <Link key={item.href} href={item.href} className="flex flex-col items-center gap-1 p-2 w-16 group relative">
+                                <item.icon className={`w-6 h-6 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
+                                <span className={`text-[10px] font-medium transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`}>
+                                    {item.label}
+                                </span>
+                                {isActive && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-yellow-500 rounded-b-full shadow-[0_0_8px_rgba(234,179,8,0.8)]" />}
+                            </Link>
+                        )
+                    })}
 
-        </div>
-      </nav>
+                    {/* Botón "Más" (Hamburguesa) */}
+                    <button onClick={() => setIsMobileMenuOpen(true)} className="flex flex-col items-center gap-1 p-2 w-16 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
+                        <Menu className="w-6 h-6" />
+                        <span className="text-[10px] font-medium">Más</span>
+                    </button>
 
-      {/* ========================================== */}
-      {/* 📱 PANEL "MÁS" MÓVIL (Bottom Sheet) */}
-      {/* ========================================== */}
-      {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end">
-              {/* Fondo oscuro desenfocado */}
-              <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />
-              
-              {/* Panel Blanco/Oscuro deslizable */}
-              <div className="relative bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-6 pb-10 animate-in slide-in-from-bottom-full duration-300 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-                  
-                  <div className="flex justify-between items-center mb-6">
-                      <div className="flex items-center gap-3">
-                          <Image src='/icon.png' alt="KUPO" height={28} width={28} />
-                          <h3 className="font-bold text-white text-lg tracking-tight">Opciones</h3>
-                      </div>
-                      <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 bg-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors cursor-pointer">
-                          <X size={20} />
-                      </button>
-                  </div>
+                </div>
+            </nav>
 
-                  <div className="space-y-2">
-                      {MORE_MENU.map(item => {
-                          if (!canView(item.href)) return null
-                          const isActive = pathname === item.href
-                          return (
-                              <Link
-                                  key={item.href}
-                                  href={item.href}
-                                  onClick={() => setIsMobileMenuOpen(false)} // Cerrar al hacer clic
-                                  className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all ${
-                                      isActive ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 'bg-zinc-950 border border-zinc-800/50 text-zinc-300 hover:border-zinc-700'
-                                  }`}
-                              >
-                                  <item.icon className="w-5 h-5" />
-                                  {item.label}
-                              </Link>
-                          )
-                      })}
-                  </div>
+            {/* ========================================== */}
+            {/* 📱 PANEL "MÁS" MÓVIL (Bottom Sheet) */}
+            {/* ========================================== */}
+            {isMobileMenuOpen && (
+                <div className="lg:hidden fixed inset-0 z-50 flex flex-col justify-end">
+                    {/* Fondo oscuro desenfocado */}
+                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsMobileMenuOpen(false)} />
 
-                  {/* Botón de Logout Móvil */}
-                  <div className="mt-6 pt-6 border-t border-zinc-800">
-                      <form action={async () => { await signOut() }}>
-                          <button type="submit" className="w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer">
-                              <LogOut className="w-5 h-5" /> Cerrar Sesión
-                          </button>
-                      </form>
-                  </div>
+                    {/* Panel Blanco/Oscuro deslizable */}
+                    <div className="relative bg-zinc-900 border-t border-zinc-800 rounded-t-3xl p-6 pb-10 animate-in slide-in-from-bottom-full duration-300 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
 
-              </div>
-          </div>
-      )}
+                        <div className="space-y-2">
+                            {MORE_MENU.map(item => {
+                                if (!canView(item.href)) return null
+                                const isActive = pathname === item.href
+                                return (
+                                    <Link
+                                        key={item.href}
+                                        href={item.href}
+                                        onClick={() => setIsMobileMenuOpen(false)} // Cerrar al hacer clic
+                                        className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all ${isActive ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 'bg-zinc-950 border border-zinc-800/50 text-zinc-300 hover:border-zinc-700'
+                                            }`}
+                                    >
+                                        <item.icon className="w-5 h-5" />
+                                        {item.label}
+                                    </Link>
+                                )
+                            })}
+                        </div>
 
-    </>
-  )
+                        {/* Botón de Logout Móvil */}
+                        <div className="mt-6 grid grid-cols-2 gap-2 pt-6 border-t border-zinc-800">
+                            {isInstallable && (
+                                <button onClick={installPWA} className="flex w-full justify-center items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                    <Download className="w-5 h-5" /> Instalar App
+                                </button>
+                            )}
+                            <form action={async () => { await signOut() }}>
+                                <button type="submit" className="w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer">
+                                    <LogOut className="w-5 h-5" /> Cerrar Sesión
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            )}
+
+        </>
+    )
 }

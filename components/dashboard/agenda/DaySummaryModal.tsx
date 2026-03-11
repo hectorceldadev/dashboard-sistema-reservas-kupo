@@ -2,13 +2,14 @@
 
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { X, User, Scissors, ArrowRight, Calendar, Clock } from 'lucide-react'
+import { X, User, Scissors, ArrowRight, Calendar, Clock, Plus } from 'lucide-react'
 import { useState, useEffect } from 'react' // Añadido useEffect
 import { createPortal } from 'react-dom' // Añadido createPortal
 import BookingDetailsModal from './BookingDetailModal'
 import { formatInTimeZone } from 'date-fns-tz'
 import { cancelBookingAction } from '@/app/dashboard/agenda/actions'
 import { sileo } from 'sileo'
+import { useAdminBooking } from '@/context/AdminBookingContext'
 
 interface DaySummaryModalProps {
     date: Date
@@ -24,6 +25,8 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
     const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ mounted, setMounted ] = useState(false) // Nuevo estado para el portal
     
+    const { openModal } = useAdminBooking()
+
     // Configuración del Portal: Solo en el cliente y bloqueando scroll
     useEffect(() => {
         setMounted(true)
@@ -44,7 +47,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
 
     // Guardamos todo tu diseño en una variable
     const modalContent = (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4 sm:p-6 stagger-container">
             {/* Backdrop oscuro */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
             
@@ -75,12 +78,19 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                 <div className="p-6 overflow-y-auto custom-scrollbar flex-1 bg-zinc-950/50">
                     
                     {dayBookings.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center text-center py-12 px-4 bg-zinc-900/50 border border-dashed border-zinc-800 rounded-3xl">
+                        <div className="flex flex-col items-center justify-center text-center py-10 px-4 bg-zinc-900/50 border border-dashed border-zinc-800 rounded-3xl">
                             <div className="w-14 h-14 bg-zinc-950 rounded-full flex items-center justify-center mb-4 border border-zinc-800/80 shadow-sm">
                                 <Calendar className="text-zinc-600" size={28} />
                             </div>
                             <h4 className="text-zinc-300 font-bold text-lg mb-1">Agenda libre</h4>
                             <p className="text-zinc-500 text-sm max-w-[250px]">No hay ninguna cita programada para este día.</p>
+                            <button 
+                                onClick={openModal}
+                                className="group flex items-center mt-4 gap-2 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
+                            >
+                                <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
+                                Añadir cita
+                            </button>
                         </div>
                     ) : (
                         <div className="space-y-4">
@@ -160,6 +170,15 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     </button>
                                 )
                             })}
+                            <div className='flex justify-center items-center'>
+                                <button 
+                                    onClick={openModal}
+                                    className="group flex items-center gap-2 mt-4 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
+                                >
+                                    <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
+                                    Añadir cita
+                                </button>
+                            </div>
                         </div>
                     )}
                     {

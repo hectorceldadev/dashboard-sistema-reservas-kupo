@@ -57,6 +57,15 @@ export async function POST (request: Request) {
             })
             pushTitle= '❌ Reserva Cancelada'
             pushBody = `Hola ${customerName}, tu cita el ${date} a las ${time} en ${businessName} ha sido cancelada.`
+        } else if (type === 'booking_reminder') {
+            emailSubject = `⏰ Recordatorio: Mañana tienes cita en ${businessName}`
+            emailComponent = React.createElement(BookingEmail, {
+                customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl,
+                cancelLink: `${appUrl}/reserva`,
+                businessMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`
+            })
+            pushTitle = '⏰ Recordatorio de Cita'
+            pushBody = `Hola ${customerName}, te recordamos que mañana tienes cita a las ${time}. ¡Te esperamos!`
         } else {
             return NextResponse.json({ error: 'Tipo de notificación no válido' })
         }

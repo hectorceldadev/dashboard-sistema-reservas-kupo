@@ -77,7 +77,7 @@ export default async function DashboardLayout({
         <main className="lg:ml-64 min-h-screen transition-all duration-300 ease-in-out relative">
           {/* Luz de fondo ambiental */}
           <div className="absolute top-0 left-0 w-full h-96 bg-yellow-500/5 blur-[100px] pointer-events-none -z-10" />
-          <div className="p-4 sm:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in pb-24 md:pb-12">
+          <div className="p-4 sm:p-8 lg:p-12 mx-auto animate-fade-in pb-24 md:pb-12">
             {children}
             <BookingModal />
           </div>

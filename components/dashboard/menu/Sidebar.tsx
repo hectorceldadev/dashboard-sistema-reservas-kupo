@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, Download, BellRing, PlusSquare, Share, X } from "lucide-react"
+import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, Download, BellRing, PlusSquare, Share, X, ChevronDown } from "lucide-react"
 import { signOut } from "@/app/login/actions"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -241,15 +241,21 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
                                     <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
+                                        <ChevronDown size={18} />
+                                    </div>
+                                    <span>2. Toca en el icono de <b>Ver más.</b></span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
+                                    <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
                                         <PlusSquare size={18} />
                                     </div>
-                                    <span>2. Dale a <b>Añadir a inicio</b>.</span>
+                                    <span>3. Dale a <b>Añadir a inicio</b>.</span>
                                 </div>
                                 <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
                                     <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
                                         <BellRing size={18} />
                                     </div>
-                                    <span>3. Abre la App, <b>pulsa el botón de notificaciones</b> y coloca el indicador en activo.</span>
+                                    <span>4. Abre la App, <b>pulsa el botón de notificaciones</b> y coloca el indicador en activo.</span>
                                 </div>
                             </div>
 

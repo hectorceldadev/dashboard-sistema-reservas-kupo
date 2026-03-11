@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, Download } from "lucide-react"
+import { CalendarDays, Users, Scissors, Settings, LogOut, Store, Briefcase, LayoutDashboard, Menu, Download, BellRing, PlusSquare, Share, X } from "lucide-react"
 import { signOut } from "@/app/login/actions"
 import Image from "next/image"
 import { useEffect, useState } from "react"
@@ -34,10 +34,11 @@ export function Sidebar({ businessName }: { businessName: string }) {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [role, setRole] = useState<string | null>(null)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // Estado para el panel "Más"
+    const [appleModal, setAppleModal] = useState<boolean>(false)
 
     const pathname = usePathname()
 
-    const { isInstallable, installPWA } = usePWA()
+    const { isInstallable, installPWA, isIOS } = usePWA()
 
     useEffect(() => {
         const fetchRole = async () => {
@@ -119,7 +120,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                 <div className="p-4 flex flex-col gap-2 border-t border-white/5">
                     {isInstallable && (
                         <button onClick={installPWA} className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 transition-colors cursor-pointer">
-                            <Download className="w-5 h-5"/>Instalar App
+                            <Download className="w-5 h-5" />Instalar App
                         </button>
                     )}
                     <form action={async () => { await signOut() }}>
@@ -198,6 +199,11 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                     <Download className="w-5 h-5" /> Instalar App
                                 </button>
                             )}
+                            {isIOS && (
+                                <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                    <Download className="w-5 h-5" /> Instalar App
+                                </button>
+                            )}
                             <form action={async () => { await signOut() }}>
                                 <button type="submit" className="w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer">
                                     <LogOut className="w-5 h-5" /> Cerrar Sesión
@@ -208,6 +214,55 @@ export function Sidebar({ businessName }: { businessName: string }) {
                     </div>
                 </div>
             )}
+            {
+                appleModal &&
+                <div className="fixed inset-0 z-[99999] flex items-end justify-center sm:items-center p-4 bg-background/60 backdrop-blur-sm stagger-container text-left">
+                    <div className="bg-background w-full max-w-sm rounded-3xl shadow-2xl relative overflow-hidden border border-foreground/10 flex flex-col animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 p-6 stagger-container">
+
+                        <button
+                            onClick={() => setAppleModal(false)}
+                            className="absolute top-4 right-4 p-2 bg-background-secondary rounded-full text-muted hover:text-foreground transition-colors"
+                        >
+                            <X size={18} />
+                        </button>
+
+                        <div className="flex flex-col items-center text-center mt-2">
+                            <h3 className="font-title text-2xl font-bold text-foreground mb-2">Instala la App</h3>
+                            <p className="text-sm text-muted mb-6">
+                                Para recibir recordatorios en tu iPhone, necesitas añadir esta página a tu pantalla de inicio.
+                            </p>
+
+                            <div className="w-full bg-background-secondary p-4 rounded-2xl border border-foreground/5 space-y-4 text-left">
+                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
+                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                                        <Share size={18} />
+                                    </div>
+                                    <span>1. Toca en el icono de <b>Compartir.</b></span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
+                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                                        <PlusSquare size={18} />
+                                    </div>
+                                    <span>2. Dale a <b>Añadir a inicio</b>.</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
+                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                                        <BellRing size={18} />
+                                    </div>
+                                    <span>3. Abre la App, ve a reserva, introduce tu email en el buscador y pulsa <b>Activar Recordatorios</b>.</span>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setAppleModal(false)}
+                                className="mt-6 w-full py-3.5 rounded-xl font-bold text-foreground bg-background-secondary border border-foreground/10 hover:bg-foreground/5 transition-colors"
+                            >
+                                Entendido
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
 
         </>
     )

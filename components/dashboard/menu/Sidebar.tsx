@@ -38,7 +38,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
 
     const pathname = usePathname()
 
-    const { isInstallable, installPWA, isIOS } = usePWA()
+    const { isInstallable, installPWA, isIOS, isStandalone } = usePWA()
 
     useEffect(() => {
         const fetchRole = async () => {
@@ -199,13 +199,13 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                     <Download className="w-5 h-5" /> Instalar App
                                 </button>
                             )}
-                            {isIOS && (
+                            {isIOS && !isStandalone && (
                                 <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
                                     <Download className="w-5 h-5" /> Instalar App
                                 </button>
                             )}
                             <form action={async () => { await signOut() }}>
-                                <button type="submit" className="w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer">
+                                <button type="submit" className={"w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer"}>
                                     <LogOut className="w-5 h-5" /> Cerrar Sesión
                                 </button>
                             </form>

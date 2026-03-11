@@ -216,46 +216,46 @@ export function Sidebar({ businessName }: { businessName: string }) {
             )}
             {
                 appleModal &&
-                <div className="fixed inset-0 z-[99999] flex items-end justify-center sm:items-center p-4 bg-background/60 backdrop-blur-sm stagger-container text-left">
-                    <div className="bg-background w-full max-w-sm rounded-3xl shadow-2xl relative overflow-hidden border border-foreground/10 flex flex-col animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 p-6 stagger-container">
+                <div className="fixed inset-0 z-[99999] flex items-end justify-center sm:items-center p-4 bg-black/60 backdrop-blur-sm stagger-container text-left">
+                    <div className="bg-zinc-900 w-full max-w-sm rounded-3xl shadow-2xl relative overflow-hidden border border-white/10 flex flex-col animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 p-6 stagger-container">
 
                         <button
                             onClick={() => setAppleModal(false)}
-                            className="absolute top-4 right-4 p-2 bg-background-secondary rounded-full text-muted hover:text-foreground transition-colors"
+                            className="absolute top-4 right-4 p-2 bg-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors cursor-pointer"
                         >
                             <X size={18} />
                         </button>
 
                         <div className="flex flex-col items-center text-center mt-2">
-                            <h3 className="font-title text-2xl font-bold text-foreground mb-2">Instala la App</h3>
-                            <p className="text-sm text-muted mb-6">
+                            <h3 className="text-2xl font-bold text-white mb-2">Instala la App</h3>
+                            <p className="text-sm text-zinc-400 mb-6">
                                 Para recibir recordatorios en tu iPhone, necesitas añadir esta página a tu pantalla de inicio.
                             </p>
 
-                            <div className="w-full bg-background-secondary p-4 rounded-2xl border border-foreground/5 space-y-4 text-left">
-                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
-                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                            <div className="w-full bg-zinc-950 p-4 rounded-2xl border border-white/5 space-y-4 text-left">
+                                <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
+                                    <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
                                         <Share size={18} />
                                     </div>
                                     <span>1. Toca en el icono de <b>Compartir.</b></span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
-                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                                <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
+                                    <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
                                         <PlusSquare size={18} />
                                     </div>
                                     <span>2. Dale a <b>Añadir a inicio</b>.</span>
                                 </div>
-                                <div className="flex items-center gap-3 text-sm text-foreground font-medium">
-                                    <div className="bg-background p-2 rounded-lg shadow-sm border border-foreground/5 text-primary">
+                                <div className="flex items-center gap-3 text-sm text-zinc-200 font-medium">
+                                    <div className="bg-zinc-900 p-2 rounded-lg shadow-sm border border-white/5 text-yellow-500">
                                         <BellRing size={18} />
                                     </div>
-                                    <span>3. Abre la App, ve a reserva, introduce tu email en el buscador y pulsa <b>Activar Recordatorios</b>.</span>
+                                    <span>3. Abre la App, <b>pulsa el botón de notificaciones</b> y coloca el indicador en activo.</span>
                                 </div>
                             </div>
 
                             <button
                                 onClick={() => setAppleModal(false)}
-                                className="mt-6 w-full py-3.5 rounded-xl font-bold text-foreground bg-background-secondary border border-foreground/10 hover:bg-foreground/5 transition-colors"
+                                className="mt-6 w-full py-3.5 rounded-xl font-bold text-zinc-950 bg-yellow-500 hover:bg-yellow-400 transition-colors cursor-pointer"
                             >
                                 Entendido
                             </button>

@@ -7,6 +7,7 @@ import { signOut } from "@/app/login/actions"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { getRole } from "./actions"
+import { usePWA } from "@/hooks/usePWA"
 
 // 1. Dividimos el menú en principal (barra inferior) y secundario (panel "Más")
 const MAIN_MENU = [
@@ -35,6 +36,8 @@ export function Sidebar({ businessName }: { businessName: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // Estado para el panel "Más"
   
   const pathname = usePathname()
+
+  usePWA()
 
   useEffect(() => {
     const fetchRole = async () => {

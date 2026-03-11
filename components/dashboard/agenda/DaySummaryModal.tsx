@@ -89,7 +89,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                 className="group flex items-center mt-4 gap-2 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
                             >
                                 <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
-                                Añadir cita
+                                Nueva cita
                             </button>
                         </div>
                     ) : (
@@ -176,7 +176,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                     className="group flex items-center gap-2 mt-4 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
                                 >
                                     <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
-                                    Añadir cita
+                                    Nueva cita
                                 </button>
                             </div>
                         </div>

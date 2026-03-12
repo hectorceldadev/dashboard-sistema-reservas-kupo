@@ -1,6 +1,5 @@
 'use client'
 
-import Link from "next/link"
 import { CalendarDays, Plus, Clock, Ban, ArrowRight, Scissors, CheckCircle2, ChevronRight, User, ChevronDown, Euro } from "lucide-react"
 import { useEffect, useState } from "react"
 import { sileo } from "sileo"
@@ -10,6 +9,7 @@ import { formatInTimeZone } from "date-fns-tz"
 import BookingDetailsModal from "./BookingDetailModal"
 import { cancelBookingAction } from "@/app/dashboard/agenda/actions"
 import { useAdminBooking } from "@/context/AdminBookingContext"
+import Image from "next/image"
 
 const TIMEZONE = 'Europe/Madrid'
 
@@ -128,50 +128,79 @@ export const DashboardHome = () => {
                     </div>
                 </div>
 
-                {/* --- 2. KPIs SKELETON --- */}
-                <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                    <div className="bg-zinc-900 border border-zinc-800/50 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-3 h-[90px] sm:h-[104px]">
-                        <div className="w-16 h-4 bg-zinc-800/60 rounded-md"></div>
-                        <div className="w-20 h-7 bg-zinc-800/80 rounded-lg"></div>
-                    </div>
-                    <div className="bg-zinc-900 border border-zinc-800/50 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-3 h-[90px] sm:h-[104px]">
-                        <div className="w-16 h-4 bg-zinc-800/60 rounded-md"></div>
-                        <div className="w-20 h-7 bg-zinc-800/80 rounded-lg"></div>
-                    </div>
-                    <div className="bg-zinc-900 border border-zinc-800/50 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-3 h-[90px] sm:h-[104px]">
-                        <div className="w-16 h-4 bg-zinc-800/60 rounded-md"></div>
-                        <div className="w-20 h-7 bg-zinc-800/80 rounded-lg"></div>
-                    </div>
+                {/* --- 2. KPIs SKELETON (Estilo Negocio) --- */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="h-3 w-16 sm:w-24 bg-zinc-800/50 rounded-md animate-pulse mb-3" />
+                                    <div className="h-6 sm:h-8 w-20 sm:w-32 bg-zinc-800/50 rounded-lg animate-pulse" />
+                                </div>
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-zinc-800/50 rounded-xl animate-pulse" />
+                            </div>
+                            <div className="mt-auto h-5 sm:h-6 w-24 bg-zinc-800/50 rounded-md animate-pulse" />
+                        </div>
+                    ))}
                 </div>
 
-                {/* --- 3. PRÓXIMA CITA SKELETON --- */}
+                {/* --- 3. PRÓXIMA CITA SKELETON (Estilo Card Horizontal) --- */}
                 <div>
                     <div className="h-4 w-32 bg-zinc-800/60 rounded-md mb-3 sm:mb-4"></div>
-                    <div className="bg-zinc-900 border border-zinc-800/50 rounded-2xl sm:rounded-3xl h-[120px] sm:h-[136px] p-4 sm:p-6 flex items-center gap-4 sm:gap-6">
-                        <div className="w-[75px] sm:w-[90px] h-full bg-zinc-800/50 rounded-xl shrink-0"></div>
-                        <div className="flex-1 flex flex-col justify-center gap-3">
-                            <div className="w-40 sm:w-64 h-6 sm:h-7 bg-zinc-800/80 rounded-md"></div>
-                            <div className="w-24 sm:w-40 h-4 bg-zinc-800/50 rounded-md"></div>
+                    <div className="w-full relative bg-zinc-900 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col sm:flex-row">
+                        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-zinc-800" />
+                        <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center gap-3">
+                            <div className="h-5 w-48 bg-zinc-800/80 rounded-md"></div>
+                            <div className="flex gap-3">
+                                <div className="h-4 w-24 bg-zinc-800/50 rounded-md"></div>
+                                <div className="h-4 w-32 bg-zinc-800/50 rounded-md"></div>
+                            </div>
                         </div>
-                        <div className="hidden sm:block w-32 h-10 bg-zinc-800/60 rounded-xl shrink-0"></div>
+                        <div className="bg-zinc-950/50 border-t sm:border-t-0 sm:border-l border-zinc-800/50 p-3 sm:p-5 flex flex-row sm:flex-col justify-between items-center sm:items-end sm:min-w-[140px] w-full sm:w-auto shrink-0">
+                            <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 rounded-full bg-zinc-800/60"></div>
+                                <div className="h-3 w-16 bg-zinc-800/50 rounded-md"></div>
+                            </div>
+                            <div className="h-3 w-20 bg-zinc-800/40 rounded-md mt-2 sm:mt-0"></div>
+                        </div>
                     </div>
                 </div>
 
                 {/* --- 4. TIMELINE SKELETON --- */}
+                {/* --- 4. TIMELINE SKELETON (Estilo Card Horizontal) --- */}
                 <div>
                     <div className="h-4 w-32 bg-zinc-800/60 rounded-md mb-3 sm:mb-4"></div>
                     <div className="bg-zinc-900 border border-zinc-800/50 rounded-xl sm:rounded-3xl p-3 sm:p-6 space-y-4 sm:space-y-6 min-h-[200px] flex flex-col relative">
-                        <div className="absolute left-[39px] sm:left-[61px] top-6 bottom-6 w-[2px] bg-zinc-800/50 rounded-full" />
+                        
+                        <div className="absolute left-[39px] sm:left-[47px] top-6 bottom-6 w-px bg-zinc-800/50" />
 
                         {[1, 2, 3].map((i) => (
-                            <div key={i} className="flex items-center gap-3 sm:gap-4 relative z-10">
-                                <div className="w-[45px] sm:w-[60px] shrink-0 flex justify-end">
-                                    <div className="w-10 h-4 bg-zinc-800/60 rounded"></div>
+                            <div key={i} className="relative flex gap-3 sm:gap-6 group z-10">
+                                
+                                {/* Hora esqueleto */}
+                                <div className="w-[38px] sm:w-[47px] shrink-0 text-right relative pt-4">
+                                    <div className="h-3 w-8 ml-auto bg-zinc-800/60 rounded-md"></div>
                                 </div>
-                                <div className="w-2.5 h-2.5 rounded-full bg-zinc-800/80 shrink-0"></div>
-                                <div className="flex-1 h-[72px] sm:h-[80px] bg-zinc-950/50 border border-zinc-800/30 rounded-xl flex flex-col justify-center px-4 gap-2">
-                                    <div className="w-32 sm:w-48 h-5 bg-zinc-800/60 rounded-md"></div>
-                                    <div className="w-20 sm:w-32 h-3 bg-zinc-800/40 rounded-md"></div>
+
+                                {/* Tarjeta esqueleto */}
+                                <div className="flex-1 relative bg-zinc-900 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col sm:flex-row">
+                                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-zinc-800" />
+                                    
+                                    <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center gap-3">
+                                        <div className="h-5 w-40 bg-zinc-800/80 rounded-md"></div>
+                                        <div className="flex gap-2">
+                                            <div className="h-4 w-20 bg-zinc-800/50 rounded-md"></div>
+                                            <div className="h-4 w-24 bg-zinc-800/50 rounded-md"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-zinc-950/50 border-t sm:border-t-0 sm:border-l border-zinc-800/50 p-3 sm:p-5 flex flex-row sm:flex-col justify-between items-center sm:items-end sm:min-w-[140px] w-full sm:w-auto shrink-0">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-zinc-800/60"></div>
+                                            <div className="h-3 w-12 bg-zinc-800/50 rounded-md"></div>
+                                        </div>
+                                        <div className="h-3 w-16 bg-zinc-800/40 rounded-md mt-2 sm:mt-0"></div>
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -240,88 +269,146 @@ export const DashboardHome = () => {
                 </div>
             </div>
 
-            {/* --- 2. EL PULSO DE HOY (KPIs) --- */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                <div className="bg-yellow-500/5 border border-yellow-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
-                    <div className="flex items-center gap-2 text-yellow-400">
-                        <CalendarDays size={14} className="text-yellow-500" />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Citas Hoy</span>
+            {/* --- 2. EL PULSO DE HOY (KPIs Estilo Negocio) --- */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 stagger-container">
+                
+                {/* 1. Citas Totales */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[110px] sm:min-h-[140px]">
+                    <div className="flex justify-between items-start relative z-10">
+                        <div>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Citas Hoy</p>
+                            <h3 className="text-xl sm:text-3xl font-black text-white">{kpis.totalBookings || 0}</h3>
+                        </div>
+                        <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform">
+                            <CalendarDays size={18} className="sm:w-5 sm:h-5" />
+                        </div>
                     </div>
-                    <div className="flex flex-wrap items-baseline gap-1.5 mt-auto">
-                        <h3 className="text-2xl sm:text-3xl font-black text-yellow-500 leading-none">{kpis.totalBookings || 0}</h3>
-                        <span className="text-[10px] sm:text-xs text-yellow-500 font-medium">/{kpis.completedBookings || 0} listas</span>
-                    </div>
-                </div>
-
-                <div className="bg-emerald-500/5 border border-emerald-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
-                    <div className="flex items-center gap-2 text-emerald-500">
-                        <Euro size={14} className="text-emerald-500" />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Ingresos</span>
-                    </div>
-                    <div className="mt-auto">
-                        <h3 className="text-2xl sm:text-3xl font-black text-emerald-500 leading-none">{kpis.totalEarnings?.toFixed(2) || "0.00"}€</h3>
+                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-zinc-400 bg-zinc-800/50">
+                        Programadas hoy
                     </div>
                 </div>
 
-                {/* En móvil ocupa 2 columnas, en PC 1 */}
-                <div className="col-span-1 bg-red-500/5 border border-red-500/30 p-3.5 sm:p-5 rounded-xl flex flex-col items-center justify-center gap-2 hover:border-zinc-700 transition-colors">
-                    <div className="flex items-center gap-2 text-red-500">
-                        <Ban size={14} className="text-red-500" />
-                        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Canceladas</span>
+                {/* 2. Citas Completadas */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[110px] sm:min-h-[140px]">
+                    <div className="flex justify-between items-start relative z-10">
+                        <div>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Completadas</p>
+                            <h3 className="text-xl sm:text-3xl font-black text-white">{kpis.completedBookings || 0}</h3>
+                        </div>
+                        <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform">
+                            <CheckCircle2 size={18} className="sm:w-5 sm:h-5" />
+                        </div>
                     </div>
-                    <div className="mt-auto">
-                        <h3 className="text-2xl sm:text-3xl font-black text-red-500 leading-none">{kpis.cancelledBookings || 0}</h3>
+                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-emerald-500 bg-emerald-500/10">
+                        Citas completadas
+                    </div>
+                </div>
+
+                {/* 3. Canceladas */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[110px] sm:min-h-[140px]">
+                    <div className="flex justify-between items-start relative z-10">
+                        <div>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Canceladas</p>
+                            <h3 className="text-xl sm:text-3xl font-black text-white">{kpis.cancelledBookings || 0}</h3>
+                        </div>
+                        <div className="p-1.5 sm:p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform">
+                            <Ban size={18} className="sm:w-5 sm:h-5" />
+                        </div>
+                    </div>
+                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-red-500 bg-red-500/10">
+                        Perdidas
+                    </div>
+                </div>
+
+                {/* 4. Ingresos */}
+                <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[110px] sm:min-h-[140px]">
+                    <div className="flex justify-between items-start relative z-10">
+                        <div>
+                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ingresos Hoy</p>
+                            <h3 className="text-xl sm:text-3xl font-black text-yellow-500">{kpis.totalEarnings?.toFixed(2) || "0.00"}€</h3>
+                        </div>
+                        <div className="p-1.5 sm:p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform">
+                            <Euro size={18} className="sm:w-5 sm:h-5" />
+                        </div>
+                    </div>
+                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-yellow-500 bg-yellow-500/10">
+                        Total esperado
                     </div>
                 </div>
             </div>
 
-            {/* --- 3. PRÓXIMA CITA (Destacado) --- */}
+            {/* --- 3. PRÓXIMA CITA (Destacado - Estilo DayView Card) --- */}
             <div>
                 <h2 className="text-xs sm:text-sm font-bold text-zinc-500 uppercase tracking-wider mb-3 sm:mb-4 flex items-center gap-2">
                     <Clock size={16} className="text-yellow-500" /> Tu Próxima Cita
                 </h2>
+                
                 {nextBooking ? (
-                    <div
+                    <button
                         onClick={() => setSelectedBooking(nextBooking)}
-                        className="relative bg-zinc-900 border border-yellow-500/30 rounded-xl sm:rounded-3xl p-4 sm:p-6 overflow-hidden group cursor-pointer">
-                        <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-yellow-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                        className="w-full relative bg-zinc-900 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col sm:flex-row text-left transition-all hover:border-yellow-500/50 hover:shadow-lg hover:-translate-y-0.5 group/card focus:outline-none focus:border-yellow-500 cursor-pointer"
+                    >
+                        {/* Línea de estado amarilla */}
+                        <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-yellow-500" />
 
-                        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
-                            <div className="flex items-center gap-4 w-full min-w-0">
-                                <div className="bg-zinc-950 border border-zinc-800 p-3 sm:p-4 rounded-xl flex flex-col items-center justify-center min-w-[75px] sm:min-w-[90px] shrink-0">
-                                    <span className="text-xl sm:text-2xl font-black text-white leading-none">
-                                        {formatInTimeZone(nextBooking.start_time, TIMEZONE, 'HH:mm')}
-                                    </span>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5 truncate">{nextBooking.customer_name}</h3>
-                                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-zinc-400">
-                                        <span className="flex items-center gap-1.5 truncate">
-                                            <Scissors size={12} className="text-zinc-500 shrink-0" />
-                                            <span className="truncate">{nextBooking.booking_items?.[0]?.service_name + `${nextBooking.booking_items.length > 1 ? ` + ${nextBooking.booking_items.length}` : ''}` || 'Servicio'}</span>
-                                        </span>
-                                        {isAdmin && nextBooking.staff && (
-                                            <>
-                                                <span className="text-zinc-700 hidden xs:inline">•</span>
-                                                <span className="flex items-center gap-1.5 shrink-0"><User size={12} className="text-zinc-500" /> {nextBooking.staff.full_name?.split(' ')[0]}</span>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
+                        {/* Info Principal - Optimizada para Móvil */}
+                        <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
+                            <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
+                                <h3 className="font-bold text-base sm:text-lg text-zinc-100 group-hover/card:text-white transition-colors">
+                                    {nextBooking.customer_name}
+                                </h3>
+                                <span className="bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider animate-pulse shrink-0">
+                                    Siguiente
+                                </span>
                             </div>
-                            <button
-                                className="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2.5 sm:py-2 rounded-xl text-sm font-bold transition-colors flex items-center justify-center gap-2 shrink-0 cursor-pointer"
-                                onClick={() => setSelectedBooking(nextBooking)}
-                            >
-                                Ver Detalles <ArrowRight size={16} />
-                            </button>
+
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
+                                <span className="flex items-center gap-1.5 bg-zinc-950 px-2 py-1 rounded-md border border-zinc-800/50">
+                                    <Clock size={12} className="text-zinc-500" />
+                                    <span className="font-medium">
+                                        {formatInTimeZone(nextBooking.start_time, TIMEZONE, 'HH:mm')}
+                                        {nextBooking.end_time ? ` - ${formatInTimeZone(nextBooking.end_time, TIMEZONE, 'HH:mm')}` : ''}
+                                    </span>
+                                </span>
+
+                                <span className="flex items-center gap-1.5 bg-zinc-950/50 sm:bg-transparent px-2 py-1 sm:p-0 rounded-md">
+                                    <Scissors size={14} className="text-zinc-600" />
+                                    <span className="font-medium text-zinc-300">
+                                        {nextBooking.booking_items?.[0]?.service_name || 'Servicio'}
+                                    </span>
+                                    {nextBooking.booking_items?.length > 1 && (
+                                        <span className="text-[9px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
+                                            +{nextBooking.booking_items.length - 1}
+                                        </span>
+                                    )}
+                                </span>
+                            </div>
                         </div>
-                    </div>
+
+                        {/* Info Secundaria (Staff y Acción) */}
+                        <div className="bg-zinc-950/50 border-t sm:border-t-0 sm:border-l border-zinc-800/50 p-3 sm:p-5 flex flex-row sm:flex-col justify-between items-center sm:items-end sm:min-w-[140px] w-full sm:w-auto shrink-0">
+                            <div className="flex items-center gap-2">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-zinc-800 overflow-hidden relative border border-zinc-700">
+                                    {nextBooking.staff?.avatar_url ? (
+                                        <Image src={nextBooking.staff.avatar_url} alt="Staff" fill className="object-cover" />
+                                    ) : (
+                                        <User size={12} className="absolute inset-0 m-auto text-zinc-500" />
+                                    )}
+                                </div>
+                                <span className="text-[10px] sm:text-xs font-medium text-zinc-400">
+                                    {nextBooking.staff?.full_name?.split(' ')[0] || 'Staff'}
+                                </span>
+                            </div>
+                            <span className="text-[10px] font-bold text-yellow-500 flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
+                                Ver Detalles <ArrowRight size={12} />
+                            </span>
+                        </div>
+                    </button>
                 ) : (
-                    <div className="bg-zinc-900 border border-dashed border-zinc-800 rounded-xl sm:rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center text-center">
-                        <CheckCircle2 size={36} className="text-emerald-500 mb-3" />
-                        <h3 className="text-base sm:text-lg font-bold text-white">¡Agenda libre!</h3>
-                        <p className="text-xs sm:text-sm text-zinc-500 mt-1">No tienes citas próximas pendientes.</p>
+                    <div className="bg-zinc-900 border border-dashed border-zinc-800 rounded-xl p-6 sm:p-8 flex flex-col items-center justify-center text-center">
+                        <CheckCircle2 size={32} className="text-emerald-500 mb-3" />
+                        <h3 className="text-base font-bold text-white">¡Agenda libre!</h3>
+                        <p className="text-xs text-zinc-500 mt-1">No tienes citas próximas pendientes.</p>
                     </div>
                 )}
             </div>
@@ -329,7 +416,7 @@ export const DashboardHome = () => {
             {/* --- 4. TIMELINE DEL DÍA --- */}
             <div>
                 <h2 className="text-xs sm:text-sm font-bold text-zinc-500 uppercase tracking-wider mb-3 sm:mb-4">Agenda de Hoy</h2>
-                <div className="bg-zinc-900 border border-zinc-800 rounded-xl sm:rounded-3xl p-3 sm:p-6 min-h-[200px]">
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl sm:rounded-3xl p-1.5 sm:p-6 min-h-[200px]">
                     {bookings && bookings.length > 0 ? (
                         <div className="relative">
                             {/* Línea vertical unificada para Móvil y PC */}
@@ -341,6 +428,13 @@ export const DashboardHome = () => {
                                     const isCancelled = booking.status === 'cancelled'
                                     const isNext = nextBooking?.id === booking.id
 
+                                    const itemsList = Array.isArray(booking.booking_items) ? booking.booking_items : []
+                                    const firstServiceTitle = itemsList[0]?.service_name || 'Servicio'
+                                    const extraServicesCount = itemsList.length > 1 ? itemsList.length - 1 : 0
+                                    
+                                    const formattedTime = booking.start_time ? formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm') : '--:--'
+                                    const formattedEndTime = booking.end_time ? formatInTimeZone(booking.end_time, TIMEZONE, 'HH:mm') : '--:--'
+
                                     return (
                                         <div
                                             key={booking.id}
@@ -350,7 +444,7 @@ export const DashboardHome = () => {
                                             {/* Hora */}
                                             <div className="w-[45px] sm:w-[60px] shrink-0 flex flex-col items-end pt-3.5 sm:pt-4">
                                                 <span className={`text-xs sm:text-sm font-bold ${isNext ? 'text-yellow-500' : 'text-zinc-400'}`}>
-                                                    {formatInTimeZone(booking.start_time, TIMEZONE, 'HH:mm')}
+                                                    {formattedTime}
                                                 </span>
                                             </div>
 
@@ -358,43 +452,70 @@ export const DashboardHome = () => {
                                             <div className="relative flex flex-col items-center w-4 shrink-0">
                                                 <div className={`
                                                     mt-4 w-2.5 h-2.5 rounded-full ring-[4px] ring-zinc-900 z-10
-                                                    ${isNext ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]' : isCompleted ? 'bg-emerald-600' : isCancelled ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'bg-yellow-700'}
+                                                    ${isNext ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]' : isCompleted ? 'bg-emerald-600' : isCancelled ? 'bg-red-500 ' : 'bg-yellow-700'}
                                                 `} ><div className={`w-2.5 h-2.5 rounded-full ${isNext ? 'bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)] animate-ping' : isCompleted ? 'bg-emerald-600/30 shadow-[0_0_8px_rgba(5,150,05,0.8)] animate-ping' : isCancelled ? 'bg-red-500/20 animate-ping' : 'bg-zinc-400'}`} /></div>
                                             </div>
 
-                                            {/* Tarjeta Cita */}
+                                            {/* Tarjeta Cita - MODIFICADA AL ESTILO DAYVIEW */}
                                             <div className={`
-                                                flex-1 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-3 
-                                                p-3 sm:p-4 rounded-xl border transition-colors my-1
-                                                ${isNext ? 'bg-zinc-950 border-yellow-500/20 shadow-md' : 'bg-zinc-950/50 border-zinc-800/60 group-hover:border-zinc-700'}
-                                                ${isCompleted || isCancelled ? 'opacity-50' : ''}
+                                                flex-1 relative bg-zinc-950 border rounded-xl overflow-hidden flex flex-col sm:flex-row text-left transition-all hover:shadow-lg hover:-translate-y-0.5 group/card my-1
+                                                ${isNext ? 'border-yellow-500/50 hover:border-yellow-500 shadow-[0_0_15px_rgba(234,179,8,0.05)]' : 'border-zinc-800/80 hover:border-zinc-600'}
+                                                ${isCompleted || isCancelled ? 'opacity-60' : 'opacity-100'}
                                             `}>
-                                                <div className="min-w-0 w-full">
-                                                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                                                        <h4 className={`font-bold text-sm sm:text-base truncate ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-200'}`}>
+                                                {/* Línea de estado vertical */}
+                                                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${isCompleted ? 'bg-emerald-500' : isCancelled ? 'bg-red-500' : isNext ? 'bg-yellow-500' : 'bg-zinc-600'}`} />
+
+                                                {/* Info Principal */}
+                                                <div className="flex-1 p-3 sm:p-4 pl-4 sm:pl-5 flex flex-col justify-center">
+                                                    <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
+                                                        <h3 className={`font-bold text-sm sm:text-base transition-colors ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-100 group-hover/card:text-white'}`}>
                                                             {booking.customer_name}
-                                                        </h4>
-                                                        {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
-                                                        {isCancelled && <span className="bg-red-500/10 text-red-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
+                                                        </h3>
+                                                        <div className="flex gap-1.5">
+                                                            {isNext && <span className="bg-yellow-500/10 text-yellow-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center shrink-0 animate-pulse">Siguiente</span>}
+                                                            {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
+                                                            {isCancelled && <span className="bg-red-500/10 text-red-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
+                                                        </div>
                                                     </div>
-                                                    <div className="flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-zinc-500">
-                                                        <span className="flex items-center gap-1 truncate">
-                                                            <Scissors size={12} className="shrink-0" />
-                                                            <span className="truncate">{booking.booking_items?.[0]?.service_name + `${booking.booking_items.length > 1 ? ` + ${booking.booking_items.length}` : ''}` || 'Servicio'}</span>
+
+                                                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
+                                                        <span className="flex items-center gap-1.5 bg-zinc-900 px-2 py-1 rounded-md border border-zinc-800/50">
+                                                            <Clock size={12} className="text-zinc-500" />
+                                                            <span className="font-medium">{formattedTime} - {formattedEndTime}</span>
                                                         </span>
-                                                        {isAdmin && booking.staff && (
-                                                            <>
-                                                                <span className="hidden sm:inline text-zinc-700">•</span>
-                                                                <span className="flex items-center gap-1 shrink-0"><User size={12} /> {booking.staff.full_name?.split(' ')[0]}</span>
-                                                            </>
-                                                        )}
+
+                                                        <span className="flex items-center gap-1.5 bg-zinc-900/50 sm:bg-transparent px-2 py-1 sm:p-0 rounded-md">
+                                                            <Scissors size={14} className="text-zinc-600" />
+                                                            <span className="font-medium text-zinc-300">{firstServiceTitle}</span>
+                                                            {extraServicesCount > 0 && (
+                                                                <span className="text-[9px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
+                                                                    +{extraServicesCount}
+                                                                </span>
+                                                            )}
+                                                        </span>
                                                     </div>
                                                 </div>
 
-                                                <div className="text-zinc-500 group-hover:text-white p-2 rounded-lg group-hover:bg-zinc-800 transition-colors hidden sm:block shrink-0">
-                                                    <ChevronRight size={18} />
+                                                {/* Info Secundaria (Staff y Acción) */}
+                                                <div className="bg-zinc-950/50 border-t sm:border-t-0 sm:border-l border-zinc-800/50 p-3 sm:p-4 flex flex-row sm:flex-col justify-between items-center sm:items-end sm:min-w-[130px] w-full sm:w-auto shrink-0">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-zinc-800 overflow-hidden relative border border-zinc-700">
+                                                            {booking.staff?.avatar_url ? (
+                                                                <Image src={booking.staff.avatar_url} alt="Staff" fill className="object-cover" />
+                                                            ) : (
+                                                                <User size={12} className="absolute inset-0 m-auto text-zinc-500" />
+                                                            )}
+                                                        </div>
+                                                        <span className="text-[10px] sm:text-xs font-medium text-zinc-400">
+                                                            {booking.staff?.full_name?.split(' ')[0] || 'Staff'}
+                                                        </span>
+                                                    </div>
+                                                    <span className={`text-[10px] font-bold flex items-center gap-1 group-hover/card:translate-x-1 transition-transform ${isNext ? 'text-yellow-500' : 'text-zinc-500 group-hover/card:text-white'}`}>
+                                                        Ver Detalles <ArrowRight size={12} />
+                                                    </span>
                                                 </div>
                                             </div>
+
                                         </div>
                                     )
                                 })}

@@ -80,7 +80,8 @@ export async function getDashboardData (memberId: string) {
                 *,
                 booking_items (
                     price, 
-                    service_name
+                    service_name, 
+                    duration
                 ),
                 staff:profiles!staff_id (
                     full_name,
@@ -108,7 +109,7 @@ export async function getDashboardData (memberId: string) {
             completedBookings: validBookings.filter(b => b.status === 'completed').length,
             cancelledBookings: validBookings.filter(b => b.status === 'cancelled').length,
             totalEarnings: validBookings.reduce((acc, b) => {
-                if (b.status === 'cancelled') return acc
+                if (b.status === 'cancelled' ) return acc
                 const price = b.total_price || b.booking_items?.reduce((sum: number, item: { price: number, service_name: string }) => sum + item.price, 0)
                 return acc + price
             }, 0)

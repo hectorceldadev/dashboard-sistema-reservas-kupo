@@ -276,7 +276,7 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Citas Hoy</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Citas Hoy</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.totalBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform">
@@ -292,7 +292,7 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Completadas</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Completadas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.completedBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform">
@@ -308,7 +308,7 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Canceladas</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Canceladas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.cancelledBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform">
@@ -324,7 +324,7 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ingresos Hoy</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ingresos Hoy</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-yellow-500">{kpis.totalEarnings?.toFixed(2) || "0.00"}€</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform">

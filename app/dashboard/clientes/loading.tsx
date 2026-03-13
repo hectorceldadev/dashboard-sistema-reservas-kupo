@@ -10,8 +10,6 @@ export default function LoadingClientes() {
                 <div className="h-10 w-full sm:w-32 bg-zinc-800/50 rounded-xl"></div>
             </div>
 
-            {/* Buscador falso */}
-            <div className="h-12 w-full max-w-md bg-zinc-900 border border-zinc-800/50 rounded-xl"></div>
 
             {/* Tabla de clientes falsa */}
             <div className="bg-zinc-900 border border-zinc-800/50 rounded-2xl overflow-hidden">

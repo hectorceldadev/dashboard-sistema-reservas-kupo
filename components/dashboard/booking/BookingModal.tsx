@@ -203,7 +203,7 @@ export default function BookingModal() {
   if (!isOpen && !isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 sm:px-6 stagger-container">
+    <div className="fixed inset-0 z-[9000] flex items-center justify-center px-4 sm:px-6 stagger-container">
       <div
         onClick={handleClose}
         className={cn(

@@ -8,6 +8,7 @@ import Image from "next/image"
 import { useEffect, useState } from "react"
 import { getRole } from "./actions"
 import { usePWA } from "@/hooks/usePWA"
+import { PushToggle } from "./PushToggle"
 
 // 1. Dividimos el menú en principal (barra inferior) y secundario (panel "Más")
 const MAIN_MENU = [
@@ -57,6 +58,15 @@ export function Sidebar({ businessName }: { businessName: string }) {
         fetchRole()
     }, [])
 
+    useEffect(() => {
+        if (appleModal) {
+            document.body.style.overflow = 'hidden'
+        } 
+        if (!appleModal) {
+            document.body.style.overflow = 'unset'
+        }
+    }, [appleModal])
+
     // Función auxiliar para saber si el usuario puede ver un item
     const canView = (href: string) => {
         if (role !== 'admin' && ADMIN_ONLY_ROUTES.includes(href)) return false;
@@ -85,7 +95,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                 </div>
 
                 {/* Navegación Desktop */}
-                <nav className="flex-1 px-4 py-8 space-y-1 overflow-y-auto">
+                <nav className="flex-1 px-4 py-8 space-y-1 overflow-hidden">
                     <p className="px-4 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-4">Menu Principal</p>
 
                     {isLoading ? (
@@ -118,6 +128,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
 
                 {/* Footer del Sidebar (Perfil + Logout) */}
                 <div className="p-4 flex flex-col gap-2 border-t border-white/5">
+                    <PushToggle onRequireInstall={() => setAppleModal(true)} />
                     {isInstallable && (
                         <button onClick={installPWA} className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 transition-colors cursor-pointer">
                             <Download className="w-5 h-5" />Instalar App
@@ -193,20 +204,21 @@ export function Sidebar({ businessName }: { businessName: string }) {
                         </div>
 
                         {/* Botón de Logout Móvil */}
-                        <div className="mt-6 grid grid-cols-2 gap-2 pt-6 border-t border-zinc-800">
+                        <div className="mt-6 flex items-center gap-2 pt-6 border-t border-zinc-800">
+                            <PushToggle onRequireInstall={() => setAppleModal(true)} />
                             {isInstallable && (
-                                <button onClick={installPWA} className="flex w-full justify-center items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
-                                    <Download className="w-5 h-5" /> Instalar App
+                                <button onClick={installPWA} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                    <Download className="w-5 h-5" /> Instalar
                                 </button>
                             )}
                             {isIOS && !isStandalone && (
-                                <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
-                                    <Download className="w-5 h-5" /> Instalar App
+                                <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                    <Download className="w-5 h-5" /> Instalar 
                                 </button>
                             )}
                             <form action={async () => { await signOut() }}>
-                                <button type="submit" className={"w-full flex justify-center items-center gap-2 px-4 py-3.5 rounded-2xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer"}>
-                                    <LogOut className="w-5 h-5" /> Cerrar Sesión
+                                <button type="submit" className={"w-full flex justify-center items-center gap-2 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer"}>
+                                    <LogOut className="w-5 h-5" /> Cerrar 
                                 </button>
                             </form>
                         </div>
@@ -216,7 +228,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
             )}
             {
                 appleModal &&
-                <div className="fixed inset-0 z-[99999] flex items-end justify-center sm:items-center p-4 bg-black/60 backdrop-blur-sm stagger-container text-left">
+                <div className="fixed inset-0 z-[9000] flex items-end justify-center sm:items-center p-4 bg-black/60 backdrop-blur-sm stagger-container text-left">
                     <div className="bg-zinc-900 w-full max-w-sm rounded-3xl shadow-2xl relative overflow-hidden border border-white/10 flex flex-col animate-in slide-in-from-bottom-10 sm:zoom-in-95 duration-300 p-6 stagger-container">
 
                         <button

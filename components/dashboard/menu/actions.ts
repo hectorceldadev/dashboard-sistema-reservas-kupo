@@ -66,6 +66,18 @@ export async function toggleStaffPushSubscription(subscription: any, isActive: b
             return { error: `Error BD: ${error.message}` }
         }
 
+        const { error: updateError } = await supabase
+            .from('push_subscriptions')
+            .update({ is_active: isActive })
+            .eq('staff_id', user.id)
+            .eq('business_id', profile.business_id)
+            .eq('user_email', user.email)
+
+        if (updateError) {
+            console.error('🔴 Error exacto de Supabase (Update Masivo):', updateError)
+            return { error: `Error unificando estados: ${updateError.message}` }
+        }
+
         return { success: true }
 
     } catch (error: any) {

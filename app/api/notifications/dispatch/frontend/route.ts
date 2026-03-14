@@ -1,7 +1,6 @@
 import BookingEmail from "@/components/emails/BookingEmail"
 import CancelBookingEmail from "@/components/emails/CancelBookingEmail"
 import { createClient } from "@supabase/supabase-js"
-import { error } from "console"
 import { NextResponse } from "next/server"
 import React from "react"
 import { Resend } from "resend"
@@ -85,6 +84,7 @@ export async function POST (request: Request) {
                 .from('push_subscriptions')
                 .select('subscription')
                 .eq('user_email', email)
+                .not('customer_id', 'is', null)
 
             if (!subscriptions || subscriptions.length === 0) return { pushed: 0 }
             

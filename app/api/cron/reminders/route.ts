@@ -83,7 +83,7 @@ export async function GET(request: Request) {
             const totalPrice = items.reduce((acc: number, i: any) => acc + i.price, 0)
 
             // Llamamos a nuestro propio motor
-            return fetch(`${DASHBOARD_URL}/api/notifications/dispatch`, {
+            return fetch(`${DASHBOARD_URL}/api/notifications/dispatch/frontend`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

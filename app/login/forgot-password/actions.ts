@@ -14,7 +14,7 @@ export async function sendResetEmail(prevState: any, formData: FormData) {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     // IMPORTANTE: Aquí definimos a dónde va el usuario cuando hace clic en el email.
     // Lo mandamos a un endpoint de callback que valida el token y luego al dashboard.
-    redirectTo: `${origin}/auth/callback?next=/dashboard/ajustes`, 
+    redirectTo: `${origin}/auth/callback?next=/login/reset-password`, 
   });
 
   if (error) {

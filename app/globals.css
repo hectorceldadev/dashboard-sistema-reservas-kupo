@@ -1,9 +1,10 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
 
-/* En Tailwind v4, todo el CSS personalizado debe ir dentro de un @layer.
-  Si no lo hacemos, el compilador explota creyendo que es configuración.
-*/
+@theme {
+  --font-dashboard: var(--font-poppins)
+}
+
 @layer utilities {
 
   @keyframes aparecer {

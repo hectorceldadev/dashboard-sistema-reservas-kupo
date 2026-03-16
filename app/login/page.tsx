@@ -6,6 +6,7 @@ import { ArrowRight, Loader2, Mail, KeyRound, TrendingUp, Star } from "lucide-re
 import { useFormStatus } from 'react-dom'
 import { useActionState, useEffect } from "react"
 import { sileo } from "sileo"
+import Image from "next/image"
 
 export default function LoginPage() {
 
@@ -41,8 +42,13 @@ export default function LoginPage() {
                     <div className="space-y-4">
                         <Link href="/" className="group inline-block">
                             {/* Logo más grande (w-12 h-12 -> w-14 h-14) */}
-                            <div className="w-12 h-12 bg-yellow-500 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl shadow-lg shadow-yellow-500/20 group-hover:scale-105 transition-transform duration-300">
-                                M
+                            <div className="w-12 h-12 relative">
+                                <Image 
+                                    src='/icon.png'
+                                    alt="Logo KUPO"
+                                    fill
+                                    className="object-cover rounded-xl "
+                                />
                             </div>
                         </Link>
                         <div>
@@ -112,14 +118,12 @@ export default function LoginPage() {
                     <div className="pt-6 border-t border-zinc-900">
                         <div className="flex items-center justify-between text-sm text-zinc-500">
                             <span>¿No tienes cuenta?</span>
-                            <a
+                            <Link
                                 href="/register"
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 className="font-bold text-zinc-300 hover:text-yellow-500 transition-colors flex items-center gap-2"
                             >
-                                Solicitar invitación <ArrowRight className="w-4 h-4" />
-                            </a>
+                                Solicitar mi sistema <ArrowRight className="w-4 h-4" />
+                            </Link>
                         </div>
                     </div>
                 </div>

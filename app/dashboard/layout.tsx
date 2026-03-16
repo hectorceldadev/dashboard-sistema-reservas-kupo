@@ -71,7 +71,7 @@ export default async function DashboardLayout({
   const businessName = businessData?.name || 'Mi Negocio'
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200 font-dashboard">
       <AdminBookingProvider >
         <Sidebar businessName={businessName} />
         <main className="lg:ml-64 min-h-screen transition-all duration-300 ease-in-out relative">

@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-zinc-950 font-sans text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200 overflow-x-hidden">
+    <div className="min-h-screen bg-zinc-950  text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200 overflow-x-hidden">
       
       {/* BACKGROUND NOISE TEXTURE (Opcional, da el toque 'film') */}
       <div className="fixed inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light pointer-events-none z-50"></div>
@@ -32,7 +32,7 @@ export default function LandingPage() {
               Iniciar sesión
             </Link>
             <Link 
-              href="/login" 
+              href="/register" 
               className="px-5 py-2.5 text-sm font-bold text-zinc-950 bg-white rounded-full hover:bg-zinc-200 transition-all shadow-lg shadow-white/5"
             >
               Empezar ahora

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Syne, Inter, JetBrains_Mono } from "next/font/google";
+import { Poppins, Unbounded, Geist } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sileo";
 
@@ -9,20 +9,17 @@ const poppins = Poppins({
   subsets: ["latin"]
 })
 
-const syne = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
-});
+const geist = Geist({
+  variable: '--font-geist',
+  subsets: ['latin']
+})
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  weight: 'variable',
+  subsets: ['latin']
+})
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -55,7 +52,7 @@ export default function RootLayout({
     <>
       <html lang="en">
         <body
-          className={` ${poppins.variable} ${syne.variable} ${inter.variable} ${mono.variable} antialiased`}
+          className={` ${poppins.variable} ${unbounded.variable} ${geist.variable} antialiased`}
         >
           <div className="relative z-9999">
             <Toaster 

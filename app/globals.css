@@ -2,7 +2,9 @@
 @plugin "tailwindcss-animate";
 
 @theme {
-  --font-dashboard: var(--font-poppins)
+  --font-poppins: var(--font-poppins);
+  --font-unbounded: var(--font-unbounded);
+  --font-geist: var(--font-geist);
 }
 
 @layer utilities {

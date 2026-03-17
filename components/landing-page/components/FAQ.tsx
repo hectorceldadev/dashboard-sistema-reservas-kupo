@@ -1,107 +1,34 @@
-'use client'
-
 import { ChevronDown } from "lucide-react";
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function FAQ() {
-  const container = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 80%", // Se dispara cuando el contenedor entra al 80% de la pantalla
-        toggleActions: 'play none none reverse'
-      }
-    });
-
-    // 1. Textos del encabezado
-    tl.fromTo(".faq-text", 
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }
-    )
-    
-    // 2. Preguntas individuales en cascada
-    .fromTo(".faq-item",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" },
-      "-=0.4"
-    );
-
-  }, { scope: container });
-
   return (
-    <section ref={container} id="faq" className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02] bg-[#09090b]">
+    <section id="faq" className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02] bg-[#09090b]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
-        
-        {/* ENCABEZADO */}
         <div className="flex flex-col items-center text-center mb-12 md:mb-16">
-          <h2 className="faq-text text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
-            Resolvemos tus dudas
-          </h2>
-          <p className="faq-text text-base sm:text-lg text-zinc-400 max-w-2xl font-geist">
-            Todo lo que necesitas saber antes de dar el salto y <b className="text-zinc-300">recuperar el control de tu negocio.</b>
-          </p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">Resolvemos tus dudas</h2>
+          <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist">Todo lo que necesitas saber antes de dar el salto y <b className="text-zinc-300">recuperar el control de tu negocio.</b></p>
         </div>
-
-        {/* LISTA DE PREGUNTAS */}
         <div className="space-y-4">
-          
-          <details className="faq-item group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none">
-              <span>¿Tengo algún tipo de permanencia?</span>
-              <ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" />
-            </summary>
-            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">
-              Ninguna. Pagas mes a mes y puedes cancelar tu suscripción en cualquier momento.
-            </div>
+          <details className="group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none"><span>¿Tengo algún tipo de permanencia?</span><ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" /></summary>
+            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">Ninguna. Pagas mes a mes y puedes cancelar tu suscripción en cualquier momento.</div>
           </details>
-
-          <details className="faq-item group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none">
-              <span>¿Qué pasa si ya tengo clientes en otra app, los pierdo?</span>
-              <ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" />
-            </summary>
-            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">
-              En absoluto. Tus clientes van a tu negocio por ti, no por la aplicación que usas. Al pasarte a Kupo, simplemente cambias el enlace de reservas en tu biografía de Instagram y WhatsApp. Ellos verán una web más profesional (la tuya) y seguirán reservando como siempre.
-            </div>
+          <details className="group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none"><span>¿Qué pasa si ya tengo clientes en otra app, los pierdo?</span><ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" /></summary>
+            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">En absoluto. Tus clientes van a tu negocio por ti, no por la aplicación que usas. Al pasarte a Kupo, simplemente cambias el enlace de reservas en tu biografía de Instagram y WhatsApp. Ellos verán una web más profesional (la tuya) y seguirán reservando como siempre.</div>
           </details>
-
-          <details className="faq-item group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none">
-              <span>No tengo ni idea de informática. ¿Es para mí?</span>
-              <ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" />
-            </summary>
-            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">
-              Totalmente. Justamente por eso ofrecemos el servicio {`"Llave en mano"`} gratuito. Nuestro equipo técnico se encarga de subir tu logo, configurar los datos de tu negocio y tu paleta de colores. Te entregamos la plataforma 100% lista para recibir citas el primer día.
-            </div>
+          <details className="group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none"><span>No tengo ni idea de informática. ¿Es para mí?</span><ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" /></summary>
+            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">Totalmente. Justamente por eso ofrecemos el servicio {`"Llave en mano"`} gratuito. Nuestro equipo técnico se encarga de subir tu logo, configurar los datos de tu negocio y tu paleta de colores. Te entregamos la plataforma 100% lista para recibir citas el primer día.</div>
           </details>
-
-          <details className="faq-item group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none">
-              <span>¿De verdad no cobráis comisiones por reserva?</span>
-              <ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" />
-            </summary>
-            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">
-              De verdad. Da igual si haces 10 reservas o 1.000 al mes. Creemos que el dinero que generas con tu trabajo debe ir directo a tu bolsillo, por eso solo cobramos la cuota fija mensual. Cero sorpresas a fin de mes.
-            </div>
+          <details className="group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none"><span>¿De verdad no cobráis comisiones por reserva?</span><ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" /></summary>
+            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">De verdad. Da igual si haces 10 reservas o 1.000 al mes. Creemos que el dinero que generas con tu trabajo debe ir directo a tu bolsillo, por eso solo cobramos la cuota fija mensual. Cero sorpresas a fin de mes.</div>
           </details>
-
-          <details className="faq-item group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
-            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none">
-              <span>¿Cómo funciona la prueba gratuita de 30 días?</span>
-              <ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" />
-            </summary>
-            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">
-              Te configuramos tu web y tienes 30 días enteros para usar todas las funciones. Solo si estás 100% satisfecho al terminar el mes, comienza el pago de la mensualidad. Si no, no pasa nada.
-            </div>
+          <details className="group bg-[#121214] border border-white/[0.05] rounded-2xl overflow-hidden cursor-pointer [&_summary::-webkit-details-marker]:hidden">
+            <summary className="flex items-center justify-between px-6 py-5 sm:p-6 text-white font-bold font-unbounded outline-none"><span>¿Cómo funciona la prueba gratuita de 30 días?</span><ChevronDown className="w-5 h-5 text-zinc-500 group-open:rotate-180 transition-transform duration-300 shrink-0 ml-4" /></summary>
+            <div className="px-6 pb-6 sm:px-6 sm:pb-6 text-zinc-400 font-geist text-sm sm:text-base leading-relaxed">Te configuramos tu web y tienes 30 días enteros para usar todas las funciones. Solo si estás 100% satisfecho al terminar el mes, comienza el pago de la mensualidad. Si no, no pasa nada.</div>
           </details>
-
         </div>
       </div>
     </section>

@@ -1,79 +1,27 @@
-'use client'
-
 import { Smartphone, CalendarDays, Users, BellRing } from "lucide-react";
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-// Registramos el plugin
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Features() {
-  const container = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    // Definimos la animación
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 90%", // Se dispara cuando el top llega al 80% de la pantalla
-        toggleActions: 'play none none reverse'
-      }
-    });
-
-    // 1. Textos: de invisible a visible
-    tl.fromTo(".feature-text", 
-      { y: 40, opacity: 0 }, // DESDE (from)
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.8, 
-        stagger: 0.15, 
-        ease: "power3.out" 
-      } // HASTA (to)
-    )
-    // 2. Tarjetas: de invisibles a visibles (en cascada)
-    .fromTo(".feature-card", 
-      { y: 30, opacity: 0 }, // DESDE (from)
-      { 
-        y: 0, 
-        opacity: 1, 
-        duration: 0.2, 
-        stagger: 0.2, 
-        ease: "power3.out" 
-      }, // HASTA (to)
-      "-=0.4" // Se solapa un poco con la animación del texto
-    );
-
-  }, { scope: container });
-
   return (
-    <section ref={container} id="funciones" className="relative z-10 w-full py-20 md:py-28 lg:py-32 border-t border-white/[0.02]">
+    <section id="funciones" className="relative z-10 w-full py-20 md:py-28 lg:py-32 border-t border-white/[0.02]">
       <div className="absolute top-0 inset-x-0 h-px w-full bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[80%] h-[50%] bg-yellow-500/5 blur-[120px] md:blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        
-        {/* ENCABEZADO DE LA SECCIÓN */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-20 lg:mb-24">
-          <div className="feature-text inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-6">
             <span className="text-[10px] sm:text-xs font-semibold text-yellow-500 uppercase">El control vuelve a ti</span>
           </div>
-          <h2 className="feature-text text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-4 sm:mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-4 sm:mb-6 leading-tight">
             Tu negocio. <br className="block sm:hidden" /> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-500">Tus reglas.</span>
           </h2>
-          <p className="feature-text text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
+          <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             <b className="text-zinc-300">Todo lo que necesitas para operar como una gran marca,</b> desde tu propia página web hasta la fidelización de tu base de clientes.
           </p>
         </div>
 
-        {/* CUADRÍCULA DE TARJETAS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          
-          {/* TARJETA 1 */}
-          <div className="feature-card group relative bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-yellow-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
+          <div className="group relative bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-yellow-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
             <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-yellow-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-yellow-500/20 transition-all duration-500" />
             <div className="relative z-10">
               <div className="w-12 h-12 bg-yellow-500/10 border border-yellow-500/20 rounded-2xl flex items-center justify-center mb-6 text-yellow-500">
@@ -93,8 +41,7 @@ export default function Features() {
             </div>
           </div>
 
-          {/* TARJETA 2 */}
-          <div className="feature-card group relative bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-blue-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
+          <div className="group relative bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-blue-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
             <div className="absolute bottom-0 left-0 w-48 h-48 sm:w-64 sm:h-64 bg-blue-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 group-hover:bg-blue-500/20 transition-all duration-500" />
             <div className="relative z-10">
               <div className="w-12 h-12 bg-blue-500/10 border border-blue-500/20 rounded-2xl flex items-center justify-center mb-6 text-blue-400">
@@ -121,8 +68,7 @@ export default function Features() {
             </div>
           </div>
 
-          {/* TARJETA 3 */}
-          <div className="feature-card group relative md:col-span-2 lg:col-span-1 bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
+          <div className="group relative md:col-span-2 lg:col-span-1 bg-[#121214] rounded-3xl border border-white/[0.05] px-6 pt-6 sm:px-8 sm:pt-8 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden flex flex-col min-h-[400px] sm:min-h-[420px]">
             <div className="absolute top-1/2 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-emerald-500/10 rounded-full blur-[80px] translate-x-1/2 group-hover:bg-emerald-500/20 transition-all duration-500" />
             <div className="relative z-10">
               <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 text-emerald-400">
@@ -150,7 +96,6 @@ export default function Features() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

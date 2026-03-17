@@ -1,66 +1,20 @@
-'use client'
-
 import { XCircle, CheckCircle2 } from "lucide-react";
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Comparison() {
-  const container = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container.current,
-        start: "top 80%", // Empieza la animación cuando el componente está al 80% del viewport
-        toggleActions: 'play none none reverse'
-      }
-    });
-
-    // 1. Textos del encabezado
-    tl.fromTo(".comp-text", 
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out" }
-    )
-    
-    // 2. Tarjeta MALA (Otras apps) - Entra seria desde la izquierda
-    .fromTo(".comp-bad", 
-      { x: -50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-      "-=0.4"
-    )
-    
-    // 3. Tarjeta BUENA (Kupo) - Entra con un "golpe de autoridad" desde la derecha
-    .fromTo(".comp-good", 
-      { x: 50, opacity: 0, scale: 0.95 },
-      { x: 0, opacity: 1, scale: 1.05, duration: 0.8, ease: "back.out(1.5)" }, // scale: 1.05 mantiene tu md:scale-105
-      "-=0.6"
-    );
-
-  }, { scope: container });
-
   return (
-    <section ref={container} className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02] overflow-hidden">
+    <section className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        
-        {/* ENCABEZADO */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <h2 className="comp-text text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
             ¿Por qué salir de <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">las apps de siempre?</span>
           </h2>
-          <p className="comp-text text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
+          <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             Las aplicaciones de directorio te traen clientes, <b className="text-zinc-300">te cobran un precio muy alto: tu identidad y tus márgenes.</b> Es hora de independizarse.
           </p>
         </div>
 
-        {/* COMPARATIVA */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          
-          {/* TARJETA MALA */}
-          <div className="comp-bad relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#121214]/50 border border-red-500/10 opacity-90 h-full">
+          <div className="relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#121214]/50 border border-red-500/10 opacity-90 h-full">
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-zinc-400 font-unbounded mb-2">Apps de Directorio</h3>
               <p className="text-sm text-zinc-500 font-geist">(Booksy, Treatwell, etc.)</p>
@@ -89,8 +43,7 @@ export default function Comparison() {
             </div>
           </div>
 
-          {/* TARJETA BUENA */}
-          <div className="comp-good relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#18181b] border-2 border-yellow-500/30 shadow-[0_0_40px_rgba(234,179,8,0.05)] md:scale-105 z-10 h-full">
+          <div className="relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#18181b] border-2 border-yellow-500/30 shadow-[0_0_40px_rgba(234,179,8,0.05)] md:scale-105 z-10 h-full">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent opacity-50" />
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-yellow-500 font-unbounded mb-2">Con Kupo</h3>
@@ -119,7 +72,6 @@ export default function Comparison() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -6,7 +6,7 @@ export default function Hero() {
     <main className="relative z-10 max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-24 md:pb-32 stagger-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-26 items-center">
           <div className="flex flex-col items-center lg:items-start mt-8 text-left stagger-container">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl text-center lg:text-left font-bold mt-4 mb-6 font-unbounded">
+            <h1 className="text-4xl lg:text-5xl text-center lg:text-left font-bold mt-4 mb-6 font-unbounded">
               Tu propia web de reservas <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-600">
                 No un negocio mas en una app

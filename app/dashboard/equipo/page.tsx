@@ -1,6 +1,11 @@
 import { EquipoManager } from '@/components/dashboard/equipo/EquipoManager';
 import { getTeamMembers } from './actions';
 import { sileo } from 'sileo';
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Equipo",
+}
 
 const Page = async () => {
 

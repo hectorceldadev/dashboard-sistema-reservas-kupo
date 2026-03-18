@@ -216,7 +216,7 @@ export const DashboardHome = () => {
             {/* --- 1. HEADER Y ACCIONES RÁPIDAS --- */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 border-b border-zinc-800 pb-5 sm:pb-6">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                    <h1 className="text-2xl font-unbounded font-semibold text-white tracking-tight">
                         Hola, {memberInfo.name?.split(' ')[0] || 'Equipo'}
                     </h1>
                     <p className="text-sm sm:text-base text-zinc-400 mt-1 capitalize">
@@ -228,11 +228,11 @@ export const DashboardHome = () => {
 
                     {/* SELECTOR DE MIEMBRO */}
                     {isAdmin && members.length > 0 && (
-                        <div className="relative w-full lg:w-auto col-span-3">
+                        <div className="relative w-full lg:w-auto col-span-3  font-unbounded">
                             <select
                                 value={selectedMemberId || ''}
                                 onChange={(e) => setSelectedMemberId(e.target.value)}
-                                className="w-full lg:w-48 appearance-none bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl text-sm font-medium outline-none transition-colors cursor-pointer"
+                                className="w-full  appearance-none text-xs bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl font-medium outline-none transition-colors cursor-pointer"
                             >
                                 {members.map(p => (
                                     <option key={p.id} value={p.id}>
@@ -259,7 +259,7 @@ export const DashboardHome = () => {
                     {/* BOTONERA (Adaptada para pulgares en móvil) */}
                     <div className="col-span-2 col-start-4 flex items-center gap-2 w-full lg:w-auto">
                         <button
-                            className="flex-1 lg:flex-none h-11 flex items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold text-sm transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
+                            className="flex-1 lg:flex-none h-11 flex text-xs font-unbounded items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
                             onClick={openModal}
                         >
                             <Plus size={18} />
@@ -276,14 +276,14 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Citas Hoy</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Citas Hoy</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.totalBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform">
                             <CalendarDays size={18} className="sm:w-5 sm:h-5" />
                         </div>
                     </div>
-                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-zinc-400 bg-zinc-800/50">
+                    <div className="font-unbounded mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-zinc-400 bg-zinc-800/50">
                         Programadas hoy
                     </div>
                 </div>
@@ -292,14 +292,14 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Completadas</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Completadas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.completedBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform">
                             <CheckCircle2 size={18} className="sm:w-5 sm:h-5" />
                         </div>
                     </div>
-                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-emerald-500 bg-emerald-500/10">
+                    <div className="font-unbounded mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-emerald-500 bg-emerald-500/10">
                         Citas completadas
                     </div>
                 </div>
@@ -308,14 +308,14 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Canceladas</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Canceladas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.cancelledBookings || 0}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform">
                             <Ban size={18} className="sm:w-5 sm:h-5" />
                         </div>
                     </div>
-                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-red-500 bg-red-500/10">
+                    <div className="font-unbounded mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-red-500 bg-red-500/10">
                         Perdidas
                     </div>
                 </div>
@@ -324,14 +324,14 @@ export const DashboardHome = () => {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold uppercase tracking-wider mb-1 line-clamp-1">Ingresos Hoy</p>
+                            <p className="text-zinc-500 text-[12px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Ingresos Hoy</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-yellow-500">{kpis.totalEarnings?.toFixed(2) || "0.00"}€</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform">
                             <Euro size={18} className="sm:w-5 sm:h-5" />
                         </div>
                     </div>
-                    <div className="mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-yellow-500 bg-yellow-500/10">
+                    <div className="font-unbounded mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md text-yellow-500 bg-yellow-500/10">
                         Total esperado
                     </div>
                 </div>
@@ -339,7 +339,7 @@ export const DashboardHome = () => {
 
             {/* --- 3. PRÓXIMA CITA (Destacado - Estilo DayView Card) --- */}
             <div>
-                <h2 className="text-xs sm:text-sm font-bold text-zinc-500 uppercase tracking-wider mb-3 sm:mb-4 flex items-center gap-2">
+                <h2 className="text-xs sm:text-sm font-unbounded font-bold text-zinc-500 mb-3 sm:mb-4 flex items-center gap-2">
                     <Clock size={16} className="text-yellow-500" /> Tu Próxima Cita
                 </h2>
                 
@@ -354,7 +354,7 @@ export const DashboardHome = () => {
                         {/* Info Principal - Optimizada para Móvil */}
                         <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
                             <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                <h3 className="font-bold text-base sm:text-lg text-zinc-100 group-hover/card:text-white transition-colors">
+                                <h3 className="font-bold font-unbounded text-sm sm:text-md text-zinc-100 group-hover/card:text-white transition-colors">
                                     {nextBooking.customer_name}
                                 </h3>
                                 <span className="bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider animate-pulse shrink-0">
@@ -415,7 +415,10 @@ export const DashboardHome = () => {
 
             {/* --- 4. TIMELINE DEL DÍA --- */}
             <div>
-                <h2 className="text-xs sm:text-sm font-bold text-zinc-500 uppercase tracking-wider mb-3 sm:mb-4">Agenda de Hoy</h2>
+                <div className="flex gap-2">
+                    <CalendarDays size={16} className="text-yellow-500" />                
+                    <h2 className="text-xs sm:text-sm font-bold text-zinc-500 font-unbounded mb-3 sm:mb-4">Agenda de Hoy</h2>
+                </div>
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl sm:rounded-3xl p-1.5 sm:p-6 min-h-[200px]">
                     {bookings && bookings.length > 0 ? (
                         <div className="relative">
@@ -468,13 +471,13 @@ export const DashboardHome = () => {
                                                 {/* Info Principal */}
                                                 <div className="flex-1 p-3 sm:p-4 pl-4 sm:pl-5 flex flex-col justify-center">
                                                     <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                                        <h3 className={`font-bold text-sm sm:text-base transition-colors ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-100 group-hover/card:text-white'}`}>
+                                                        <h3 className={`font-bold text-sm sm:text-md font-unbounded transition-colors ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-100 group-hover/card:text-white'}`}>
                                                             {booking.customer_name}
                                                         </h3>
                                                         <div className="flex gap-1.5">
-                                                            {isNext && <span className="bg-yellow-500/10 text-yellow-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center shrink-0 animate-pulse">Siguiente</span>}
-                                                            {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
-                                                            {isCancelled && <span className="bg-red-500/10 text-red-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
+                                                            {isNext && <span className="bg-yellow-500/10 text-yellow-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider flex items-center shrink-0 animate-pulse">Siguiente</span>}
+                                                            {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
+                                                            {isCancelled && <span className="bg-red-500/10 text-red-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
                                                         </div>
                                                     </div>
 

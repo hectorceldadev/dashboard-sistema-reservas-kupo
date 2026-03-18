@@ -153,7 +153,7 @@ export function PushToggle({ onRequireInstall }: PushToggleProps) {
                 ) : (
                     <BellOff className="w-5 h-5" />
                 )}
-                <span className='hidden md:block'>Notificaciones</span>
+                <span className='hidden md:block font-unbounded font-normal text-xs'>Notificaciones</span>
             </div>
 
             <div

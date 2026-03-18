@@ -88,15 +88,15 @@ export function Sidebar({ businessName }: { businessName: string }) {
                     <div className="flex items-center gap-3">
                         <Image src='/icon.png' alt="KUPO LOGO" height={40} width={40} />
                         <div className="flex flex-col overflow-hidden">
-                            <span className="font-bold text-white truncate text-base leading-tight">{businessName}</span>
-                            <span className="text-xs text-zinc-500 font-medium">Panel de control</span>
+                            <span className="font-bold text-white truncate text-md font-unbounded leading-tight">{businessName}</span>
+                            <span className="text-[10px] text-zinc-500 font-unbounded font-semibold">Panel de control</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Navegación Desktop */}
                 <nav className="flex-1 px-4 py-8 space-y-1 overflow-hidden">
-                    <p className="px-4 text-xs font-bold text-zinc-600 uppercase tracking-widest mb-4">Menu Principal</p>
+                    <p className="px-4 text-xs font-bold text-zinc-600 font-unbounded mb-4">Menu Principal</p>
 
                     {isLoading ? (
                         <div className="space-y-2 px-4 animate-pulse">
@@ -115,7 +115,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                         }`}
                                 >
                                     {!isActive && <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />}
-                                    <div className="flex items-center gap-3 relative z-10">
+                                    <div className="flex items-center gap-3 font-unbounded text-sm relative z-10">
                                         <item.icon className={`w-5 h-5 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
                                         {item.label}
                                     </div>
@@ -130,12 +130,12 @@ export function Sidebar({ businessName }: { businessName: string }) {
                 <div className="p-4 flex flex-col gap-2 border-t border-white/5">
                     <PushToggle onRequireInstall={() => setAppleModal(true)} />
                     {isInstallable && (
-                        <button onClick={installPWA} className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 transition-colors cursor-pointer">
+                        <button onClick={installPWA} className="flex w-full font-unbounded items-center gap-3 px-4 py-2 rounded-xl text-xs bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 border border-yellow-500/20 transition-colors cursor-pointer">
                             <Download className="w-5 h-5" />Instalar App
                         </button>
                     )}
                     <form action={async () => { await signOut() }}>
-                        <button type="submit" className="flex w-full items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium bg-red-600/10 text-red-600 hover:bg-red-600/20 border border-red-500/20 transition-colors cursor-pointer">
+                        <button type="submit" className="flex w-full items-center gap-3 px-4 py-2 rounded-xl font-unbounded text-xs bg-red-600/10 text-red-600 hover:bg-red-600/20 border border-red-500/20 transition-colors cursor-pointer">
                             <LogOut className="w-5 h-5" /> Cerrar Sesión
                         </button>
                     </form>
@@ -156,7 +156,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                         return (
                             <Link key={item.href} href={item.href} className="flex flex-col items-center gap-1 p-2 w-16 group relative">
                                 <item.icon className={`w-6 h-6 transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`} />
-                                <span className={`text-[10px] font-medium transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`}>
+                                <span className={`text-[10px] font-unbounded transition-colors ${isActive ? "text-yellow-500" : "text-zinc-500 group-hover:text-zinc-300"}`}>
                                     {item.label}
                                 </span>
                                 {isActive && <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-yellow-500 rounded-b-full shadow-[0_0_8px_rgba(234,179,8,0.8)]" />}
@@ -167,7 +167,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                     {/* Botón "Más" (Hamburguesa) */}
                     <button onClick={() => setIsMobileMenuOpen(true)} className="flex flex-col items-center gap-1 p-2 w-16 text-zinc-500 hover:text-zinc-300 transition-colors cursor-pointer">
                         <Menu className="w-6 h-6" />
-                        <span className="text-[10px] font-medium">Más</span>
+                        <span className="text-[10px] font-unbounded">Más</span>
                     </button>
 
                 </div>
@@ -193,7 +193,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                         key={item.href}
                                         href={item.href}
                                         onClick={() => setIsMobileMenuOpen(false)} // Cerrar al hacer clic
-                                        className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all ${isActive ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 'bg-zinc-950 border border-zinc-800/50 text-zinc-300 hover:border-zinc-700'
+                                        className={`flex items-center gap-4 px-4 py-3.5 rounded-2xl font-unbounded text-sm transition-all ${isActive ? 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/20' : 'bg-zinc-950 border border-zinc-800/50 text-zinc-300 hover:border-zinc-700'
                                             }`}
                                     >
                                         <item.icon className="w-5 h-5" />
@@ -207,17 +207,17 @@ export function Sidebar({ businessName }: { businessName: string }) {
                         <div className="mt-6 flex items-center gap-2 pt-6 border-t border-zinc-800">
                             <PushToggle onRequireInstall={() => setAppleModal(true)} />
                             {isInstallable && (
-                                <button onClick={installPWA} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                <button onClick={installPWA} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-xs font-unbounded bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
                                     <Download className="w-5 h-5" /> Instalar
                                 </button>
                             )}
                             {isIOS && !isStandalone && (
-                                <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-medium bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
+                                <button onClick={() => setAppleModal(true)} className="flex w-full justify-center items-center gap-3 px-4 py-2 rounded-2xl lg:rounded-xl text-xs font-unbounded bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 hover:bg-yellow-500/20 transition-colors cursor-pointer">
                                     <Download className="w-5 h-5" /> Instalar 
                                 </button>
                             )}
                             <form action={async () => { await signOut() }}>
-                                <button type="submit" className={"w-full flex justify-center items-center gap-2 px-4 py-2 rounded-2xl lg:rounded-xl text-sm font-bold bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer"}>
+                                <button type="submit" className={"w-full flex justify-center items-center gap-2 px-4 py-2 rounded-2xl lg:rounded-xl text-xs font-unbounded bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20 transition-colors cursor-pointer"}>
                                     <LogOut className="w-5 h-5" /> Cerrar 
                                 </button>
                             </form>

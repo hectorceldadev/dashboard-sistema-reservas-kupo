@@ -227,7 +227,7 @@ export default function BookingModal() {
                 </button>
               )}
               <div className="flex flex-col">
-                <h3 className='text-lg text-white font-bold leading-tight'>Agendar Cita</h3>
+                <h3 className='text-md text-white font-bold leading-tight font-unbounded'>Agendar Cita</h3>
                 <div className="flex items-center gap-2">
                   <div className="h-1 w-16 bg-zinc-800 rounded-full overflow-hidden mt-0.5">
                     <div className="h-full bg-yellow-500 transition-all duration-500" style={{ width: `${(step / TOTAL_STEPS) * 100}%` }} />
@@ -262,7 +262,7 @@ export default function BookingModal() {
             <div className="flex items-center justify-between gap-4">
 
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">Total estimado</span>
+                <span className="text-[10px] font-unbounded text-zinc-500 font-bold">Total estimado</span>
                 <div className="flex items-baseline gap-1">
                   <span className="text-2xl font-bold text-white animate-in slide-in-from-bottom-2">
                     {totalPrice}€
@@ -274,7 +274,7 @@ export default function BookingModal() {
                 onClick={step === TOTAL_STEPS ? handleConfirm : nextStep}
                 disabled={!canContinue() || isLoading}
                 className={cn(
-                  "flex-1 max-w-[200px] py-3.5 px-6 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all duration-300",
+                  "flex-1 max-w-[200px] py-3.5 px-6 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 font-unbounded",
                   canContinue() && !isLoading
                     ? "bg-yellow-500 text-zinc-950 shadow-lg shadow-yellow-500/20 hover:scale-[1.02] active:scale-95 cursor-pointer"
                     : "bg-zinc-800 text-zinc-500 cursor-not-allowed opacity-50"

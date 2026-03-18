@@ -62,7 +62,7 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
       
       {/* CABECERA */}
       <div className="flex items-center justify-between stagger-container">
-        <h3 className="text-xl font-bold text-white">
+        <h3 className="text-md font-bold font-unbounded text-white">
             Selecciona servicios
         </h3>
         <span className="text-xs font-bold px-3 py-1 bg-zinc-900 rounded-full text-zinc-400 border border-zinc-800">
@@ -89,7 +89,7 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
               <div className="flex justify-between items-start gap-4">
                 <div className="flex-1 space-y-1.5">
                   <h4 className={cn(
-                      "font-bold text-base transition-colors",
+                      "font-bold font-unbounded text-sm transition-colors",
                       isSelected ? "text-yellow-500" : "text-white group-hover:text-yellow-500/80"
                   )}>
                     {service.title}

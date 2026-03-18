@@ -2,7 +2,7 @@ import { getCustomers } from "./actions"
 import { Clientes } from "@/components/dashboard/clientes/Clientes"
 
 export const metadata = {
-    title: 'Clientes | Kupo',
+    title: 'Clientes',
     description: 'Gestión de clientes de tu negocio',
 }
 

@@ -36,7 +36,7 @@ export default function StepStaff({ booking, setBooking, staffList, isLoading }:
     <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4 stagger-container">
       
       <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-white">
+        <h3 className="text-md font-bold font-unbounded text-white">
             Escoge un profesional
         </h3>
       </div>
@@ -96,7 +96,7 @@ export default function StepStaff({ booking, setBooking, staffList, isLoading }:
 
               <div className="space-y-1 z-10">
                   <span className={cn(
-                      "font-bold text-lg block transition-colors capitalize",
+                      "font-bold text-sm block transition-colors capitalize font-unbounded",
                       isSelected ? "text-yellow-500" : "text-white"
                   )}>
                       {member.full_name}

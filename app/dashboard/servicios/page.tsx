@@ -1,5 +1,10 @@
 import { Servicios } from "@/components/dashboard/servicios/Servicios"
 import { getServices } from "./actions"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Servicios",
+}
 
 const page = async () => {
 

@@ -5,6 +5,19 @@ import { redirect } from "next/navigation"
 import { signOut } from "../login/actions"
 import { AdminBookingProvider } from "@/context/AdminBookingContext"
 import BookingModal from "@/components/dashboard/booking/BookingModal"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: {
+        default: "Panel",
+        template: "%s | Dashboard KUPO"
+    },
+    // 🔴 MUY IMPORTANTE: Le decimos a Google que NO indexe nada dentro de /dashboard
+    robots: {
+        index: false,
+        follow: false,
+    }
+}
 
 export default async function DashboardLayout({
   children,
@@ -37,7 +50,7 @@ export default async function DashboardLayout({
     console.error("Error fetching profile:", profileError)
     // Opción: Redirigir a una página de error o de "Terminar configuración"
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-950 text-zinc-200 p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-zinc-950 text-zinc-200 p-4 ">
         <div className="max-w-md w-full bg-zinc-900/50 border border-red-500/20 rounded-3xl p-8 backdrop-blur-xl shadow-2xl space-y-6 text-center">
 
           <div className="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -71,7 +84,7 @@ export default async function DashboardLayout({
   const businessName = businessData?.name || 'Mi Negocio'
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200 font-dashboard">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-yellow-500/30 selection:text-yellow-200 font-geist">
       <AdminBookingProvider >
         <Sidebar businessName={businessName} />
         <main className="lg:ml-64 min-h-screen transition-all duration-300 ease-in-out relative">

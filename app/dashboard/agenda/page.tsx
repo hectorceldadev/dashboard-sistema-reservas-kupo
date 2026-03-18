@@ -1,6 +1,11 @@
 import AgendaContainer from "@/components/dashboard/agenda/AgendaContainer"
 import { createClient } from "@/utils/supabase/server"
 import { redirect } from "next/navigation"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Agenda",
+}
 
 export default async function AgendaPage() {
     const supabase = await createClient()

@@ -47,7 +47,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
 
     // Guardamos todo tu diseño en una variable
     const modalContent = (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center p-4 sm:p-6 stagger-container">
+        <div className="fixed inset-0 z-[8998] flex items-center justify-center p-4 sm:p-6 stagger-container">
             {/* Backdrop oscuro */}
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onClick={onClose} />
             

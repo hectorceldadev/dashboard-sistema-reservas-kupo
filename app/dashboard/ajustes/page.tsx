@@ -1,6 +1,11 @@
 import { SettingsForm } from "@/components/dashboard/ajustes/SettingsForm";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Ajustes",
+}
 
 export default async function SettingsPage () {
     

@@ -50,7 +50,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
             {/* Cabecera de los días de la semana */}
             <div className="grid grid-cols-7 bg-zinc-950/50 rounded-xl">
                 {weekDays.map(day => (
-                    <div key={day} className="py-3 text-center text-xs font-bold text-yellow-500 uppercase tracking-wider">
+                    <div key={day} className="py-3 text-center text-xs font-semibold font-unbounded text-yellow-500">
                         <span className="hidden sm:inline">{day}</span>
                         <span className="sm:hidden">{day.slice(0, 1)}</span>
                     </div>

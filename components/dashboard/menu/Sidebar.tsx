@@ -96,7 +96,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
 
                 {/* Navegación Desktop */}
                 <nav className="flex-1 px-4 py-8 space-y-1 overflow-hidden">
-                    <p className="px-4 text-xs font-bold text-zinc-600 font-unbounded mb-4">Menu Principal</p>
+                    <p className="px-4 text-xs font-normal text-zinc-600 font-unbounded  mb-4">Menu Principal</p>
 
                     {isLoading ? (
                         <div className="space-y-2 px-4 animate-pulse">
@@ -111,7 +111,7 @@ export function Sidebar({ businessName }: { businessName: string }) {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all duration-200 relative overflow-hidden ${isActive ? "bg-yellow-500/10 text-yellow-500 shadow-lg shadow-yellow-500/5 border border-yellow-500/20" : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
+                                    className={`group flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-normal transition-all duration-200 relative overflow-hidden ${isActive ? "bg-yellow-500/10 text-yellow-500 shadow-lg shadow-yellow-500/5 border border-yellow-500/20" : "text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100"
                                         }`}
                                 >
                                     {!isActive && <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />}

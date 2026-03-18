@@ -60,7 +60,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
             {/* Cabecera del Día */}
             <div className="bg-zinc-950 rounded-xl mb-6 p-6 shadow-sm flex items-center justify-between sticky top-0 z-30">
                 <div>
-                    <h2 className="text-2xl font-bold text-white capitalize">
+                    <h2 className="text-lg font-bold font-unbounded text-white capitalize">
                         {format(currentDate, "EEEE, d 'de' MMMM", { locale: es })}
                     </h2>
                     <p className="text-sm font-medium text-zinc-400 mt-1 flex items-center gap-2">
@@ -142,7 +142,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                     {/* Info Principal - Optimizada para Móvil */}
                                                     <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
                                                         <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                                            <h3 className="font-bold text-sm sm:text-base text-zinc-100 group-hover/card:text-white transition-colors">
+                                                            <h3 className="font-bold text-sm sm:text-md font-unbounded text-zinc-100 group-hover/card:text-white transition-colors">
                                                                 {booking.customer_name}
                                                             </h3>
                                                         </div>

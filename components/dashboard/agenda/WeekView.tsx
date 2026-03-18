@@ -73,15 +73,15 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
                             const isPastDay = isBefore(day, today)
 
                             return (
-                                <div key={idx} className={`flex flex-col items-center justify-center py-3 border-r border-zinc-800/50 last:border-r-0 gap-1 transition-opacity ${isPastDay ? 'opacity-50' : 'opacity-100'}`}>
-                                    <span className={`text-center text-[10px] sm:text-xs font-bold uppercase tracking-wider ${isCurrentDay ? 'text-yellow-500' : 'text-zinc-500'}`}>
+                                <div key={idx} className={`flex flex-col items-center font-unbounded justify-center py-3 border-r border-zinc-800/50 last:border-r-0 gap-1 transition-opacity ${isPastDay ? 'opacity-50' : 'opacity-100'}`}>
+                                    <span className={`text-center text-[10px] sm:text-xs font-semibold capitalize ${isCurrentDay ? 'text-yellow-500' : 'text-zinc-500'}`}>
                                         <span className="hidden sm:inline">{format(day, 'EEEE', { locale: es })}</span>
                                         <span className="sm:hidden">{format(day, 'E', { locale: es })}</span>
                                     </span>
                                     <span className={`
                                         flex items-center justify-center w-6 h-6 sm:w-6 sm:h-6 text-sm sm:text-base font-bold rounded-full
                                         ${isCurrentDay 
-                                            ? 'bg-yellow-500 text-zinc-950 shadow-md shadow-yellow-500/20' 
+                                            ? 'bg-yellow-500 p-1 text-zinc-950 shadow-md shadow-yellow-500/20' 
                                             : isCurrentMonth ? 'text-zinc-300' : 'text-zinc-600'
                                         }
                                     `}>

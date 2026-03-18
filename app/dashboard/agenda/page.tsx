@@ -64,14 +64,7 @@ export default async function AgendaPage() {
     let bookingsQuery = supabase
       .from('bookings')
       .select(`
-        id,
-        date,
-        start_time,
-        end_time,
-        status,
-        customer_name,
-        staff_id,
-        total_price,
+        *,
         staff:profiles!staff_id ( 
           full_name,
           avatar_url
@@ -101,8 +94,8 @@ export default async function AgendaPage() {
         <div className="space-y-6 stagger-container">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-zinc-800 pb-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-white tracking-tight">Agenda</h1>
-                    <p className="text-zinc-400 mt-1">Gestiona las reservas de tu negocio.</p>
+                    <h1 className="text-2xl font-bold font-unbounded text-white tracking-tight">Agenda</h1>
+                    <p className="text-zinc-400 text-md mt-1">Gestiona las reservas de tu negocio.</p>
                 </div>
                 {/* Aquí iría un botón de "+ Nueva Cita Manual" en el futuro */}
             </div>

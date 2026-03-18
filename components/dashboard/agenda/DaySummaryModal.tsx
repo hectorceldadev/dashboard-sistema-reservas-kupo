@@ -58,7 +58,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                 <div className="flex items-center justify-between p-6 border-b border-zinc-800 bg-zinc-950/80 shrink-0 relative overflow-hidden">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-yellow-500/5 blur-2xl pointer-events-none" />
                     <div className="relative z-10">
-                        <h3 className="text-xl font-bold text-white capitalize leading-none mb-1.5">
+                        <h3 className="text-md font-bold font-unbounded text-white capitalize leading-none mb-1.5">
                             {format(date, "EEEE, d 'de' MMMM", { locale: es })}
                         </h3>
                         <p className="text-sm font-medium text-zinc-400 flex items-center gap-1.5">
@@ -82,11 +82,11 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                             <div className="w-14 h-14 bg-zinc-950 rounded-full flex items-center justify-center mb-4 border border-zinc-800/80 shadow-sm">
                                 <Calendar className="text-zinc-600" size={28} />
                             </div>
-                            <h4 className="text-zinc-300 font-bold text-lg mb-1">Agenda libre</h4>
+                            <h4 className="text-zinc-300 font-bold font-unbounded text-md mb-1">Agenda libre</h4>
                             <p className="text-zinc-500 text-sm max-w-[250px]">No hay ninguna cita programada para este día.</p>
                             <button 
                                 onClick={openModal}
-                                className="group flex items-center mt-4 gap-2 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
+                                className="group flex items-center font-unbounded text-sm mt-4 gap-2 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
                             >
                                 <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
                                 Nueva cita
@@ -125,7 +125,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                                         <div className="flex-1 p-4 flex flex-col justify-center min-w-0 bg-zinc-900">
                                             
                                             <div className="flex justify-between items-start mb-1.5 gap-2">
-                                                <h3 className="font-bold text-sm md:text-base text-zinc-100 leading-tight truncate group-hover:text-white transition-colors">
+                                                <h3 className="font-bold font-unbounded text-sm md:text-md text-zinc-100 leading-tight truncate group-hover:text-white transition-colors">
                                                     {booking.customer_name}
                                                 </h3>
                                                 
@@ -173,7 +173,7 @@ export default function DaySummaryModal({ date, bookings, onClose }: DaySummaryM
                             <div className='flex justify-center items-center'>
                                 <button 
                                     onClick={openModal}
-                                    className="group flex items-center gap-2 mt-4 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
+                                    className="group flex items-center font-unbounded text-sm gap-2 mt-4 bg-yellow-500 text-zinc-950 px-6 py-2.5 rounded-xl font-bold shadow-[0_0_20px_rgba(234,179,8,0.15)] hover:shadow-[0_0_25px_rgba(234,179,8,0.3)] hover:bg-yellow-400 hover:-translate-y-0.5 transition-all duration-200 active:scale-95 cursor-pointer"
                                 >
                                     <Plus size={18} strokeWidth={3} className="group-hover:rotate-90 transition-transform duration-300" />
                                     Nueva cita

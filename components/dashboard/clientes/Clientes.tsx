@@ -101,7 +101,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
             {/* HEADER & ACTIONS */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Directorio de Clientes</h1>
+                    <h1 className="text-2xl font-unbounded font-bold text-white tracking-tight">Directorio de Clientes</h1>
                     <p className="text-zinc-400 mt-1 text-sm sm:text-base">Gestiona tu base de datos y fideliza a tus clientes.</p>
                 </div>
 
@@ -146,7 +146,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                         {getInitials(customer.full_name)}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="font-bold text-white text-base truncate">{customer.full_name}</div>
+                                        <div className="font-bold text-white text-sm font-unbounded truncate">{customer.full_name}</div>
                                         <div className="text-zinc-500 text-[10px] font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     <div className="hidden lg:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-bold text-yellow-500 uppercase tracking-wider stagger-container">
+                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-unbounded font-medium text-yellow-500 stagger-container">
                                     <th className="px-6 py-4 rounded-tl-2xl">Cliente</th>
                                     <th className="px-6 py-4">Teléfono</th>
                                     <th className="pr-30 py-4 text-center">Email</th>
@@ -184,7 +184,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                                     {getInitials(customer.full_name)}
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold text-zinc-200 group-hover:text-yellow-500 transition-colors">{customer.full_name}</div>
+                                                    <div className="font-bold font-unbounded text-sm text-zinc-200 group-hover:text-yellow-500 transition-colors">{customer.full_name}</div>
                                                     <div className="text-zinc-600 text-[10px] font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
                                                 </div>
                                             </div>
@@ -237,7 +237,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                     {isLoading ? (
                                         <div className="h-7 w-48 bg-zinc-800 rounded-md animate-pulse"></div>
                                     ) : (
-                                        <h2 className="text-xl font-bold text-white leading-tight">{activeCustomer?.full_name}</h2>
+                                        <h2 className="text-md font-semibold text-white font-unbounded leading-tight">{activeCustomer?.full_name}</h2>
                                     )}
 
                                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mt-1"></p>
@@ -267,18 +267,18 @@ export function Clientes({ customers }: { customers: Customer[] }) {
 
                             {/* Estadísticas */}
                             <div>
-                                <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">Rendimiento</h4>
+                                <h4 className="text-xs font-medium text-zinc-500 font-unbounded mb-3">Rendimiento</h4>
                                 <div className="grid grid-cols-3 gap-3">
                                     <div className="bg-yellow-500/10 border border-yellow-800 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                        <span className="text-yellow-500/80 text-[10px] font-bold uppercase mb-1">Citas</span>
+                                        <span className="text-yellow-500/80 text-[10px] font-unbounded font-semibold mb-1">Citas</span>
                                         <span className={`text-xl font-black text-yellow-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citas}</span>
                                     </div>
                                     <div className="bg-red-500/10 border border-red-800 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                        <span className="text-red-500 text-[10px] font-bold uppercase mb-1">Anuladas</span>
+                                        <span className="text-red-500 text-[10px] font-unbounded font-semibold mb-1">Anuladas</span>
                                         <span className={`text-xl font-black text-red-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citasCanceladas}</span>
                                     </div>
                                     <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden">
-                                        <span className="text-emerald-500/80 text-[10px] font-bold uppercase mb-1 relative z-10">Ingresos</span>
+                                        <span className="text-emerald-500/80 text-[10px] font-unbounded font-semibold mb-1 relative z-10">Ingresos</span>
                                         <span className={`text-xl font-black text-emerald-500 relative z-10 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : `${ingresos}€`}</span>
                                     </div>
                                 </div>
@@ -286,7 +286,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
 
                             {/* Historial de Citas */}
                             <div>
-                                <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-3">Historial de Reservas</h4>
+                                <h4 className="text-xs font-medium text-zinc-500 font-unbounded mb-3">Historial de Reservas</h4>
 
                                 {isLoading ? (
                                     /* SKELETON DE LOS TICKETS DE RESERVA */
@@ -335,7 +335,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                                     </div>
                                                     <div className="flex-1 p-3 flex flex-col justify-center min-w-0">
                                                         <div className="flex justify-between items-start mb-1.5 gap-2">
-                                                            <h5 className="font-bold text-sm text-zinc-100 group-hover:text-yellow-500 transition-colors truncate">
+                                                            <h5 className="font-unbounded font-semibold text-xs text-zinc-100 group-hover:text-yellow-500 transition-colors truncate">
                                                                 {serviceName}
                                                             </h5>
                                                             <span className="font-bold text-white text-sm shrink-0">{booking.total_price}€</span>

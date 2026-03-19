@@ -123,9 +123,9 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                             <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center shrink-0 text-sm font-bold border border-zinc-700 text-zinc-400">
                                 {getInitials(selectedMember?.full_name || '')}
                             </div>
-                            <div className="text-left overflow-hidden">
-                                <p className="text-sm font-bold text-white truncate">{selectedMember?.full_name}</p>
-                                <p className="text-[10px] text-zinc-500 uppercase">{selectedMember?.role}</p>
+                            <div className="text-left overflow-hidden font-unbounded">
+                                <p className="text-sm font-medium text-white truncate">{selectedMember?.full_name}</p>
+                                <p className="text-[10px] text-zinc-500 capitalize">{selectedMember?.role}</p>
                             </div>
                         </div>
                         <ChevronDown className={`w-5 h-5 text-zinc-500 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -142,7 +142,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             onClick={() => { setSelectedMemberId(member.id); setIsDropdownOpen(false); }}
                                             className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all hover:bg-white/20 ${selectedMemberId === member.id ? 'bg-yellow-500/10 text-yellow-500' : 'hover:bg-zinc-800 text-zinc-400'} cursor-pointer`}
                                         >
-                                            <div className="text-sm font-bold truncate">{member.full_name}</div>
+                                            <div className="font-unbounded text-xs font-medium truncate">{member.full_name}</div>
                                         </button>
                                     ))}
                                 </div>
@@ -154,13 +154,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 <div className="flex items-center p-1.5 bg-zinc-950 border border-zinc-800 rounded-xl w-full md:w-auto overflow-x-auto custom-scrollbar">
                     <button
                         onClick={() => setActiveView('schedule')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs md:text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <Clock className="w-4 h-4" /> <span>Horario Base</span>
                     </button>
                     <button
                         onClick={() => setActiveView('blocks')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs md:text-sm font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <CalendarRange className="w-4 h-4" /> <span>Ausencias y Bloqueos</span>
                     </button>
@@ -181,8 +181,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                         {activeView === 'schedule' && (
                             <div className='stagger-container'>
                                 <div className="mb-6 pb-6 border-b border-zinc-800">
-                                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                                        <Clock className="w-5 h-5 text-yellow-500" /> Planificador Semanal
+                                    <h2 className="text-md font-semibold text-white font-unbounded flex items-center gap-2">
+                                        <Clock className="w-5 h-5 text-yellow-500 text-sm" /> Planificador Semanal
                                     </h2>
                                     <p className="text-sm text-zinc-400 mt-1">Configura los días y turnos fijos de la semana. Pulsa sobre un día para editarlo.</p>
                                 </div>
@@ -216,7 +216,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                     }
                                             `}
                                             >
-                                                <div className={`text-xs font-bold uppercase tracking-wider mb-4 group-hover:text-yellow-500 transition-colors duration-300 ${isWorking ? 'text-white' : 'text-zinc-500'}`}>
+                                                <div className={`text-xs font-unbounded font-medium capitalize tracking-wider mb-4 group-hover:text-yellow-500 transition-colors duration-300 ${isWorking ? 'text-white' : 'text-zinc-500'}`}>
                                                     {dayName}
                                                 </div>
 
@@ -264,14 +264,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                             <div className='stagger-container'>
                                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-zinc-800">
                                     <div>
-                                        <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                                        <h2 className="text-md font-semibold font-unbounded text-white flex items-center gap-2">
                                             <Lock className="w-5 h-5 text-red-500" /> Excepciones y Bloqueos
                                         </h2>
                                         <p className="text-sm text-zinc-400 mt-1">Añade vacaciones, citas médicas o ausencias puntuales.</p>
                                     </div>
                                     <button
                                         onClick={() => setIsBlockModalOpen(true)}
-                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-lg shadow-red-500/20 whitespace-nowrap cursor-pointer"
+                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-xs font-semibold font-unbounded transition-all shadow-lg shadow-red-500/20 whitespace-nowrap cursor-pointer"
                                     >
                                         <Plus className="w-4 h-4" /> Nuevo Bloqueo
                                     </button>
@@ -279,7 +279,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="grid lg:grid-cols-2 gap-8">
                                     <div>
-                                        <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                                        <h3 className="text-xs font-medium text-zinc-500 mb-4 font-unbounded flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Activos / Programados
                                         </h3>
                                         <div className="space-y-3 stagger-container">
@@ -332,7 +332,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">Historial Pasado</h3>
+                                        <h3 className="text-xs font-medium text-zinc-500 font-unbounded mb-4">Historial Pasado</h3>
                                         <div className="space-y-3 opacity-60">
                                             {completedBlocks.length === 0 && <p className="text-sm text-zinc-600 italic">No hay historial.</p>}
                                             {completedBlocks.map(block => (
@@ -358,7 +358,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                     <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
                             <div>
-                                <h3 className="text-lg font-bold text-white flex items-center gap-2"><Clock className="w-5 h-5 text-yellow-500" /> Editar Horario</h3>
+                                <h3 className="text-md font-bold font-unbounded text-white flex items-center gap-2"><Clock className="w-5 h-5 text-yellow-500" /> Editar Horario</h3>
                                 <p className="text-sm text-zinc-400">Para todos los <span className="text-white font-medium">{DAYS_OF_WEEK[selectedDayIndex]}s</span></p>
                             </div>
                             <button onClick={() => setIsScheduleModalOpen(false)} className="text-zinc-500 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
@@ -369,7 +369,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="flex items-center justify-between bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 mb-4">
                                     <div>
-                                        <h4 className="text-sm font-bold text-white">Día Laborable</h4>
+                                        <h4 className="text-xs font-semibold font-unbounded text-white">Día Laborable</h4>
                                         <p className="text-xs text-zinc-500">¿El trabajador opera este día?</p>
                                     </div>
                                     <button
@@ -387,7 +387,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 <div className={`transition-opacity ${!memberSchedule.is_working ? 'opacity-50 pointer-events-none' : ''}`}>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2 flex flex-col justify-center items-center">
-                                            <label className="text-xs font-bold text-zinc-500 uppercase">Entrada</label>
+                                            <label className="text-xs font-medium text-zinc-500 font-unbounded">Entrada</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.start_time || ''}
@@ -396,7 +396,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             />
                                         </div>
                                         <div className="space-y-2 flex flex-col justify-center items-center">
-                                            <label className="text-xs font-bold text-zinc-500 uppercase">Salida</label>
+                                            <label className="text-xs font-medium text-zinc-500 font-unbounded">Salida</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.end_time || ''}
@@ -414,7 +414,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     <div className="flex items-center justify-between bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 mb-4">
                                         <div className="flex items-center gap-3">
                                             <div className={`p-2 rounded-lg ${hasBreak ? 'bg-yellow-500/10 text-yellow-500' : 'bg-zinc-800 text-zinc-500'}`}><Coffee className="w-5 h-5" /></div>
-                                            <span className="text-sm font-bold text-zinc-300">¿Tiene descanso?</span>
+                                            <span className="text-xs font-semibold font-unbounded text-zinc-300">¿Tiene descanso?</span>
                                         </div>
                                         <button
                                             type="button"
@@ -436,7 +436,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     {hasBreak && (
                                         <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-top-2">
                                             <div className="space-y-2 flex flex-col justify-center items-center">
-                                                <label className="text-xs font-bold text-zinc-500 uppercase">Inicio Descanso</label>
+                                                <label className="text-xs font-medium text-zinc-500 font-unbounded">Inicio Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_start || ''}
@@ -445,7 +445,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                 />
                                             </div>
                                             <div className="space-y-2 flex flex-col justify-center items-center">
-                                                <label className="text-xs font-bold text-zinc-500 uppercase">Fin Descanso</label>
+                                                <label className="text-xs font-medium text-zinc-500 font-unbounded">Fin Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_end || ''}
@@ -458,7 +458,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 </div>
                             </div>
                             <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3">
-                                <button type="button" onClick={() => setIsScheduleModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold transition-colors">Cancelar</button>
+                                <button type="button" onClick={() => setIsScheduleModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-sm font-unbounded transition-colors">Cancelar</button>
 
                                 <button
                                     type="button"
@@ -509,7 +509,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             setIsScheduleModalOpen(false)
                                         }
                                     }}
-                                    className="flex-1 py-3 rounded-xl bg-yellow-500 text-zinc-950 font-bold transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                                    className="flex-1 py-3 rounded-xl bg-yellow-500 text-zinc-950 text-sm font-semibold font-unbounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                                 >
                                     {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                     Guardar
@@ -526,7 +526,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                     <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 rounded-t-3xl bg-zinc-900/50">
                             <div>
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>
+                                <h3 className="text-md font-semibold text-white flex items-center font-unbounded gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>
                                 <p className="text-sm text-zinc-400">Para: <span className="text-white font-medium">{selectedMember?.full_name}</span></p>
                             </div>
                             <button onClick={() => setIsBlockModalOpen(false)} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-white cursor-pointer"><X className="w-6 h-6" /></button>
@@ -537,7 +537,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2 flex flex-col justify-center items-center">
-                                        <label className="text-xs font-bold text-zinc-500 uppercase">Inicio</label>
+                                        <label className="text-xs font-medium text-zinc-500 font-unbounded">Inicio</label>
                                         <input 
                                             name="start_date" 
                                             value={blockedPeriod.start_date || ''}
@@ -550,7 +550,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         />
                                     </div>
                                     <div className="space-y-2 flex flex-col justify-center items-center">
-                                        <label className="text-xs font-bold text-zinc-500 uppercase">Fin</label>
+                                        <label className="text-xs font-medium text-zinc-500 font-unbounded">Fin</label>
                                         <input 
                                             name="end_date" 
                                             value={blockedPeriod.end_date || ''}
@@ -564,7 +564,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-500 uppercase">Motivo (Opcional)</label>
+                                    <label className="text-xs font-medium text-zinc-500 font-unbounded">Motivo (Opcional)</label>
                                     <input 
                                         name="reason" 
                                         value={blockedPeriod.reason || ''}
@@ -576,7 +576,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 </div>
                             </div>
                             <div className="px-6 py-4 bg-zinc-950 border-t rounded-b-3xl border-zinc-800 flex gap-3">
-                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-bold transition-colors cursor-pointer">Cancelar</button>
+                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-sm transition-colors cursor-pointer font-unbounded">Cancelar</button>
                                 <button 
                                     type='button'
                                     onClick={async (e) => {
@@ -619,7 +619,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         }
                                     }}
                                     disabled={isLoading} 
-                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
+                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-semibold text-sm font-unbounded flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
                                     {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Bloqueando...</span></> : <><Lock className="w-4 h-4" /><span>Bloquear</span></>}
                                 </button>
                             </div>

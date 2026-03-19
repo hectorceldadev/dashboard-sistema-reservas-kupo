@@ -30,7 +30,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
 
                 {/* 1. Nombre */}
                 <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                         <Store className="w-4 h-4" /> Nombre del Negocio
                     </label>
                     <input
@@ -44,7 +44,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Hora de Apertura
                         </label>
                         <input
@@ -56,7 +56,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                     </div>
 
                     <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Hora de Cierre
                         </label>
                         <input
@@ -70,7 +70,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
 
                 {/* 2. Dirección */}
                 <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                         <MapPin className="w-4 h-4" /> Dirección Física
                     </label>
                     <input
@@ -84,7 +84,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
 
                 {/* 3. Teléfono */}
                 <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 uppercase tracking-wider">
+                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                         <Phone className="w-4 h-4" /> Teléfono de Contacto
                     </label>
                     <input
@@ -122,7 +122,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                             }
                         }}
                         disabled={isLoading}
-                        className="w-full sm:w-auto px-4 py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-yellow-500/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
+                        className="w-full sm:w-auto px-4 py-3 text-sm rounded-xl font-unbounded bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-bold transition-all flex items-center justify-center gap-3 shadow-lg shadow-yellow-500/20 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                     >
                         {isLoading ? (
                             <>

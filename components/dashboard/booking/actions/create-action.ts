@@ -311,7 +311,7 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es })
 
             try {
-                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch`, {
+                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch/frontend`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -63,7 +63,7 @@ export async function cancelBookingAction(bookingId: string) {
 
                 const DASHBOARD_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'
                 
-                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch`, {
+                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch/frontend`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

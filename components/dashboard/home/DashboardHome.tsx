@@ -1,6 +1,6 @@
 'use client'
 
-import { CalendarDays, Plus, Clock, Ban, ArrowRight, Scissors, CheckCircle2, ChevronRight, User, ChevronDown, Euro } from "lucide-react"
+import { CalendarDays, Plus, Clock, Ban, ArrowRight, Scissors, CheckCircle2, User, ChevronDown, Euro } from "lucide-react"
 import { useEffect, useState } from "react"
 import { sileo } from "sileo"
 import { getDashboardData, getMembers } from "./actions"
@@ -10,6 +10,7 @@ import BookingDetailsModal from "./BookingDetailModal"
 import { cancelBookingAction } from "@/app/dashboard/agenda/actions"
 import { useAdminBooking } from "@/context/AdminBookingContext"
 import Image from "next/image"
+import { createClient } from "@/utils/supabase/client"
 
 const TIMEZONE = 'Europe/Madrid'
 
@@ -102,6 +103,57 @@ export const DashboardHome = () => {
         }
 
         fetchData()
+    }, [selectedMemberId])
+
+    useEffect(() => {
+        if (!selectedMemberId) return
+
+        const supabase = createClient()
+        let channel: any
+
+        const setupRealtime = async () => {
+            // 1. OBLIGAMOS al cliente a leer la sesión y sincronizar la cookie ANTES de abrir el túnel
+            const { data: { session } } = await supabase.auth.getSession()
+            console.log("¿Cliente autenticado para Realtime?:", session ? "Sí" : "No")
+
+            // 2. Ahora sí, abrimos el canal
+            channel = supabase
+                .channel('dashboard_booking_changes')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: '*',
+                        schema: 'public',
+                        table: 'bookings'
+                    },
+                    (payload) => {
+                        console.log('Cambio detectado en reservas: ', payload)
+
+                        const reloadData = async () => {
+                            const response = await getDashboardData(selectedMemberId)
+                            if (response.success) {
+                                setKpis(response.kpis)
+                                setBookings(response.bookings)
+                                setNextBooking(response.nextBooking)
+                            }
+                        }
+                        reloadData()
+                    }
+                ).subscribe((status, err) => {
+                    // 3. Este chivato nos dirá si el túnel se abrió correctamente o fue bloqueado
+                    console.log('Estado de la conexión Realtime:', status, err || '')
+                })
+        }
+
+        setupRealtime()
+
+        // Limpieza del canal al desmontar
+        return () => {
+            if (channel) {
+                supabase.removeChannel(channel)
+            }
+        }
+
     }, [selectedMemberId])
 
 

@@ -108,17 +108,19 @@ export async function getSubscriptionState (subscription: any) {
             .eq('staff_id', user.id)
             .eq('business_id', profile.business_id)
             .eq('subscription->>endpoint', subscription.endpoint) // <-- CORREGIDO: con "c"
-            .maybeSingle()
+            .limit(1)
 
         if (error) {
             console.error("Error BD:", error)
             return { error: 'Error gestionando notificaciones' }
         }
 
+        const row = data && data.length > 0 ?  data[0] : null
+
         // Si no hay datos, asumimos que no está activo
         return { 
             success: true,
-            isActive: data ? data.is_active : false
+            isActive: row ? row.is_active : false
         }
 
     } catch (error) {

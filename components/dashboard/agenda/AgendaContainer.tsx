@@ -1,26 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-import { 
-    ChevronLeft, 
-    ChevronRight, 
-    Calendar as CalendarIcon, 
-    Users 
-} from 'lucide-react'
-import { 
-    addMonths, 
-    subMonths, 
-    addWeeks, 
-    subWeeks, 
-    addDays, 
-    subDays, 
-    format 
-} from 'date-fns'
+import { useEffect, useState } from 'react'
+import { ChevronLeft, ChevronRight, Users } from 'lucide-react'
+import { addMonths, subMonths, addWeeks, subWeeks, addDays, subDays, format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import MonthView from './MonthView'
 import DaySummaryModal from './DaySummaryModal'
 import WeekView from './WeekView'
 import DayView from './DayView'
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/utils/supabase/client'
+import { channel } from 'diagnostics_channel'
 
 // Tipos
 type ViewType = 'month' | 'week' | 'day'
@@ -43,6 +33,8 @@ interface AgendaContainerProps {
 }
 
 export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, initialBookings, businessHours }: AgendaContainerProps) {
+    const router = useRouter()
+
     // --- ESTADOS GLOBALES DE LA AGENDA ---
     const [currentDate, setCurrentDate] = useState(new Date())
     const [viewType, setViewType] = useState<ViewType>('month')
@@ -82,6 +74,38 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
         if (selectedStaffId === 'all') return true
         return booking.staff_id === selectedStaffId
     })
+
+    useEffect(() => {
+        const supabase = createClient()
+        let channel: any
+
+        const setUpRealtime = async () => {
+            await supabase.auth.getSession()
+
+            channel = supabase
+                .channel('agenda_realtime_changes')
+                .on('postgres_changes',
+                    {
+                        event: '*',
+                        schema: 'public',
+                        table: 'bookings'
+                    },
+                    () => {
+                        router.refresh()
+                    }
+                ).subscribe((status) => {
+                    console.log('Estado conexión Agenda: ', status)
+                })
+        }
+
+        setUpRealtime()
+
+        return () => {
+            if (channel) {
+                supabase.removeChannel(channel)
+            }
+        }
+    }, [router])
 
     return (
         <div className="space-y-6 mb-10">

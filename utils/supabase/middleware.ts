@@ -15,7 +15,7 @@ const rateLimit = new Ratelimit({
 
 export async function updateSession (request: NextRequest) {
 
-    const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? '127.0.0.1'
+    const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1'
 
   const { success } = await rateLimit.limit(`global_${ip}`)
 

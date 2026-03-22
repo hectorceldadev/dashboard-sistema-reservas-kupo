@@ -6,19 +6,25 @@ import { revalidatePath } from "next/cache";
 import { fromZonedTime } from "date-fns-tz";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Resend } from "resend";
-import React from "react";
-import BookingEmail from "@/components/emails/BookingEmail";
-// import { format } from "date-fns"; // Descomentar cuando actives notificaciones
-// import { es } from "date-fns/locale"; // Descomentar cuando actives notificaciones
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
+import { headers } from "next/headers";
+
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN
+})
+
+const rateLimit = new Ratelimit({
+    redis: redis,
+    limiter: Ratelimit.slidingWindow(10, '1m')
+}) 
 
 // Helper para convertir hora a minutos
 const timeToMins = (time: string) => {
     const [h, m] = time.split(':').map(Number);
     return h * 60 + m;
 }
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Interfaz estricta para los parámetros de entrada del modal
 interface CreateManualBookingParams {
@@ -30,6 +36,17 @@ interface CreateManualBookingParams {
 }
 
 export async function createManualBookingAction(params: CreateManualBookingParams) {
+
+    const headersList = await headers()
+        const ip = headersList.get("x-forwarded-for") ?? "127.0.0.1";
+    
+        const { success } = await rateLimit.limit(`createBooking_${ip}`)
+    
+        if (!success) {
+            // Si no tiene éxito, cortamos la ejecución ANTES de tocar Supabase
+            return { error: 'Demasiados intentos. Por favor, espera un minuto.' };
+        }
+
     try {
         const { bookingDate, bookingTime, staffId, services, client } = params;
 

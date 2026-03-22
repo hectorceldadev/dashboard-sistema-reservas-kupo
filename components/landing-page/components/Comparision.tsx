@@ -9,7 +9,7 @@ export default function Comparison() {
             ¿Por qué salir de <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">las apps de siempre?</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
-            Las aplicaciones de directorio te traen clientes, <b className="text-zinc-300">te cobran un precio muy alto: tu identidad y tus márgenes.</b> Es hora de independizarse.
+            Las aplicaciones de directorio te traen clientes, <b className="text-zinc-300">pero te cobran un precio muy alto: tu identidad y tus márgenes.</b> Es hora de independizarse.
           </p>
         </div>
 

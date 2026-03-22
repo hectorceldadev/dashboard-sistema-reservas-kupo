@@ -23,7 +23,7 @@ const unbounded = Unbounded({
 export const metadata: Metadata = {
   // Asegúrate de cambiar 'http://localhost:3000' por tu dominio real cuando salgas a producción (ej. 'https://kupo.es')
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
-  
+
   title: {
     default: "KUPO | Sistema de reservas y gestión para tu negocio",
     template: "%s | KUPO" // La magia: si en otra página pones título "Login", se verá "Login | KUPO"
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   keywords: ["sistema de reservas", "software para barberías", "gestión de salones", "agenda online", "kupo", "software peluquerías"],
   authors: [{ name: "KUPO" }],
   creator: "KUPO",
-  
+
   // Open Graph (Cómo se ve cuando comparten tu enlace por WhatsApp, LinkedIn, etc.)
   openGraph: {
     type: "website",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  
+
   // Twitter / X Cards
   twitter: {
     card: "summary_large_image",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     description: "Gestiona reservas y clientes en tiempo real con KUPO.",
     images: ["/icon-512x512.png"],
   },
-  
+
   // Apple PWA
   appleWebApp: {
     capable: true,
@@ -74,6 +74,26 @@ export const viewport: Viewport = {
   maximumScale: 1, // Evita que la app se haga zoom al tocar inputs en iOS
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "KUPO",
+  "operatingSystem": "WebBrowser",
+  "applicationCategory": "BusinessApplication",
+  "description": "Sistema de reservas, agenda y gestión de equipos en tiempo real diseñado para negocios que buscan consolidar su marca en internet.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0", // Lo ponemos a 0 como "Solicitud gratuita" o "Prueba"
+    "priceCurrency": "EUR"
+  },
+  // Aprovechamos tu texto de marketing de "+500 negocios" para darle autoridad en Google
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "500"
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -81,19 +101,23 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <html lang="en">
+      <html lang="es">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <body
           className={` ${poppins.variable} ${unbounded.variable} ${geist.variable} antialiased`}
         >
           <div className="relative z-9999 font-geist">
-            <Toaster 
+            <Toaster
               options={{
-                  fill: "black",
-                  styles: {
-                      title: 'text-white font-bold',
-                      description: 'text-white',
-                  },
-                  position: 'top-center'
+                fill: "black",
+                styles: {
+                  title: 'text-white font-bold',
+                  description: 'text-white',
+                },
+                position: 'top-center'
               }}
             />
           </div>

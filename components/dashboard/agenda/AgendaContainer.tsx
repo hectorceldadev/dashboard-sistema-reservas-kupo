@@ -10,7 +10,6 @@ import WeekView from './WeekView'
 import DayView from './DayView'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { channel } from 'diagnostics_channel'
 
 // Tipos
 type ViewType = 'month' | 'week' | 'day'

@@ -54,7 +54,7 @@ export async function newBusinessImplementation(newBusiness: {
         const resend = new Resend(process.env.RESEND_API_KEY)
 
         resend.emails.send({
-          from: 'Solicitud de Implementación KUPO <onboarding@resend.dev>',
+          from: 'Solicitud de Implementación KUPO <reservas@kupo.es>',
           to: 'celdajusticiahector@gmail.com',
           subject: `Implementación sistema KUPO | ${newBusiness.business_name}`,
           html: `

@@ -28,7 +28,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span>Sin Compromiso</span>
+                <span>Sin Compromiso</span> Hola
               </div>
             </div>
           </div>

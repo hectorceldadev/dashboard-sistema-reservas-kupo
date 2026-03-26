@@ -102,13 +102,13 @@ export default function RootLayout({
   return (
     <>
       <html lang="es">
+        <body
+          className={` ${poppins.variable} ${unbounded.variable} ${geist.variable} antialiased`}
+        >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <body
-          className={` ${poppins.variable} ${unbounded.variable} ${geist.variable} antialiased`}
-        >
           <div className="relative z-9999 font-geist">
             <Toaster
               options={{

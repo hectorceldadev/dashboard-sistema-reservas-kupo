@@ -3,7 +3,21 @@ import { ArrowRight, CheckCircle2, CalendarDays, Users, TrendingUp } from "lucid
 
 export default function Hero() {
   return (
-    <main className="relative z-10 max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-24 md:pb-32 stagger-container">
+    <div className="min-h-screen w-full bg-black relative">
+      {/* Tropical Dusk Glow Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+          radial-gradient(circle at 50% 100%, rgba(255, 99, 71, 0.6) 0%, transparent 60%),
+          radial-gradient(circle at 50% 100%, rgba(255, 215, 0, 0.4) 0%, transparent 70%),
+          radial-gradient(circle at 50% 100%, rgba(60, 179, 113, 0.3) 0%, transparent 80%)
+        `,
+        }}
+      />
+      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-16 md:pt-24 pb-24 md:pb-32 stagger-container">
+        {/* Your Content/Components */}
+
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-26 items-center">
           <div className="flex flex-col items-center lg:items-start mt-8 text-left stagger-container">
             <h1 className="text-4xl lg:text-5xl text-center lg:text-left font-bold mt-4 mb-6 font-unbounded">
@@ -82,5 +96,6 @@ export default function Hero() {
           </div>
         </div>
       </main>
+    </div>
   );
 }

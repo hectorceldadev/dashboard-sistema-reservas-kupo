@@ -327,13 +327,14 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             const serviceNames = dbServices.map(s => s.title)
             const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es })
 
-            const baseUrl = DASHBOARD_URL.startsWith('http') ? DASHBOARD_URL : `https://${DASHBOARD_URL}`;
-            const urlDestino = `${baseUrl}/api/notifications/dispatch/frontend`;
+            const host = headersList.get("host") || "www.kupo.es";
+                const protocol = host.includes("localhost") ? "http" : "https";
+                const urlDestino = `${protocol}://${host}/api/notifications/dispatch/frontend`;
                 
-            console.log(`🚀 Intentando enviar petición de correo a: ${urlDestino}`);
+                console.log(`🚀 Intentando enviar petición de correo a: ${urlDestino}`);
 
             try {
-                const response = await fetch(`${urlDestino}/api/notifications/dispatch/frontend`, {
+                const response = await fetch(urlDestino, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

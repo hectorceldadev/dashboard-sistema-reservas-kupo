@@ -327,8 +327,13 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             const serviceNames = dbServices.map(s => s.title)
             const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es })
 
+            const baseUrl = DASHBOARD_URL.startsWith('http') ? DASHBOARD_URL : `https://${DASHBOARD_URL}`;
+            const urlDestino = `${baseUrl}/api/notifications/dispatch/frontend`;
+                
+            console.log(`🚀 Intentando enviar petición de correo a: ${urlDestino}`);
+
             try {
-                await fetch(`${DASHBOARD_URL}/api/notifications/dispatch/frontend`, {
+                const response = await fetch(`${urlDestino}/api/notifications/dispatch/frontend`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -349,8 +354,15 @@ export async function createManualBookingAction(params: CreateManualBookingParam
                         appUrl: FRONTEND_URL 
                     })
                 })
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(`💥 ERROR DE LA API AL ENVIAR CORREO (${response.status}):`, errorText);
+                } else {
+                    console.log('✅ Petición de correo enviada y aceptada correctamente por la API');
+                }
             } catch (error) {
-                console.error('Error al comunicar con el dispatcher desde el server action: ', error)
+                console.error('💥 ERROR FATAL DE RED al comunicar con el dispatcher: ', error);
             }
         }
 

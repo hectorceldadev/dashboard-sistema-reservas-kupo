@@ -70,7 +70,7 @@ export async function POST (request: Request) {
         }
 
         const emailPromise = resend.emails.send({
-            from: 'Reservas Kupo <onboarding@resend.dev>', // ⚠️ CAMBIAR POR TU DOMINIO EN PRODUCCIÓN
+            from: 'Reservas Kupo <reservas@kupo.es>', // ⚠️ CAMBIAR POR TU DOMINIO EN PRODUCCIÓN
             to: [email],
             subject: emailSubject,
             react: emailComponent

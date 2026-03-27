@@ -328,10 +328,10 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             const formattedDate = format(startTimeUtc, "EEEE d 'de' MMMM", { locale: es })
 
             const host = headersList.get("host") || "www.kupo.es";
-                const protocol = host.includes("localhost") ? "http" : "https";
-                const urlDestino = `${protocol}://${host}/api/notifications/dispatch/frontend`;
-                
-                console.log(`🚀 Intentando enviar petición de correo a: ${urlDestino}`);
+            const protocol = host.includes("localhost") ? "http" : "https";
+            const urlDestino = `${protocol}://${host}/api/notifications/dispatch/frontend`;
+            
+            console.log(`🚀 Intentando enviar petición de correo a: ${urlDestino}`);
 
             try {
                 const response = await fetch(urlDestino, {

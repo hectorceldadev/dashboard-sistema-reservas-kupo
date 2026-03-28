@@ -9,6 +9,9 @@ import webpush from "web-push"
 export async function POST (request: Request) {
     try {
         const authHeader = request.headers.get('authorization')
+        console.log("🔒 [Dashboard] Header recibido desde el Frontend:", authHeader);
+        console.log("🔑 [Dashboard] Llave que yo esperaba:", `Bearer ${process.env.API_SECRET_KEY}`);
+
         if (process.env.API_SECRET_KEY && authHeader !== `Bearer ${process.env.API_SECRET_KEY}`) {
             return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
         }

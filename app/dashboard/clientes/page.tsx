@@ -6,6 +6,8 @@ export const metadata = {
     description: 'Gestión de clientes de tu negocio',
 }
 
+export const dynamic = 'force-dynamic'
+
 const Page = async () => {
     // Obtenemos los datos del servidor
     const response = await getCustomers()

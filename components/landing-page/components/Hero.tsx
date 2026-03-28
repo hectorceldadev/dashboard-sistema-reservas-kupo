@@ -6,7 +6,7 @@ export default function Hero() {
     <div className="min-h-screen w-full bg-black relative">
       {/* Tropical Dusk Glow Background */}
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-10"
         style={{
           backgroundImage: `
           radial-gradient(circle at 50% 100%, rgba(255, 99, 71, 0.6) 0%, transparent 60%),
@@ -42,7 +42,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                <span>Sin Compromiso</span>Hola
+                <span>Sin Compromiso</span>
               </div>
             </div>
           </div>

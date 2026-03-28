@@ -14,7 +14,7 @@ export async function sendResetEmail(prevState: any, formData: FormData) {
   
   const host = headersList.get('host') || 'www.kupo.es'
   const protocol = host.includes('localhost') ? 'http' : 'https'
-  const urlDestino = `${protocol}://${host}/auth/callback?next=/login/reset-password`
+  const urlDestino = `${protocol}://${host}/login/reset-password`
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     // IMPORTANTE: Aquí definimos a dónde va el usuario cuando hace clic en el email.

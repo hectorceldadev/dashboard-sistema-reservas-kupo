@@ -6,6 +6,7 @@ import { Metadata } from "next"
 export const metadata: Metadata = {
     title: "Equipo",
 }
+export const dynamic = 'force-dynamic'
 
 const Page = async () => {
 

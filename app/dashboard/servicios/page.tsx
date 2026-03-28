@@ -6,6 +6,8 @@ export const metadata: Metadata = {
     title: "Servicios",
 }
 
+export const dynamic = 'force-dynamic'
+
 const page = async () => {
 
   const response = await getServices()

@@ -9,6 +9,7 @@ export async function updateSettings (businessData: {
     close_hour: string | null
     address: string | null
     phone: string | null
+    slot_interval: number | null
 }) {
     
     const supabase = await createClient()
@@ -46,7 +47,8 @@ export async function updateSettings (businessData: {
             address: businessData.address,
             phone: businessData.phone,
             open_hour: businessData.open_hour,
-            close_hour: businessData.close_hour
+            close_hour: businessData.close_hour,
+            slot_interval: businessData.slot_interval
         })
         .eq('id', profile.business_id)
 

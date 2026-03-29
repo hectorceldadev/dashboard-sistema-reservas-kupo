@@ -1,12 +1,19 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { Store, MapPin, Phone, Save, Loader2, AlertCircle, Clock } from 'lucide-react'
+import { useState } from "react"
+import { Store, MapPin, Phone, Save, Loader2, Clock } from 'lucide-react'
 import { sileo } from "sileo"
 import { updateSettings } from "@/app/dashboard/ajustes/actions"
 // import { sileo } from "sileo" // Si usas toast
 
-export function SettingsForm({ initialData }: { initialData: any }) {
+export function SettingsForm({ initialData }: { initialData: {
+    name: string | null
+    open_hour: string | null
+    close_hour: string | null
+    address: string | null
+    phone: string | null
+    slot_interval: number | null
+} }) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [businessData, setBusinessData] = useState<{
@@ -15,12 +22,14 @@ export function SettingsForm({ initialData }: { initialData: any }) {
         close_hour: string | null
         address: string | null
         phone: string | null
+        slot_interval: number | null
     }>({
         name: initialData.name,
         open_hour: initialData.open_hour,
         close_hour: initialData.close_hour,
         address: initialData.address,
-        phone: initialData.phone
+        phone: initialData.phone,
+        slot_interval: initialData.slot_interval
     })
 
     return (
@@ -42,7 +51,7 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <div className="space-y-3">
                         <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Hora de Apertura
@@ -64,6 +73,17 @@ export function SettingsForm({ initialData }: { initialData: any }) {
                             defaultValue={businessData.close_hour || ''}
                             onChange={(e) => setBusinessData({ ...businessData, close_hour: e.target.value })}
                             className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                        />
+                    </div>
+                    <div className="space-y-3">
+                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                            <Clock className="w-4 h-4" /> Intervalo reserva
+                        </label>
+                        <input
+                            type="text"
+                            defaultValue={businessData.slot_interval || ''}
+                            onChange={(e) => setBusinessData({ ...businessData, slot_interval: Number(e.target.value) })}
+                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-left text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
                 </div>

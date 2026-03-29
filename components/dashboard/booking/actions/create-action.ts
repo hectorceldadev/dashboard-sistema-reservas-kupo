@@ -321,7 +321,6 @@ export async function createManualBookingAction(params: CreateManualBookingParam
             .single()
 
         if (client.email && client.email.trim() !== '') {
-            const DASHBOARD_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3001'
             const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'
 
             const serviceNames = dbServices.map(s => s.title)

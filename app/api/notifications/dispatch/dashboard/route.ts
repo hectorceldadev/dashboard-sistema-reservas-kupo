@@ -53,7 +53,7 @@ export async function POST(request: Request) {
                 .not('staff_id', 'is', null)
 
             if (!subscriptions || subscriptions.length === 0) return { pushed: 0 }
-            
+
             const payload = JSON.stringify({ title: pushTitle, body: pushBody, url: pushUrl })
             
             const results = await Promise.allSettled(

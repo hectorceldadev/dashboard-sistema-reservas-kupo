@@ -24,7 +24,8 @@ export default async function SettingsPage () {
                 address,
                 phone,
                 open_hour,
-                close_hour    
+                close_hour,
+                slot_interval  
             )
             `)
             .eq('id', user.id)

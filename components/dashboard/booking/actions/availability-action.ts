@@ -34,7 +34,7 @@ export async function getBookingAvailabilityAction(dateParam: string, staffId: s
         const businessId = profile.business_id
 
         if (!dateParam) {
-             return { error: 'Faltan parámetros de fecha.' }
+            return { error: 'Faltan parámetros de fecha.' }
         }
 
         // 2. Lógica principal de cálculo de fechas
@@ -56,7 +56,7 @@ export async function getBookingAvailabilityAction(dateParam: string, staffId: s
         const { data: schedules, error: scheduleError } = await scheduleQuery
 
         if (scheduleError || !schedules || schedules.length === 0) {
-             return { success: true, slots: [] }
+            return { success: true, slots: [] }
         }
 
         const workingStaffIds = schedules.map(s => s.staff_id)
@@ -78,6 +78,12 @@ export async function getBookingAvailabilityAction(dateParam: string, staffId: s
             .in('staff_id', workingStaffIds)
             .eq('status', 'active')
 
+        const { data: interval } = await supabase
+            .from('businesses')
+            .select('slot_interval')
+            .eq('id', businessId)
+            .single()
+
         // 4. Lógica de "El día de hoy"
         const nowUtc = new Date()
         const nowInMadrid = toZonedTime(nowUtc, TIMEZONE)
@@ -90,7 +96,7 @@ export async function getBookingAvailabilityAction(dateParam: string, staffId: s
         const currentMinsOfDay = (nowInMadrid.getHours() * 60 + nowInMadrid.getMinutes()) + bufferMins 
 
         const slotsSet = new Set<string>()
-        const INTERVAL = 30
+        const INTERVAL = interval?.slot_interval ? interval.slot_interval : 30
 
         // 5. Bucle de comprobación de huecos
         schedules.forEach(schedule => {

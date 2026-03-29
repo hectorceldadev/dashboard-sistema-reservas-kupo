@@ -47,7 +47,7 @@ export async function POST (request: Request) {
             emailSubject = `✅ ¡Tu cita en ${businessName} está confirmada!`
             emailComponent = React.createElement(BookingEmail, {
                 customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl,
-                cancelLink: `${appUrl}/reserva`,
+                cancelLink: appUrl,
                 businessMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`
             })
             pushTitle = '✅ Reserva Confirmada'
@@ -63,7 +63,7 @@ export async function POST (request: Request) {
             emailSubject = `⏰ Recordatorio: Mañana tienes cita en ${businessName}`
             emailComponent = React.createElement(BookingEmail, {
                 customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl,
-                cancelLink: `${appUrl}/reserva`,
+                cancelLink: appUrl,
                 businessMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`
             })
             pushTitle = '⏰ Recordatorio de Cita'
@@ -88,13 +88,13 @@ export async function POST (request: Request) {
                 .select('subscription')
                 .eq('user_email', email)
                 .not('customer_id', 'is', null)
-
+                
             if (!subscriptions || subscriptions.length === 0) return { pushed: 0 }
-            
+
             const payload = JSON.stringify({
                 title: pushTitle,
                 body: pushBody,
-                url: `${appUrl}/reserva`
+                url: appUrl
             })
 
             const results = await Promise.allSettled(

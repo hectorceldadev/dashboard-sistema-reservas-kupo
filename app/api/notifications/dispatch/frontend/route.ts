@@ -68,11 +68,12 @@ export async function POST (request: Request) {
         } else {
             return NextResponse.json({ error: 'Tipo de notificación no válido' })
         }
+        const cleanSubject = emailSubject.replace(/[\r\n]+/g, ' ').trim();
 
         const emailPromise = resend.emails.send({
             from: 'Reservas Kupo <reservas@kupo.es>', // ⚠️ CAMBIAR POR TU DOMINIO EN PRODUCCIÓN
             to: [email],
-            subject: emailSubject,
+            subject: cleanSubject,
             react: emailComponent
         }).then(response => {
             // AQUÍ ESTÁ LA TRAMPA: Buscamos el error silencioso de Resend

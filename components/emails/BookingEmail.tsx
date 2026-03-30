@@ -25,9 +25,7 @@ interface BookingEmailProps {
   staffName: string;
   businessName?: string;
   businessAddress?: string;
-  cancelLink?: string;
   logoUrl?: string;
-  businessMap?: string;
 }
 
 export const BookingEmail = ({
@@ -38,9 +36,6 @@ export const BookingEmail = ({
   totalPrice = 0,
   staffName = 'El Equipo',
   businessName = 'Nuestro Local',
-  businessAddress = 'Dirección no disponible',
-  cancelLink = '#',
-  businessMap = '#',
   logoUrl,
 }: BookingEmailProps) => {
   
@@ -118,7 +113,7 @@ export const BookingEmail = ({
                           </Section>
                       </Column>
                       <Column className="w-1/2 pl-2">
-                           <Section className="bg-bgBase rounded-xl p-4 border border-solid border-borderSubtle text-center">
+                            <Section className="bg-bgBase rounded-xl p-4 border border-solid border-borderSubtle text-center">
                               <Text className="text-textMuted text-[10px] uppercase font-bold tracking-wider m-0 mb-1">
                                   Hora
                               </Text>
@@ -161,29 +156,6 @@ export const BookingEmail = ({
               </Section>
 
               {/* UBICACIÓN */}
-              <Section className="text-center bg-bgBase rounded-xl p-4 border border-solid border-borderSubtle mb-6">
-                   <Text className="text-textMuted text-[10px] uppercase font-bold tracking-wider m-0 mb-1">Ubicación</Text>
-                   <Text className="text-textMain text-[14px] font-medium m-0 mb-3">{businessAddress}</Text>
-                   
-                   <Link 
-                      href={businessMap}
-                      className="text-brand text-[12px] font-bold underline"
-                   >
-                      Ver en Google Maps →
-                   </Link>
-              </Section>
-
-              <Hr className="border border-solid border-borderSubtle my-6 mx-0 w-full" />
-
-              {/* ACCIONES (Cancelar) */}
-              <Text className="text-textMuted text-[13px] leading-[24px] text-center m-0 mb-2">
-                ¿Te ha surgido un imprevisto?
-              </Text>
-              <Section className="text-center">
-                <Link href={cancelLink} className="text-danger text-[12px] font-medium hover:text-red-400 underline transition-colors">
-                    Cancelar mi cita
-                </Link>
-              </Section>
 
             </Section>
 

@@ -46,9 +46,8 @@ export async function POST (request: Request) {
         if (type === 'booking_confirmation') {
             emailSubject = `✅ ¡Tu cita en ${businessName} está confirmada!`
             emailComponent = React.createElement(BookingEmail, {
-                customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl,
-                cancelLink: appUrl,
-                businessMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`
+                customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl, 
+                
             })
             pushTitle = '✅ Reserva Confirmada'
             pushBody = `Hola ${customerName}, tu cita el ${date} a las ${time} ha sido registrada.`
@@ -63,8 +62,6 @@ export async function POST (request: Request) {
             emailSubject = `⏰ Recordatorio: Mañana tienes cita en ${businessName}`
             emailComponent = React.createElement(BookingEmail, {
                 customerName, date, time, services, totalPrice, staffName, businessName, businessAddress, logoUrl,
-                cancelLink: appUrl,
-                businessMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`
             })
             pushTitle = '⏰ Recordatorio de Cita'
             pushBody = `Hola ${customerName}, te recordamos que mañana tienes cita a las ${time}. ¡Te esperamos!`

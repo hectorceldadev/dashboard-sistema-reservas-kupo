@@ -74,6 +74,14 @@ export async function POST (request: Request) {
             to: [email],
             subject: emailSubject,
             react: emailComponent
+        }).then(response => {
+            // AQUÍ ESTÁ LA TRAMPA: Buscamos el error silencioso de Resend
+            if (response.error) {
+                console.error('🚨 ERROR SECRETO DE RESEND:', response.error);
+            } else {
+                console.log('✅ Resend aceptó el correo con ID:', response.data?.id);
+            }
+            return response
         }).catch(error => {
             console.error('Error enviando email: ', error)
             throw error

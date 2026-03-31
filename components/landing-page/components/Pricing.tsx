@@ -20,7 +20,7 @@ export default function Pricing() {
             <h3 className="text-2xl font-bold text-yellow-500 font-unbounded mb-2">Profesional</h3>
             <p className="text-sm text-zinc-400 font-geist mb-6 h-10">Todo lo que necesitas para operar y crecer con tu propia marca hoy mismo.</p>
             <div className="mb-8">
-              <span className="text-5xl font-bold text-white font-unbounded">€29</span>
+              <span className="text-5xl font-bold text-white font-unbounded">€25</span>
               <span className="text-zinc-500 text-base font-medium"> /mes</span>
             </div>
             <div className="space-y-5 font-geist text-sm mb-10 flex-1">

@@ -35,11 +35,11 @@ export function SettingsForm({ initialData }: { initialData: {
     return (
         <div className="space-y-8">
 
-            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-8 shadow-xl shadow-black/20 stagger-container">
+            <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 space-y-6 shadow-xl shadow-black/20 stagger-container">
 
                 {/* 1. Nombre */}
-                <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                         <Store className="w-4 h-4" /> Nombre del Negocio
                     </label>
                     <input
@@ -52,45 +52,45 @@ export function SettingsForm({ initialData }: { initialData: {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Hora de Apertura
                         </label>
                         <input
                             type="time"
                             value={businessData.open_hour || ''}
                             onChange={(e) => setBusinessData({ ...businessData, open_hour: e.target.value })}
-                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
 
-                    <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Hora de Cierre
                         </label>
                         <input
                             type="time"
                             defaultValue={businessData.close_hour || ''}
                             onChange={(e) => setBusinessData({ ...businessData, close_hour: e.target.value })}
-                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
-                    <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                    <div className="space-y-2">
+                        <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                             <Clock className="w-4 h-4" /> Intervalo reserva
                         </label>
                         <input
                             type="text"
                             defaultValue={businessData.slot_interval || ''}
                             onChange={(e) => setBusinessData({ ...businessData, slot_interval: Number(e.target.value) })}
-                            className="w-[60%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-left text-white focus:border-yellow-500 outline-none text-center font-mono"
+                            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-left text-white focus:border-yellow-500 outline-none text-center font-mono"
                         />
                     </div>
                 </div>
 
                 {/* 2. Dirección */}
-                <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                         <MapPin className="w-4 h-4" /> Dirección Física
                     </label>
                     <input
@@ -103,8 +103,8 @@ export function SettingsForm({ initialData }: { initialData: {
                 </div>
 
                 {/* 3. Teléfono */}
-                <div className="space-y-3">
-                    <label className="flex items-center gap-2 text-xs font-bold text-zinc-500 font-unbounded">
+                <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-bold text-zinc-500 font-unbounded">
                         <Phone className="w-4 h-4" /> Teléfono de Contacto
                     </label>
                     <input

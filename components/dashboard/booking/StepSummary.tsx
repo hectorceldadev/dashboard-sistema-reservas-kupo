@@ -41,8 +41,8 @@ export default function StepSummary({ booking }: StepSummaryProps) {
     <div className="h-full overflow-hidden flex flex-col gap-4 animate-in fade-in slide-in-from-right-8 duration-500 p-8 stagger-container">
       
       <div className="flex flex-col items-start mb-2">
-        <h3 className="text-white font-bold text-md font-unbounded">Resumen de la cita</h3>
-        <p className="text-zinc-400 text-sm">Revisa los datos antes de confirmar.</p>
+        <h3 className="text-white font-bold text-xl font-unbounded">Resumen de la cita</h3>
+        <p className="text-zinc-400 text-md">Revisa los datos antes de confirmar.</p>
       </div>
 
       {/* Tarjeta de Resumen */}
@@ -51,25 +51,25 @@ export default function StepSummary({ booking }: StepSummaryProps) {
 
         {/* Cliente */}
         <div className="flex flex-col gap-1 pb-3 border-b border-zinc-800/80">
-            <span className="flex items-center gap-1.5 text-xs text-zinc-500 font-bold font-unbounded">
+            <span className="flex items-center gap-1.5 text-sm text-zinc-500 font-bold font-unbounded">
                 <User size={14} className="text-yellow-500"/> Cliente
             </span>
-            <span className="text-sm font-semibold text-white capitalize">
+            <span className="text-md font-semibold text-white capitalize">
                 {booking.client?.name || 'Sin nombre'}
             </span>
             {booking.client?.phone && (
-                <span className="text-sm font-semibold text-white">{booking.client.phone}</span>
+                <span className="text-md font-semibold text-white">{booking.client.phone}</span>
             )}
         </div>
 
         {/* Servicios */}
         <div className="flex flex-col gap-3 pb-3 border-b border-zinc-800/80">
-            <div className="flex items-center gap-2 text-zinc-500 font-bold text-xs font-unbounded">
+            <div className="flex items-center gap-2 text-zinc-500 font-bold text-sm font-unbounded">
                 <Scissors size={14} className="text-yellow-500" />
                 <span>Servicios</span>
             </div>
             {booking.services.map((s) => (
-                <div key={s.id} className="flex justify-between items-center text-sm">
+                <div key={s.id} className="flex justify-between items-center text-md">
                     <span className="text-white font-semibold">{s.title}</span>
                     <span className="text-zinc-400 font-bold">{s.price}€</span>
                 </div>
@@ -79,26 +79,26 @@ export default function StepSummary({ booking }: StepSummaryProps) {
         {/* Detalles Cita */}
         <div className="grid grid-cols-2 gap-4 pb-4 border-b border-zinc-800/80">
             <div className="flex flex-col gap-1">
-                <span className="flex items-center gap-1.5 text-xs text-zinc-500 font-bold font-unbounded">
+                <span className="flex items-center gap-1.5 text-sm text-zinc-500 font-bold font-unbounded">
                     <Calendar size={12} className="text-yellow-500" /> Fecha
                 </span>
-                <span className="text-sm font-semibold capitalize text-white">
+                <span className="text-md font-semibold capitalize text-white">
                     {formattedDate}
                 </span>
             </div>
             <div className="flex flex-col gap-1">
-                <span className="flex items-center gap-1.5 text-xs text-zinc-500 font-bold font-unbounded">
+                <span className="flex items-center gap-1.5 text-sm text-zinc-500 font-bold font-unbounded">
                     <Clock size={12} className="text-yellow-500" /> Hora
                 </span>
-                <span className="text-sm font-semibold text-white">
+                <span className="text-md font-semibold text-white">
                     {booking.time} - {endTime}
                 </span>
             </div>
             <div className="flex flex-col gap-1 col-span-2">
-                <span className="flex items-center gap-1.5 text-xs text-zinc-500 font-bold font-unbounded">
+                <span className="flex items-center gap-1.5 text-sm text-zinc-500 font-bold font-unbounded">
                     <User size={12} className="text-yellow-500" /> Profesional Asignado
                 </span>
-                <span className="text-sm font-semibold text-white">
+                <span className="text-md font-semibold text-white">
                     {booking.staff?.full_name || 'Cualquiera'}
                 </span>
             </div>
@@ -111,7 +111,7 @@ export default function StepSummary({ booking }: StepSummaryProps) {
                     <MapPin size={18} />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-xs font-bold font-unbounded text-yellow-500">Pago en el local</span>
+                    <span className="text-sm font-bold font-unbounded text-yellow-500">Pago en el local</span>
                     <span className="text-xs text-yellow-500/70">La cita quedará confirmada</span>
                 </div>
             </div>

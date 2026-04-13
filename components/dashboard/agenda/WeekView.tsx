@@ -74,12 +74,12 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
 
                             return (
                                 <div key={idx} className={`flex flex-col items-center font-unbounded justify-center py-3 border-r border-zinc-800/50 last:border-r-0 gap-1 transition-opacity ${isPastDay ? 'opacity-50' : 'opacity-100'}`}>
-                                    <span className={`text-center text-[10px] sm:text-xs font-semibold capitalize ${isCurrentDay ? 'text-yellow-500' : 'text-zinc-500'}`}>
+                                    <span className={`text-center text-xs sm:text-xs font-semibold capitalize ${isCurrentDay ? 'text-yellow-500' : 'text-zinc-500'}`}>
                                         <span className="hidden sm:inline">{format(day, 'EEEE', { locale: es })}</span>
                                         <span className="sm:hidden">{format(day, 'E', { locale: es })}</span>
                                     </span>
                                     <span className={`
-                                        flex items-center justify-center w-6 h-6 sm:w-6 sm:h-6 text-sm sm:text-base font-bold rounded-full
+                                        flex items-center justify-center w-6 h-6 sm:w-6 sm:h-6 text-base sm:text-base font-bold rounded-full
                                         ${isCurrentDay 
                                             ? 'bg-yellow-500 p-1 text-zinc-950 shadow-md shadow-yellow-500/20' 
                                             : isCurrentMonth ? 'text-zinc-300' : 'text-zinc-600'
@@ -113,7 +113,7 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
                             {hours.map(hour => (
                                 <div key={hour} style={{ height: `${HOUR_HEIGHT}px` }} className="relative border-b border-zinc-700/30 flex items-start justify-end pr-2 sm:pr-3">
                                     {/* Ajustamos la hora visualmente a la línea superior (como GCalendar) */}
-                                    <span className="absolute top-2 right-1.5 sm:right-3 text-[10px] sm:text-xs font-bold text-zinc-500  px-1 tracking-wider z-10">
+                                    <span className="absolute top-2 right-1.5 sm:right-3 text-xs sm:text-xs font-bold text-zinc-500  px-1 tracking-wider z-10">
                                         {hour.toString().padStart(2, '0')}:00
                                     </span>
                                 </div>
@@ -147,7 +147,7 @@ export default function WeekView({ currentDate, bookings, businessHours }: WeekV
                                                 {/* Indicador de Citas CENTRADO */}
                                                 {appointmentsCount > 0 && (
                                                     <div className={`
-                                                        w-full max-w-[120px] px-2 py-1.5 rounded-lg text-[10px] sm:text-xs font-bold flex items-center justify-center gap-1.5 sm:justify-between transition-colors z-10 shadow-sm
+                                                        w-full max-w-[120px] px-2 py-1.5 rounded-lg text-xs sm:text-xs font-bold flex items-center justify-center gap-1.5 sm:justify-between transition-colors z-10 shadow-sm
                                                         ${appointmentsCount > 2 
                                                             ? 'bg-red-500/10 text-red-500 border border-red-500/20 group-focus:bg-red-500/20 group-focus:border-red-500/50' 
                                                             : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 group-focus:bg-emerald-500/20 group-focus:border-emerald-500/50'

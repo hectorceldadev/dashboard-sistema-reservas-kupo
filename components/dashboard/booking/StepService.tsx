@@ -62,10 +62,10 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
       
       {/* CABECERA */}
       <div className="flex items-center justify-between stagger-container">
-        <h3 className="text-md font-bold font-unbounded text-white">
+        <h3 className="text-xl font-bold font-unbounded text-white">
             Selecciona servicios
         </h3>
-        <span className="text-xs font-bold px-3 py-1 bg-zinc-900 rounded-full text-zinc-400 border border-zinc-800">
+        <span className={`text-xs font-bold px-3 py-1 ${booking.services.length === 0 ? 'bg-zinc-900 text-zinc-400 border border-zinc-800' : 'bg-yellow-500/10 text-yellow-500 border border-yellow-500/70'} rounded-full `}>
             {booking.services.length} Seleccionados
         </span>
       </div>
@@ -89,7 +89,7 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
               <div className="flex justify-between items-start gap-4">
                 <div className="flex-1 space-y-1.5">
                   <h4 className={cn(
-                      "font-bold font-unbounded text-sm transition-colors",
+                      "font-bold font-unbounded text-md transition-colors",
                       isSelected ? "text-yellow-500" : "text-white group-hover:text-yellow-500/80"
                   )}>
                     {service.title}
@@ -104,7 +104,7 @@ export default function StepService({ booking, setBooking, isLoading, servicesLi
                 </div>
 
                 <div className="flex flex-col items-end justify-between self-stretch min-h-[5rem]">
-                    <span className="text-lg font-bold text-white">
+                    <span className="text-lg font-bold font-unbounded text-white">
                         {service.price}€
                     </span>
                     <div className={cn(

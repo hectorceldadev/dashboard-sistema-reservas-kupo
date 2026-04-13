@@ -268,7 +268,7 @@ export const DashboardHome = () => {
             {/* --- 1. HEADER Y ACCIONES RÁPIDAS --- */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5 border-b border-zinc-800 pb-5 sm:pb-6">
                 <div>
-                    <h1 className="text-2xl font-unbounded font-semibold text-white tracking-tight">
+                    <h1 className="text-2xl font-unbounded font-bold text-white tracking-tight">
                         Hola, {memberInfo.name?.split(' ')[0] || 'Equipo'}
                     </h1>
                     <p className="text-sm sm:text-base text-zinc-400 mt-1 capitalize">
@@ -284,7 +284,7 @@ export const DashboardHome = () => {
                             <select
                                 value={selectedMemberId || ''}
                                 onChange={(e) => setSelectedMemberId(e.target.value)}
-                                className="w-full  appearance-none text-xs bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl font-medium outline-none transition-colors cursor-pointer"
+                                className="w-full  appearance-none text-sm bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 h-11 pl-4 pr-10 rounded-xl font-medium outline-none transition-colors cursor-pointer"
                             >
                                 {members.map(p => (
                                     <option key={p.id} value={p.id}>
@@ -311,7 +311,7 @@ export const DashboardHome = () => {
                     {/* BOTONERA (Adaptada para pulgares en móvil) */}
                     <div className="col-span-2 col-start-4 flex items-center gap-2 w-full lg:w-auto">
                         <button
-                            className="flex-1 lg:flex-none h-11 flex text-xs font-unbounded items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
+                            className="flex-1 lg:flex-none h-11 flex text-sm font-unbounded items-center justify-center gap-2 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 px-4 rounded-xl font-bold transition-all shadow-lg shadow-yellow-500/20 cursor-pointer"
                             onClick={openModal}
                         >
                             <Plus size={18} />
@@ -390,8 +390,9 @@ export const DashboardHome = () => {
             </div>
 
             {/* --- 3. PRÓXIMA CITA (Destacado - Estilo DayView Card) --- */}
+            {/* --- 3. PRÓXIMA CITA (Destacado - Estilo DayView Card) --- */}
             <div>
-                <h2 className="text-xs sm:text-sm font-unbounded font-bold text-zinc-500 mb-3 sm:mb-4 flex items-center gap-2">
+                <h2 className="text-base font-unbounded font-bold text-zinc-500 mb-3 sm:mb-4 flex items-center gap-2">
                     <Clock size={16} className="text-yellow-500" /> Tu Próxima Cita
                 </h2>
                 
@@ -406,15 +407,15 @@ export const DashboardHome = () => {
                         {/* Info Principal - Optimizada para Móvil */}
                         <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
                             <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                <h3 className="font-bold font-unbounded text-sm sm:text-md text-zinc-100 group-hover/card:text-white transition-colors">
+                                <h3 className="font-bold font-unbounded text-base sm:text-md text-zinc-100 group-hover/card:text-white transition-colors">
                                     {nextBooking.customer_name}
                                 </h3>
-                                <span className="bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 text-[9px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider animate-pulse shrink-0">
+                                <span className="bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider animate-pulse shrink-0">
                                     Siguiente
                                 </span>
                             </div>
 
-                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-xs text-zinc-400">
                                 <span className="flex items-center gap-1.5 bg-zinc-950 px-2 py-1 rounded-md border border-zinc-800/50">
                                     <Clock size={12} className="text-zinc-500" />
                                     <span className="font-medium">
@@ -429,7 +430,7 @@ export const DashboardHome = () => {
                                         {nextBooking.booking_items?.[0]?.service_name || 'Servicio'}
                                     </span>
                                     {nextBooking.booking_items?.length > 1 && (
-                                        <span className="text-[9px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
+                                        <span className="text-[10px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
                                             +{nextBooking.booking_items.length - 1}
                                         </span>
                                     )}
@@ -447,11 +448,11 @@ export const DashboardHome = () => {
                                         <User size={12} className="absolute inset-0 m-auto text-zinc-500" />
                                     )}
                                 </div>
-                                <span className="text-[10px] sm:text-xs font-medium text-zinc-400">
+                                <span className="text-xs sm:text-xs font-medium text-zinc-400">
                                     {nextBooking.staff?.full_name?.split(' ')[0] || 'Staff'}
                                 </span>
                             </div>
-                            <span className="text-[10px] font-bold text-yellow-500 flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
+                            <span className="text-xs font-bold text-yellow-500 flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
                                 Ver Detalles <ArrowRight size={12} />
                             </span>
                         </div>
@@ -459,8 +460,8 @@ export const DashboardHome = () => {
                 ) : (
                     <div className="bg-zinc-900 border border-dashed border-zinc-800 rounded-xl p-6 sm:p-8 flex flex-col items-center justify-center text-center">
                         <CheckCircle2 size={32} className="text-emerald-500 mb-3" />
-                        <h3 className="text-base font-bold text-white">¡Agenda libre!</h3>
-                        <p className="text-xs text-zinc-500 mt-1">No tienes citas próximas pendientes.</p>
+                        <h3 className="text-lg font-bold text-white">¡Agenda libre!</h3>
+                        <p className="text-sm text-zinc-500 mt-1">No tienes citas próximas pendientes.</p>
                     </div>
                 )}
             </div>
@@ -469,7 +470,7 @@ export const DashboardHome = () => {
             <div>
                 <div className="flex gap-2">
                     <CalendarDays size={16} className="text-yellow-500" />                
-                    <h2 className="text-xs sm:text-sm font-bold text-zinc-500 font-unbounded mb-3 sm:mb-4">Agenda de Hoy</h2>
+                    <h2 className="text-sm sm:text-sm font-bold text-zinc-500 font-unbounded mb-3 sm:mb-4">Agenda de Hoy</h2>
                 </div>
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl sm:rounded-3xl p-1.5 sm:p-6 min-h-[200px]">
                     {bookings && bookings.length > 0 ? (
@@ -498,7 +499,7 @@ export const DashboardHome = () => {
 
                                             {/* Hora */}
                                             <div className="w-[45px] sm:w-[60px] shrink-0 flex flex-col items-end pt-3.5 sm:pt-4">
-                                                <span className={`text-xs sm:text-sm font-bold ${isNext ? 'text-yellow-500' : 'text-zinc-400'}`}>
+                                                <span className={`text-sm sm:text-sm font-bold ${isNext ? 'text-yellow-500' : 'text-zinc-400'}`}>
                                                     {formattedTime}
                                                 </span>
                                             </div>
@@ -523,17 +524,17 @@ export const DashboardHome = () => {
                                                 {/* Info Principal */}
                                                 <div className="flex-1 p-3 sm:p-4 pl-4 sm:pl-5 flex flex-col justify-center">
                                                     <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                                        <h3 className={`font-bold text-sm sm:text-md font-unbounded transition-colors ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-100 group-hover/card:text-white'}`}>
+                                                        <h3 className={`font-bold text-base sm:text-md font-unbounded transition-colors ${isCancelled ? 'line-through text-zinc-500' : 'text-zinc-100 group-hover/card:text-white'}`}>
                                                             {booking.customer_name}
                                                         </h3>
                                                         <div className="flex gap-1.5">
-                                                            {isNext && <span className="bg-yellow-500/10 text-yellow-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider flex items-center shrink-0 animate-pulse">Siguiente</span>}
-                                                            {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
-                                                            {isCancelled && <span className="bg-red-500/10 text-red-500 text-[9px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
+                                                            {isNext && <span className="bg-yellow-500/10 text-yellow-500 text-[10px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider flex items-center shrink-0 animate-pulse">Siguiente</span>}
+                                                            {isCompleted && <span className="bg-emerald-500/10 text-emerald-500 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><CheckCircle2 size={10} /> Listo</span>}
+                                                            {isCancelled && <span className="bg-red-500/10 text-red-500 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider flex items-center gap-1 shrink-0"><Ban size={10} /> Cancelada</span>}
                                                         </div>
                                                     </div>
 
-                                                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
+                                                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-xs text-zinc-400">
                                                         <span className="flex items-center gap-1.5 bg-zinc-900 px-2 py-1 rounded-md border border-zinc-800/50">
                                                             <Clock size={12} className="text-zinc-500" />
                                                             <span className="font-medium">{formattedTime} - {formattedEndTime}</span>
@@ -543,7 +544,7 @@ export const DashboardHome = () => {
                                                             <Scissors size={14} className="text-zinc-600" />
                                                             <span className="font-medium text-zinc-300">{firstServiceTitle}</span>
                                                             {extraServicesCount > 0 && (
-                                                                <span className="text-[9px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
+                                                                <span className="text-[10px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
                                                                     +{extraServicesCount}
                                                                 </span>
                                                             )}
@@ -561,11 +562,11 @@ export const DashboardHome = () => {
                                                                 <User size={12} className="absolute inset-0 m-auto text-zinc-500" />
                                                             )}
                                                         </div>
-                                                        <span className="text-[10px] sm:text-xs font-medium text-zinc-400">
+                                                        <span className="text-xs sm:text-xs font-medium text-zinc-400">
                                                             {booking.staff?.full_name?.split(' ')[0] || 'Staff'}
                                                         </span>
                                                     </div>
-                                                    <span className={`text-[10px] font-bold flex items-center gap-1 group-hover/card:translate-x-1 transition-transform ${isNext ? 'text-yellow-500' : 'text-zinc-500 group-hover/card:text-white'}`}>
+                                                    <span className={`text-xs font-bold flex items-center gap-1 group-hover/card:translate-x-1 transition-transform ${isNext ? 'text-yellow-500' : 'text-zinc-500 group-hover/card:text-white'}`}>
                                                         Ver Detalles <ArrowRight size={12} />
                                                     </span>
                                                 </div>
@@ -579,7 +580,7 @@ export const DashboardHome = () => {
                     ) : (
                         <div className="py-10 sm:py-12 flex flex-col items-center justify-center text-center">
                             <CalendarDays size={40} className="text-zinc-800 mb-3" />
-                            <p className="text-zinc-400 text-sm font-medium">No hay citas programadas para hoy.</p>
+                            <p className="text-zinc-400 text-base font-medium">No hay citas programadas para hoy.</p>
                         </div>
                     )}
                 </div>

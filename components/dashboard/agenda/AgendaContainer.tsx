@@ -117,14 +117,14 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                         <button onClick={handlePrevious} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                             <ChevronLeft size={20} />
                         </button>
-                        <button onClick={goToToday} className="px-4 py-2 text-xs font-bold text-zinc-300 hover:text-white hover:bg-zinc-800 border-x border-zinc-800 transition-colors cursor-pointer">
+                        <button onClick={goToToday} className="px-4 py-2 text-sm font-bold text-zinc-300 hover:text-white hover:bg-zinc-800 border-x border-zinc-800 transition-colors cursor-pointer">
                             Hoy
                         </button>
                         <button onClick={handleNext} className="p-2 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                             <ChevronRight size={20} />
                         </button>
                     </div>
-                    <h2 className="text-md font-bold text-white capitalize w-48">
+                    <h2 className="text-lg font-bold text-white capitalize w-48">
                         {headerDateText}
                     </h2>
                 </div>
@@ -139,7 +139,7 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                             <select 
                                 value={selectedStaffId}
                                 onChange={(e) => setSelectedStaffId(e.target.value)}
-                                className="bg-transparent text-xs text-zinc-300 font-medium outline-none w-full cursor-pointer appearance-none"
+                                className="bg-transparent text-sm text-zinc-300 font-medium outline-none w-full cursor-pointer appearance-none"
                             >
                                 <option value="all" className="bg-zinc-900">Equipo completo</option>
                                 {initialStaff.map(staff => (
@@ -155,19 +155,19 @@ export default function AgendaContainer({ initialStaff, isAdmin, currentUserId, 
                     <div className="flex bg-zinc-950 border border-zinc-800 rounded-xl p-1 w-full sm:w-auto">
                         <button 
                             onClick={() => setViewType('month')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${viewType === 'month' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'month' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Mes
                         </button>
                         <button 
                             onClick={() => setViewType('week')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${viewType === 'week' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'week' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Semana
                         </button>
                         <button 
                             onClick={() => setViewType('day')}
-                            className={`flex-1 sm:flex-none px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${viewType === 'day' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                            className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-bold rounded-lg transition-all ${viewType === 'day' ? 'bg-yellow-500 text-zinc-950 shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                         >
                             Día
                         </button>

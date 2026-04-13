@@ -1,7 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Unbounded, Geist } from "next/font/google";
+import { Poppins, Unbounded, Geist, Raleway, Anton } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sileo";
+
+import localFont from 'next/font/local';
+
+// Configuramos Agrandir
+const agrandir = localFont({
+  src: './fonts/agrandir.otf',
+  variable: '--font-agrandir', // Esto será muy útil si usas Tailwind CSS
+  display: 'swap',
+});
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -14,11 +23,13 @@ const geist = Geist({
   subsets: ['latin']
 })
 
-const unbounded = Unbounded({
+const unbounded = Anton({
   variable: "--font-unbounded",
-  weight: 'variable',
+  weight: '400',
   subsets: ['latin']
 })
+
+
 
 export const metadata: Metadata = {
   // Asegúrate de cambiar 'http://localhost:3000' por tu dominio real cuando salgas a producción (ej. 'https://kupo.es')
@@ -103,7 +114,7 @@ export default function RootLayout({
     <>
       <html lang="es">
         <body
-          className={` ${poppins.variable} ${unbounded.variable} ${geist.variable} antialiased`}
+          className={` ${poppins.variable} ${agrandir.variable} ${geist.variable} antialiased`}
         >
         <script
           type="application/ld+json"

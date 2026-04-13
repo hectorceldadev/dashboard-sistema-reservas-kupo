@@ -60,10 +60,10 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
             {/* Cabecera del Día */}
             <div className="bg-zinc-950 rounded-xl mb-6 p-6 shadow-sm flex items-center justify-between sticky top-0 z-30">
                 <div>
-                    <h2 className="text-lg font-bold font-unbounded text-white capitalize">
+                    <h2 className="text-xl font-bold font-unbounded text-white capitalize">
                         {format(currentDate, "EEEE, d 'de' MMMM", { locale: es })}
                     </h2>
-                    <p className="text-sm font-medium text-zinc-400 mt-1 flex items-center gap-2">
+                    <p className="text-base font-medium text-zinc-400 mt-1 flex items-center gap-2">
                         {dayBookings.length > 0 && <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />}
                         {dayBookings.length} {dayBookings.length === 1 ? 'cita programada' : 'citas programadas'}
                     </p>
@@ -107,7 +107,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
 
                                 {/* Etiqueta de la Hora */}
                                 <div className="w-[38px] sm:w-[47px] shrink-0 text-right relative">
-                                    <span className={`text-[10px] sm:text-xs font-bold tracking-wider relative z-10 px-1 ${isThisHour ? 'text-yellow-500 bg-zinc-950' : 'text-zinc-500 bg-zinc-950'}`}>
+                                    <span className={`text-xs sm:text-xs font-bold tracking-wider relative z-10 px-1 ${isThisHour ? 'text-yellow-500 bg-zinc-950' : 'text-zinc-500 bg-zinc-950'}`}>
                                         {hour.toString().padStart(2, '0')}:00
                                     </span>
                                 </div>
@@ -116,7 +116,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                 <div className="flex-1 flex flex-col gap-3 min-h-[60px]">
                                     {hourBookings.length === 0 ? (
                                         <div className="h-full border border-dashed border-zinc-800/30 rounded-xl flex items-center px-4 sm:px-6 opacity-0 group-hover:opacity-100 transition-opacity min-h-[50px]">
-                                            <span className="text-[10px] sm:text-xs font-medium text-zinc-600">Hora libre</span>
+                                            <span className="text-xs sm:text-xs font-medium text-zinc-600">Hora libre</span>
                                         </div>
                                     ) : (
                                         hourBookings.map(booking => {
@@ -142,12 +142,12 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                     {/* Info Principal - Optimizada para Móvil */}
                                                     <div className="flex-1 p-3 sm:p-5 pl-4 sm:pl-6 flex flex-col justify-center">
                                                         <div className="flex flex-wrap items-start justify-between mb-2 gap-2">
-                                                            <h3 className="font-bold text-sm sm:text-md font-unbounded text-zinc-100 group-hover/card:text-white transition-colors">
+                                                            <h3 className="font-bold text-base sm:text-md font-unbounded text-zinc-100 group-hover/card:text-white transition-colors">
                                                                 {booking.customer_name}
                                                             </h3>
                                                         </div>
 
-                                                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-[10px] sm:text-xs text-zinc-400">
+                                                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-xs text-zinc-400">
                                                             <span className="flex items-center gap-1.5 bg-zinc-950 px-2 py-1 rounded-md border border-zinc-800/50">
                                                                 <Clock size={12} className="text-zinc-500" />
                                                                 <span className="font-medium">{formattedTime} - {formattedEndTime}</span>
@@ -157,7 +157,7 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                                 <Scissors size={14} className="text-zinc-600" />
                                                                 <span className="font-medium text-zinc-300">{firstServiceTitle}</span>
                                                                 {extraServicesCount > 0 && (
-                                                                    <span className="text-[9px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
+                                                                    <span className="text-[10px] font-bold bg-zinc-800 text-zinc-300 px-1.5 py-0.5 rounded-md ml-0.5">
                                                                         +{extraServicesCount}
                                                                     </span>
                                                                 )}
@@ -175,11 +175,11 @@ export default function DayView({ currentDate, bookings, businessHours }: DayVie
                                                                     <User size={12} className="absolute inset-0 m-auto text-zinc-500" />
                                                                 )}
                                                             </div>
-                                                            <span className="text-[10px] sm:text-xs font-medium text-zinc-400">
+                                                            <span className="text-xs sm:text-xs font-medium text-zinc-400">
                                                                 {booking.staff?.full_name?.split(' ')[0] || 'Staff'}
                                                             </span>
                                                         </div>
-                                                        <span className="text-[10px] font-bold text-yellow-500 flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
+                                                        <span className="text-xs font-bold text-yellow-500 flex items-center gap-1 group-hover/card:translate-x-1 transition-transform">
                                                             Ver Detalles <ArrowRight size={12} />
                                                         </span>
                                                     </div>

@@ -20,7 +20,7 @@ export default function Hero() {
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-26 items-center">
           <div className="flex flex-col items-center lg:items-start mt-8 text-left stagger-container">
-            <h1 className="text-4xl lg:text-5xl text-center lg:text-left font-bold mt-4 mb-6 font-unbounded">
+            <h1 className="text-4xl lg:text-6xl text-center lg:text-left font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
               Tu propia web de reservas <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-400 to-amber-600">
                 No un negocio mas en una app

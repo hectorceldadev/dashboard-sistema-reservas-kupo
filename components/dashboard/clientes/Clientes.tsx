@@ -102,7 +102,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-unbounded font-bold text-white tracking-tight">Directorio de Clientes</h1>
-                    <p className="text-zinc-400 mt-1 text-sm sm:text-base">Gestiona tu base de datos y fideliza a tus clientes.</p>
+                    <p className="text-zinc-400 mt-1 text-base sm:text-base">Gestiona tu base de datos y fideliza a tus clientes.</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
@@ -113,7 +113,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                             placeholder="Buscar por nombre, email o teléfono..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-11 pr-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-500 shadow-sm"
+                            className="w-full pl-11 pr-4 py-3 bg-zinc-900 border border-zinc-800 rounded-xl text-base text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all placeholder:text-zinc-500 shadow-sm"
                         />
                     </div>
                 </div>
@@ -127,8 +127,8 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     <div className="w-16 h-16 bg-zinc-950 rounded-full flex items-center justify-center mb-4 border border-zinc-800">
                         <User size={32} className="text-zinc-600" />
                     </div>
-                    <p className="font-bold text-zinc-300 text-lg">No se encontraron clientes</p>
-                    <p className="text-zinc-500 text-sm mt-1">Prueba con otra búsqueda o añade un cliente nuevo.</p>
+                    <p className="font-bold text-zinc-300 text-xl">No se encontraron clientes</p>
+                    <p className="text-zinc-500 text-base mt-1">Prueba con otra búsqueda o añade un cliente nuevo.</p>
                 </div>
             ) : (
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl shadow-black/20">
@@ -146,15 +146,15 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                         {getInitials(customer.full_name)}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="font-bold text-white text-sm font-unbounded truncate">{customer.full_name}</div>
-                                        <div className="text-zinc-500 text-[10px] font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
+                                        <div className="font-bold text-white text-base font-unbounded truncate">{customer.full_name}</div>
+                                        <div className="text-zinc-500 text-xs font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col items-start gap-3 text-sm bg-zinc-950/50 p-3.5 rounded-lg border border-zinc-800/50">
+                                <div className="flex flex-col items-start gap-3 text-base bg-zinc-950/50 p-3.5 rounded-lg border border-zinc-800/50">
                                     <div className="flex flex-col gap-1.5 text-zinc-400 min-w-0">
-                                        {customer.phone && <span className="flex items-center gap-2 truncate text-xs"><Phone size={14} className="text-zinc-500 shrink-0" /> <span className="truncate">{customer.phone}</span></span>}
-                                        {customer.email && <span className="flex items-center gap-2 truncate text-xs"><Mail size={14} className="text-zinc-500 shrink-0" /> <span className="truncate">{customer.email}</span></span>}
+                                        {customer.phone && <span className="flex items-center gap-2 truncate text-sm"><Phone size={14} className="text-zinc-500 shrink-0" /> <span className="truncate">{customer.phone}</span></span>}
+                                        {customer.email && <span className="flex items-center gap-2 truncate text-sm"><Mail size={14} className="text-zinc-500 shrink-0" /> <span className="truncate">{customer.email}</span></span>}
                                     </div>
                                 </div>
                             </div>
@@ -165,13 +165,13 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                     <div className="hidden lg:block overflow-x-auto">
                         <table className="w-full text-left border-collapse whitespace-nowrap">
                             <thead>
-                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-[12px] font-unbounded font-medium text-yellow-500 stagger-container">
+                                <tr className="border-b border-zinc-800 bg-zinc-950/50 text-sm font-unbounded font-medium text-yellow-500 stagger-container">
                                     <th className="px-6 py-4 rounded-tl-2xl">Cliente</th>
                                     <th className="px-6 py-4">Teléfono</th>
                                     <th className="pr-30 py-4 text-center">Email</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-zinc-800/50 text-sm stagger-container">
+                            <tbody className="divide-y divide-zinc-800/50 text-base stagger-container">
                                 {filteredCustomers.map((customer) => (
                                     <tr
                                         key={customer.id}
@@ -180,23 +180,23 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                     >
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-full bg-zinc-950 border border-zinc-700 group-hover:border-yellow-500/50 flex items-center justify-center font-bold text-yellow-500 shrink-0 transition-colors shadow-inner text-xs">
+                                                <div className="w-10 h-10 rounded-full bg-zinc-950 border border-zinc-700 group-hover:border-yellow-500/50 flex items-center justify-center font-bold text-yellow-500 shrink-0 transition-colors shadow-inner text-sm">
                                                     {getInitials(customer.full_name)}
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold font-unbounded text-sm text-zinc-200 group-hover:text-yellow-500 transition-colors">{customer.full_name}</div>
-                                                    <div className="text-zinc-600 text-[10px] font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
+                                                    <div className="font-bold font-unbounded text-base text-zinc-200 group-hover:text-yellow-500 transition-colors">{customer.full_name}</div>
+                                                    <div className="text-zinc-600 text-xs font-mono mt-0.5">ID: {customer.id.slice(0, 8)}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex flex-col gap-1.5 text-zinc-400 text-sm group-hover:text-yellow-500">
+                                            <div className="flex flex-col gap-1.5 text-zinc-400 text-base group-hover:text-yellow-500">
                                                 {customer.phone && <div className="flex items-center gap-2"><Phone size={14} className="text-zinc-500" /> <span>{customer.phone}</span></div>}
 
                                             </div>
                                         </td>
                                         <td className="pl-26 py-4 text-center">
-                                            <span className="flex flex-col gap-1.5 text-zinc-400 text-sm group-hover:text-yellow-500">
+                                            <span className="flex flex-col gap-1.5 text-zinc-400 text-base group-hover:text-yellow-500">
                                                 {customer.email && <div className="flex items-center gap-2"><Mail size={14} className="text-zinc-500" /> <span>{customer.email}</span></div>}
                                             </span>
                                         </td>
@@ -228,7 +228,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                             </button>
 
                             <div className="flex flex-col items-center gap-4 relative z-10 text-center">
-                                <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center font-black text-xl text-yellow-500 shadow-inner">
+                                <div className="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center font-black text-2xl text-yellow-500 shadow-inner">
                                     {getInitials(activeCustomer?.full_name)}
                                 </div>
                                 
@@ -237,10 +237,10 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                     {isLoading ? (
                                         <div className="h-7 w-48 bg-zinc-800 rounded-md animate-pulse"></div>
                                     ) : (
-                                        <h2 className="text-md font-semibold text-white font-unbounded leading-tight">{activeCustomer?.full_name}</h2>
+                                        <h2 className="text-lg font-semibold text-white font-unbounded leading-tight">{activeCustomer?.full_name}</h2>
                                     )}
 
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mt-1"></p>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mt-1"></p>
                                     
                                     {/* SKELETON O EMAIL/TELÉFONO */}
                                     {isLoading ? (
@@ -249,7 +249,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                             <div className="h-4 w-28 bg-zinc-800 rounded-md animate-pulse"></div>
                                         </div>
                                     ) : (
-                                        <div className="flex justify-center flex-col items-center lg:flex-row gap-3 text-xs text-zinc-400 mt-3">
+                                        <div className="flex justify-center flex-col items-center lg:flex-row gap-3 text-sm text-zinc-400 mt-3">
                                             {activeCustomer?.email && (
                                                 <span className="flex items-center gap-1.5"><Mail size={14} className="text-zinc-500" /> {activeCustomer.email}</span>
                                             )}
@@ -267,26 +267,26 @@ export function Clientes({ customers }: { customers: Customer[] }) {
 
                             {/* Estadísticas */}
                             <div>
-                                <h4 className="text-xs font-medium text-zinc-500 font-unbounded mb-3">Rendimiento</h4>
+                                <h4 className="text-sm font-medium text-zinc-500 font-unbounded mb-3">Rendimiento</h4>
                                 <div className="grid grid-cols-3 gap-3">
                                     <div className="bg-yellow-500/10 border border-yellow-800 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                        <span className="text-yellow-500/80 text-[10px] font-unbounded font-semibold mb-1">Citas</span>
-                                        <span className={`text-xl font-black text-yellow-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citas}</span>
+                                        <span className="text-yellow-500/80 text-xs font-unbounded font-semibold mb-1">Citas</span>
+                                        <span className={`text-2xl font-black text-yellow-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citas}</span>
                                     </div>
                                     <div className="bg-red-500/10 border border-red-800 p-3 rounded-2xl flex flex-col items-center justify-center text-center">
-                                        <span className="text-red-500 text-[10px] font-unbounded font-semibold mb-1">Anuladas</span>
-                                        <span className={`text-xl font-black text-red-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citasCanceladas}</span>
+                                        <span className="text-red-500 text-xs font-unbounded font-semibold mb-1">Anuladas</span>
+                                        <span className={`text-2xl font-black text-red-500 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : citasCanceladas}</span>
                                     </div>
                                     <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden">
-                                        <span className="text-emerald-500/80 text-[10px] font-unbounded font-semibold mb-1 relative z-10">Ingresos</span>
-                                        <span className={`text-xl font-black text-emerald-500 relative z-10 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : `${ingresos}€`}</span>
+                                        <span className="text-emerald-500/80 text-xs font-unbounded font-semibold mb-1 relative z-10">Ingresos</span>
+                                        <span className={`text-2xl font-black text-emerald-500 relative z-10 ${isLoading && 'animate-spin'}`}>{isLoading ? <LoaderCircle size={16} /> : `${ingresos}€`}</span>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Historial de Citas */}
                             <div>
-                                <h4 className="text-xs font-medium text-zinc-500 font-unbounded mb-3">Historial de Reservas</h4>
+                                <h4 className="text-sm font-medium text-zinc-500 font-unbounded mb-3">Historial de Reservas</h4>
 
                                 {isLoading ? (
                                     /* SKELETON DE LOS TICKETS DE RESERVA */
@@ -313,7 +313,7 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                         ))}
                                     </div>
                                 ) : bookings?.length === 0 ? (
-                                    <div className="text-center p-6 border border-dashed border-zinc-800 rounded-2xl text-zinc-500 text-sm">
+                                    <div className="text-center p-6 border border-dashed border-zinc-800 rounded-2xl text-zinc-500 text-base">
                                         Este cliente aún no tiene citas.
                                     </div>
                                 ) : (
@@ -330,17 +330,17 @@ export function Clientes({ customers }: { customers: Customer[] }) {
                                                 >
                                                     <div className="w-20 shrink-0 flex flex-col items-center justify-center py-3 border-r border-dashed border-zinc-800 bg-zinc-950/50 relative">
                                                         <div className={`absolute left-0 top-0 bottom-0 w-1 ${booking.status === 'completed' ? 'bg-emerald-500' : booking.status === 'cancelled' ? 'bg-red-500' : 'bg-yellow-500'}`} />
-                                                        <span className="text-[10px] font-bold text-zinc-500 mb-0.5 capitalize">{format(new Date(booking.date), "d MMM", { locale: es })}</span>
-                                                        <span className="text-sm font-black text-white">{time}</span>
+                                                        <span className="text-xs font-bold text-zinc-500 mb-0.5 capitalize">{format(new Date(booking.date), "d MMM", { locale: es })}</span>
+                                                        <span className="text-base font-black text-white">{time}</span>
                                                     </div>
                                                     <div className="flex-1 p-3 flex flex-col justify-center min-w-0">
                                                         <div className="flex justify-between items-start mb-1.5 gap-2">
-                                                            <h5 className="font-unbounded font-semibold text-xs text-zinc-100 group-hover:text-yellow-500 transition-colors truncate">
+                                                            <h5 className="font-unbounded font-semibold text-sm text-zinc-100 group-hover:text-yellow-500 transition-colors truncate">
                                                                 {serviceName}
                                                             </h5>
-                                                            <span className="font-bold text-white text-sm shrink-0">{booking.total_price}€</span>
+                                                            <span className="font-bold text-white text-base shrink-0">{booking.total_price}€</span>
                                                         </div>
-                                                        <div className="flex items-center justify-between text-[10px] font-medium">
+                                                        <div className="flex items-center justify-between text-xs font-medium">
                                                             <span className="flex items-center gap-1 text-zinc-400 truncate">
                                                                 <User size={10} className="shrink-0" /> <span className="truncate">{booking.staff?.full_name || 'Staff'}</span>
                                                             </span>
@@ -406,4 +406,3 @@ export function Clientes({ customers }: { customers: Customer[] }) {
         </div>
     )
 }
-

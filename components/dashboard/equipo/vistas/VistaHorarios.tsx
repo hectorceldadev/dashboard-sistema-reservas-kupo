@@ -124,8 +124,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 {getInitials(selectedMember?.full_name || '')}
                             </div>
                             <div className="text-left overflow-hidden font-unbounded">
-                                <p className="text-sm font-medium text-white truncate">{selectedMember?.full_name}</p>
-                                <p className="text-[10px] text-zinc-500 capitalize">{selectedMember?.role}</p>
+                                <p className="text-base font-medium text-white truncate">{selectedMember?.full_name}</p>
+                                <p className="text-xs text-zinc-500 capitalize">{selectedMember?.role}</p>
                             </div>
                         </div>
                         <ChevronDown className={`w-5 h-5 text-zinc-500 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
@@ -142,7 +142,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             onClick={() => { setSelectedMemberId(member.id); setIsDropdownOpen(false); }}
                                             className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all hover:bg-white/20 ${selectedMemberId === member.id ? 'bg-yellow-500/10 text-yellow-500' : 'hover:bg-zinc-800 text-zinc-400'} cursor-pointer`}
                                         >
-                                            <div className="font-unbounded text-xs font-medium truncate">{member.full_name}</div>
+                                            <div className="font-unbounded text-sm font-medium truncate">{member.full_name}</div>
                                         </button>
                                     ))}
                                 </div>
@@ -154,13 +154,13 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 <div className="flex items-center p-1.5 bg-zinc-950 border border-zinc-800 rounded-xl w-full md:w-auto overflow-x-auto custom-scrollbar">
                     <button
                         onClick={() => setActiveView('schedule')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-sm font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'schedule' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <Clock className="w-4 h-4" /> <span>Horario Base</span>
                     </button>
                     <button
                         onClick={() => setActiveView('blocks')}
-                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-xs font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
+                        className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-3 md:px-6 py-2.5 text-sm font-unbounded font-bold rounded-lg transition-all whitespace-nowrap ${activeView === 'blocks' ? 'bg-zinc-800 text-white shadow-md' : 'text-zinc-500 hover:text-zinc-300'} cursor-pointer`}
                     >
                         <CalendarRange className="w-4 h-4" /> <span>Ausencias y Bloqueos</span>
                     </button>
@@ -172,7 +172,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                 {isLoading ? (
                     <div className="h-full min-h-[350px] flex flex-col items-center justify-center text-zinc-500 gap-3">
                         <Loader2 className="w-8 h-8 animate-spin text-yellow-500" />
-                        <p className="text-sm font-medium animate-pulse">Cargando agenda de {selectedMember?.full_name.split(' ')[0]}...</p>
+                        <p className="text-base font-medium animate-pulse">Cargando agenda de {selectedMember?.full_name.split(' ')[0]}...</p>
                     </div>
                 ) : (
                     <div className="">
@@ -181,10 +181,10 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                         {activeView === 'schedule' && (
                             <div className='stagger-container'>
                                 <div className="mb-6 pb-6 border-b border-zinc-800">
-                                    <h2 className="text-md font-semibold text-white font-unbounded flex items-center gap-2">
-                                        <Clock className="w-5 h-5 text-yellow-500 text-sm" /> Planificador Semanal
+                                    <h2 className="text-lg font-semibold text-white font-unbounded flex items-center gap-2">
+                                        <Clock className="w-5 h-5 text-yellow-500 text-base" /> Planificador Semanal
                                     </h2>
-                                    <p className="text-sm text-zinc-400 mt-1">Configura los días y turnos fijos de la semana. Pulsa sobre un día para editarlo.</p>
+                                    <p className="text-base text-zinc-400 mt-1">Configura los días y turnos fijos de la semana. Pulsa sobre un día para editarlo.</p>
                                 </div>
 
                                 <div className="flex w-full overflow-x-auto pb-4 gap-1 custom-scrollbar snap-x stagger-container">
@@ -216,29 +216,29 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                     }
                                             `}
                                             >
-                                                <div className={`text-xs font-unbounded font-medium capitalize tracking-wider mb-4 group-hover:text-yellow-500 transition-colors duration-300 ${isWorking ? 'text-white' : 'text-zinc-500'}`}>
+                                                <div className={`text-sm font-unbounded font-medium capitalize tracking-wider mb-4 group-hover:text-yellow-500 transition-colors duration-300 ${isWorking ? 'text-white' : 'text-zinc-500'}`}>
                                                     {dayName}
                                                 </div>
 
                                                 {isWorking ? (
                                                     <div className="flex flex-col items-center w-full gap-3">
                                                         <div className="w-full bg-zinc-900 border border-zinc-800 rounded-2xl py-3 flex flex-col items-center justify-center group-hover:border-yellow-500/30 transition-colors">
-                                                            <span className="text-sm font-mono font-bold text-zinc-200">{daySchedule?.start_time.slice(0, 5)}</span>
+                                                            <span className="text-base font-mono font-bold text-zinc-200">{daySchedule?.start_time.slice(0, 5)}</span>
                                                             <div className="w-1/2 border-t border-zinc-800 my-1"></div>
-                                                            <span className="text-sm font-mono font-bold text-zinc-200">{daySchedule?.end_time.slice(0, 5)}</span>
+                                                            <span className="text-base font-mono font-bold text-zinc-200">{daySchedule?.end_time.slice(0, 5)}</span>
                                                         </div>
 
                                                         {daySchedule?.break_start ? (
                                                             <div className="flex flex-col items-center gap-1 w-full pt-2">
                                                                 <Coffee className="w-4 h-4 text-yellow-500/70" />
-                                                                <span className="text-[10px] text-zinc-500 font-medium">
+                                                                <span className="text-xs text-zinc-500 font-medium">
                                                                     {daySchedule.break_start.slice(0, 5)} - {daySchedule.break_end?.slice(0, 5)}
                                                                 </span>
                                                             </div>
                                                         ) : (
                                                             <div className="flex flex-col items-center gap-1 w-full pt-2">
                                                                 <Coffee className="w-4 h-4 text-yellow-500/70" />
-                                                                <span className="text-[10px] text-zinc-500 font-medium">
+                                                                <span className="text-xs text-zinc-500 font-medium">
                                                                     Sin Descansos
                                                                 </span>
                                                             </div>
@@ -249,7 +249,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                                         <div className="w-10 h-10 rounded-full bg-zinc-800/50 flex items-center justify-center">
                                                             <X className="w-4 h-4 text-zinc-500" />
                                                         </div>
-                                                        <span className="text-xs text-zinc-500 font-medium">Libre</span>
+                                                        <span className="text-sm text-zinc-500 font-medium">Libre</span>
                                                     </div>
                                                 )}
                                             </button>
@@ -264,14 +264,14 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                             <div className='stagger-container'>
                                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 pb-6 border-b border-zinc-800">
                                     <div>
-                                        <h2 className="text-md font-semibold font-unbounded text-white flex items-center gap-2">
+                                        <h2 className="text-lg font-semibold font-unbounded text-white flex items-center gap-2">
                                             <Lock className="w-5 h-5 text-red-500" /> Excepciones y Bloqueos
                                         </h2>
-                                        <p className="text-sm text-zinc-400 mt-1">Añade vacaciones, citas médicas o ausencias puntuales.</p>
+                                        <p className="text-base text-zinc-400 mt-1">Añade vacaciones, citas médicas o ausencias puntuales.</p>
                                     </div>
                                     <button
                                         onClick={() => setIsBlockModalOpen(true)}
-                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-xs font-semibold font-unbounded transition-all shadow-lg shadow-red-500/20 whitespace-nowrap cursor-pointer"
+                                        className="flex items-center gap-2 bg-red-500 hover:bg-red-400 text-white px-5 py-2.5 rounded-xl text-sm font-semibold font-unbounded transition-all shadow-lg shadow-red-500/20 whitespace-nowrap cursor-pointer"
                                     >
                                         <Plus className="w-4 h-4" /> Nuevo Bloqueo
                                     </button>
@@ -279,23 +279,23 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="grid lg:grid-cols-2 gap-8">
                                     <div>
-                                        <h3 className="text-xs font-medium text-zinc-500 mb-4 font-unbounded flex items-center gap-2">
+                                        <h3 className="text-sm font-medium text-zinc-500 mb-4 font-unbounded flex items-center gap-2">
                                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> Activos / Programados
                                         </h3>
                                         <div className="space-y-3 stagger-container">
                                             {activeBlocks.length === 0 && (
                                                 <div className="p-6 border border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center text-center">
                                                     <CalendarRange className="w-8 h-8 text-zinc-700 mb-2" />
-                                                    <p className="text-sm text-zinc-500">No hay ausencias programadas.</p>
+                                                    <p className="text-base text-zinc-500">No hay ausencias programadas.</p>
                                                 </div>
                                             )}
                                             {activeBlocks.map(block => (
                                                 <div key={block.id} className="flex flex-col sm:flex-row justify-between p-4 rounded-xl border border-red-500/20 bg-red-500/5 gap-4 hover:border-red-500/40 transition-colors">
                                                     <div>
-                                                        <p className="text-sm font-bold text-white mb-1">
+                                                        <p className="text-base font-bold text-white mb-1">
                                                             {formatDateTime(block.start_date)} <span className="text-zinc-500 mx-1">→</span> {formatDateTime(block.end_date)}
                                                         </p>
-                                                        <p className="text-xs text-red-400 font-medium flex items-center gap-1.5">
+                                                        <p className="text-sm text-red-400 font-medium flex items-center gap-1.5">
                                                             <Lock className="w-3 h-3" /> {block.reason || 'Ausencia general'}
                                                         </p>
                                                     </div>
@@ -332,15 +332,15 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     </div>
 
                                     <div>
-                                        <h3 className="text-xs font-medium text-zinc-500 font-unbounded mb-4">Historial Pasado</h3>
+                                        <h3 className="text-sm font-medium text-zinc-500 font-unbounded mb-4">Historial Pasado</h3>
                                         <div className="space-y-3 opacity-60">
-                                            {completedBlocks.length === 0 && <p className="text-sm text-zinc-600 italic">No hay historial.</p>}
+                                            {completedBlocks.length === 0 && <p className="text-base text-zinc-600 italic">No hay historial.</p>}
                                             {completedBlocks.map(block => (
                                                 <div key={block.id} className="p-4 rounded-xl border border-zinc-800 bg-zinc-950">
-                                                    <p className="text-sm font-bold text-zinc-400 mb-1">
+                                                    <p className="text-base font-bold text-zinc-400 mb-1">
                                                         {formatDateTime(block.start_date)} <span className="text-zinc-600 mx-1">→</span> {formatDateTime(block.end_date)}
                                                     </p>
-                                                    <p className="text-xs text-zinc-500">{block.reason || 'Ausencia general'}</p>
+                                                    <p className="text-sm text-zinc-500">{block.reason || 'Ausencia general'}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -358,8 +358,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                     <div className="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 bg-zinc-900/50">
                             <div>
-                                <h3 className="text-md font-bold font-unbounded text-white flex items-center gap-2"><Clock className="w-5 h-5 text-yellow-500" /> Editar Horario</h3>
-                                <p className="text-sm text-zinc-400">Para todos los <span className="text-white font-medium">{DAYS_OF_WEEK[selectedDayIndex]}s</span></p>
+                                <h3 className="text-lg font-bold font-unbounded text-white flex items-center gap-2"><Clock className="w-5 h-5 text-yellow-500" /> Editar Horario</h3>
+                                <p className="text-base text-zinc-400">Para todos los <span className="text-white font-medium">{DAYS_OF_WEEK[selectedDayIndex]}s</span></p>
                             </div>
                             <button onClick={() => setIsScheduleModalOpen(false)} className="text-zinc-500 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
                         </div>
@@ -369,8 +369,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="flex items-center justify-between bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 mb-4">
                                     <div>
-                                        <h4 className="text-xs font-semibold font-unbounded text-white">Día Laborable</h4>
-                                        <p className="text-xs text-zinc-500">¿El trabajador opera este día?</p>
+                                        <h4 className="text-sm font-semibold font-unbounded text-white">Día Laborable</h4>
+                                        <p className="text-sm text-zinc-500">¿El trabajador opera este día?</p>
                                     </div>
                                     <button
                                         type="button"
@@ -387,34 +387,34 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 <div className={`transition-opacity ${!memberSchedule.is_working ? 'opacity-50 pointer-events-none' : ''}`}>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2 flex flex-col justify-center items-center">
-                                            <label className="text-xs font-medium text-zinc-500 font-unbounded">Entrada</label>
+                                            <label className="text-sm font-medium text-zinc-500 font-unbounded">Entrada</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.start_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, start_time: e.target.value })}
-                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono text-base"
                                             />
                                         </div>
                                         <div className="space-y-2 flex flex-col justify-center items-center">
-                                            <label className="text-xs font-medium text-zinc-500 font-unbounded">Salida</label>
+                                            <label className="text-sm font-medium text-zinc-500 font-unbounded">Salida</label>
                                             <input
                                                 type="time"
                                                 value={memberSchedule.end_time || ''}
                                                 onChange={(e) => setMemberSchedule({ ...memberSchedule, end_time: e.target.value })}
-                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono text-base"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="relative my-6">
                                         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-zinc-800"></div></div>
-                                        <div className="relative flex justify-center"><span className="bg-zinc-900 px-3 text-xs font-medium text-zinc-500">Descanso / Break</span></div>
+                                        <div className="relative flex justify-center"><span className="bg-zinc-900 px-3 text-sm font-medium text-zinc-500">Descanso / Break</span></div>
                                     </div>
 
                                     <div className="flex items-center justify-between bg-zinc-950/50 border border-zinc-800 rounded-xl p-4 mb-4">
                                         <div className="flex items-center gap-3">
                                             <div className={`p-2 rounded-lg ${hasBreak ? 'bg-yellow-500/10 text-yellow-500' : 'bg-zinc-800 text-zinc-500'}`}><Coffee className="w-5 h-5" /></div>
-                                            <span className="text-xs font-semibold font-unbounded text-zinc-300">¿Tiene descanso?</span>
+                                            <span className="text-sm font-semibold font-unbounded text-zinc-300">¿Tiene descanso?</span>
                                         </div>
                                         <button
                                             type="button"
@@ -436,21 +436,21 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                     {hasBreak && (
                                         <div className="grid grid-cols-2 gap-4 animate-in slide-in-from-top-2">
                                             <div className="space-y-2 flex flex-col justify-center items-center">
-                                                <label className="text-xs font-medium text-zinc-500 font-unbounded">Inicio Descanso</label>
+                                                <label className="text-sm font-medium text-zinc-500 font-unbounded">Inicio Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_start || ''}
                                                     onChange={(e) => setMemberSchedule({ ...memberSchedule, break_start: e.target.value })}
-                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono text-base"
                                                 />
                                             </div>
                                             <div className="space-y-2 flex flex-col justify-center items-center">
-                                                <label className="text-xs font-medium text-zinc-500 font-unbounded">Fin Descanso</label>
+                                                <label className="text-sm font-medium text-zinc-500 font-unbounded">Fin Descanso</label>
                                                 <input
                                                     type="time"
                                                     value={memberSchedule.break_end || ''}
                                                     onChange={(e) => setMemberSchedule({ ...memberSchedule, break_end: e.target.value })}
-                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono"
+                                                    className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-center font-mono text-base"
                                                 />
                                             </div>
                                         </div>
@@ -458,7 +458,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                 </div>
                             </div>
                             <div className="px-6 py-4 bg-zinc-950 border-t border-zinc-800 flex gap-3">
-                                <button type="button" onClick={() => setIsScheduleModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-sm font-unbounded transition-colors">Cancelar</button>
+                                <button type="button" onClick={() => setIsScheduleModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-base font-unbounded transition-colors">Cancelar</button>
 
                                 <button
                                     type="button"
@@ -509,7 +509,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             setIsScheduleModalOpen(false)
                                         }
                                     }}
-                                    className="flex-1 py-3 rounded-xl bg-yellow-500 text-zinc-950 text-sm font-semibold font-unbounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                                    className="flex-1 py-3 rounded-xl bg-yellow-500 text-zinc-950 text-base font-semibold font-unbounded transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                                 >
                                     {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                     Guardar
@@ -526,8 +526,8 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                     <div className="bg-zinc-900 border border-red-500/20 rounded-3xl w-full max-w-md shadow-2xl flex flex-col stagger-container">
                         <div className="flex items-center justify-between px-6 py-5 border-b border-zinc-800 rounded-t-3xl bg-zinc-900/50">
                             <div>
-                                <h3 className="text-md font-semibold text-white flex items-center font-unbounded gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>
-                                <p className="text-sm text-zinc-400">Para: <span className="text-white font-medium">{selectedMember?.full_name}</span></p>
+                                <h3 className="text-lg font-semibold text-white flex items-center font-unbounded gap-2"><Lock className="w-5 h-5 text-red-500" /> Bloquear Agenda</h3>
+                                <p className="text-base text-zinc-400">Para: <span className="text-white font-medium">{selectedMember?.full_name}</span></p>
                             </div>
                             <button onClick={() => setIsBlockModalOpen(false)} className="p-2 rounded-lg hover:bg-zinc-800 text-zinc-500 hover:text-white cursor-pointer"><X className="w-6 h-6" /></button>
                         </div>
@@ -537,7 +537,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2 flex flex-col justify-center items-center">
-                                        <label className="text-xs font-medium text-zinc-500 font-unbounded">Inicio</label>
+                                        <label className="text-sm font-medium text-zinc-500 font-unbounded">Inicio</label>
                                         <input 
                                             name="start_date" 
                                             value={blockedPeriod.start_date || ''}
@@ -546,11 +546,11 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
+                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-base [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" 
                                         />
                                     </div>
                                     <div className="space-y-2 flex flex-col justify-center items-center">
-                                        <label className="text-xs font-medium text-zinc-500 font-unbounded">Fin</label>
+                                        <label className="text-sm font-medium text-zinc-500 font-unbounded">Fin</label>
                                         <input 
                                             name="end_date" 
                                             value={blockedPeriod.end_date || ''}
@@ -560,23 +560,23 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                             type="datetime-local" 
                                             min={hoy}
                                             max={limiteMaximo}
-                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-sm [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
+                                            className="w-[80%] md:w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none text-base [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert cursor-pointer" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-medium text-zinc-500 font-unbounded">Motivo (Opcional)</label>
+                                    <label className="text-sm font-medium text-zinc-500 font-unbounded">Motivo (Opcional)</label>
                                     <input 
                                         name="reason" 
                                         value={blockedPeriod.reason || ''}
                                         onChange={(e) => setBlockedPeriod({ ...blockedPeriod, reason: e.target.value })} 
                                         type="text" 
                                         placeholder="Ej: Cita médica, vacaciones..." 
-                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none placeholder:text-zinc-600 cursor-pointer" 
+                                        className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-red-500 outline-none placeholder:text-zinc-600 cursor-pointer text-base" 
                                     />
                                 </div>
                             </div>
                             <div className="px-6 py-4 bg-zinc-950 border-t rounded-b-3xl border-zinc-800 flex gap-3">
-                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-sm transition-colors cursor-pointer font-unbounded">Cancelar</button>
+                                <button type="button" onClick={() => setIsBlockModalOpen(false)} className="flex-1 py-3 rounded-xl border border-zinc-800 text-zinc-400 hover:text-white font-semibold text-base transition-colors cursor-pointer font-unbounded">Cancelar</button>
                                 <button 
                                     type='button'
                                     onClick={async (e) => {
@@ -619,7 +619,7 @@ export default function VistaHorarios({ members }: { members: TeamMember[] }) {
                                         }
                                     }}
                                     disabled={isLoading} 
-                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-semibold text-sm font-unbounded flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
+                                    className="flex-1 py-3 rounded-xl bg-red-500 text-white font-semibold text-base font-unbounded flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 cursor-pointer">
                                     {isLoading ? <><Loader2 className="w-4 h-4 animate-spin" /><span>Bloqueando...</span></> : <><Lock className="w-4 h-4" /><span>Bloquear</span></>}
                                 </button>
                             </div>

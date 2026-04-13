@@ -62,15 +62,15 @@ export default function StepForm({ booking, setBooking }: StepFormProps) {
     <div className="space-y-6 animate-in slide-in-from-right-8 fade-in duration-500 pb-4 stagger-container">
       
       <div className="flex flex-col items-start">
-        <h3 className="text-white font-bold text-md font-unbounded">Datos del cliente</h3>
-        <p className="text-zinc-400 text-sm">Ingresa los datos para registrar la cita.</p>
+        <h3 className="text-white font-bold text-xl font-unbounded">Datos del cliente</h3>
+        <p className="text-zinc-400 text-md">Ingresa los datos para registrar la cita.</p>
       </div>
 
       <div className="space-y-4">
         
         {/* NOMBRE */}
         <div className="space-y-1.5">
-            <label className="text-xs font-unbounded font-bold text-zinc-300 ml-1">Nombre completo *</label>
+            <label className="text-sm font-unbounded font-bold text-zinc-300 ml-1">Nombre completo *</label>
             <div className="relative group">
                 <User size={18} className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors ${errors.name ? 'text-red-400' : 'text-zinc-500 group-focus-within:text-yellow-500'}`} />
                 <input 
@@ -92,7 +92,7 @@ export default function StepForm({ booking, setBooking }: StepFormProps) {
 
         {/* TELÉFONO */}
         <div className="space-y-1.5">
-            <label className="text-xs font-unbounded font-bold text-zinc-300 ml-1">Teléfono móvil *</label>
+            <label className="text-sm font-unbounded font-bold text-zinc-300 ml-1">Teléfono móvil *</label>
             <div className="relative group">
                 <Phone size={18} className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors ${errors.phone ? 'text-red-400' : 'text-zinc-500 group-focus-within:text-yellow-500'}`} />
                 <input 
@@ -114,7 +114,7 @@ export default function StepForm({ booking, setBooking }: StepFormProps) {
 
         {/* EMAIL */}
         <div className="space-y-1.5">
-            <label className="text-xs font-unbounded font-bold text-zinc-300 ml-1">Email *</label>
+            <label className="text-sm font-unbounded font-bold text-zinc-300 ml-1">Email *</label>
             <div className="relative group">
                 <Mail size={18} className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors ${errors.email ? 'text-red-400' : 'text-zinc-500 group-focus-within:text-yellow-500'}`} />
                 <input 

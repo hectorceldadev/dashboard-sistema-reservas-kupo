@@ -116,7 +116,7 @@ export default function NegocioDashboard() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-800 pb-6 stagger-container">
                 <div>
                     <h1 className="text-2xl font-bold font-unbounded text-white tracking-tight">Mi Negocio</h1>
-                    <p className="text-zinc-400 mt-1">Métricas calculadas en tiempo real.</p>
+                    <p className="text-zinc-400">Métricas calculadas en tiempo real.</p>
                 </div>
                 
                 <div className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 p-2 rounded-xl w-full sm:w-auto shadow-sm hover:border-zinc-700 transition-colors focus-within:border-yellow-500">
@@ -124,7 +124,7 @@ export default function NegocioDashboard() {
                     <select 
                         value={timeRange}
                         onChange={(e) => setTimeRange(e.target.value)}
-                        className="bg-transparent font-unbounded text-xs font-bold text-white outline-none w-full sm:w-48 cursor-pointer appearance-none"
+                        className="bg-transparent font-unbounded text-sm font-bold text-white outline-none w-full sm:w-48 cursor-pointer appearance-none"
                     >
                         <option value="1_dia" className="bg-zinc-900">Último Día (Hoy)</option>
                         <option value="3_dias" className="bg-zinc-900">Últimos 3 Días</option>
@@ -143,12 +143,12 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Ingresos</p>
+                            <p className="text-zinc-500 text-xs sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Ingresos</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-yellow-500">{kpis.ingresos.toFixed(2)}€</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-yellow-500/10 rounded-xl text-yellow-500 group-hover:scale-110 transition-transform"><Euro size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ingresosCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                    <div className={`mt-auto flex items-center text-xs sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ingresosCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
                         {kpis.ingresosCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
                         {kpis.ingresosCrecimiento > 0 ? '+' : ''}{kpis.ingresosCrecimiento.toFixed(1)}%
                     </div>
@@ -158,12 +158,12 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Completadas</p>
+                            <p className="text-zinc-500 text-xs sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Completadas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.completadas}</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-emerald-500/10 rounded-xl text-emerald-500 group-hover:scale-110 transition-transform"><CalendarCheck size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.completadasCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                    <div className={`mt-auto flex items-center text-xs sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.completadasCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
                         {kpis.completadasCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
                         {kpis.completadasCrecimiento > 0 ? '+' : ''}{kpis.completadasCrecimiento.toFixed(1)}%
                     </div>
@@ -173,12 +173,12 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Canceladas</p>
+                            <p className="text-zinc-500 text-xs sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Canceladas</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.tasaCancelacion.toFixed(1)}%</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-red-500/10 rounded-xl text-red-500 group-hover:scale-110 transition-transform"><Ban size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.tasaCancelacionCrecimiento <= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                    <div className={`mt-auto flex items-center text-xs sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.tasaCancelacionCrecimiento <= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
                         {kpis.tasaCancelacionCrecimiento <= 0 ? <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" />} 
                         {kpis.tasaCancelacionCrecimiento > 0 ? '+' : ''}{kpis.tasaCancelacionCrecimiento.toFixed(1)}%
                     </div>
@@ -188,12 +188,12 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-4 sm:p-5 rounded-2xl relative overflow-hidden group hover:border-zinc-700 transition-colors flex flex-col h-full min-h-[130px] sm:min-h-[140px]">
                     <div className="flex justify-between items-start relative z-10">
                         <div>
-                            <p className="text-zinc-500 text-[10px] sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Ticket Medio</p>
+                            <p className="text-zinc-500 text-xs sm:text-xs font-bold font-unbounded mb-1 line-clamp-1">Ticket Medio</p>
                             <h3 className="text-2xl sm:text-3xl font-black text-white">{kpis.ticketMedio.toFixed(2)}€</h3>
                         </div>
                         <div className="p-1.5 sm:p-2 bg-blue-500/10 rounded-xl text-blue-500 group-hover:scale-110 transition-transform"><CreditCard size={18} className="sm:w-5 sm:h-5" /></div>
                     </div>
-                    <div className={`mt-auto flex items-center text-[10px] sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ticketMedioCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
+                    <div className={`mt-auto flex items-center text-xs sm:text-xs font-bold gap-1 w-fit px-1.5 py-1 sm:px-2 sm:py-1 rounded-md ${kpis.ticketMedioCrecimiento >= 0 ? 'text-emerald-500 bg-emerald-500/10' : 'text-red-500 bg-red-500/10'}`}>
                         {kpis.ticketMedioCrecimiento >= 0 ? <TrendingUp size={12} className="sm:w-3.5 sm:h-3.5" /> : <TrendingDown size={12} className="sm:w-3.5 sm:h-3.5" />} 
                         {kpis.ticketMedioCrecimiento > 0 ? '+' : ''}{kpis.ticketMedioCrecimiento.toFixed(1)}%
                     </div>
@@ -204,8 +204,8 @@ export default function NegocioDashboard() {
             <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl w-full">
                 <div className="mb-6 flex justify-between items-center">
                     <div>
-                        <h3 className="text-md font-bold font-unbounded text-white">Evolución de Ingresos</h3>
-                        <p className="text-sm text-zinc-500">Curva de facturación confirmada en este periodo.</p>
+                        <h3 className="text-lg font-bold font-unbounded text-white">Evolución de Ingresos</h3>
+                        <p className="text-base text-zinc-500">Curva de facturación confirmada en este periodo.</p>
                     </div>
                     <div className="p-2 bg-zinc-950 rounded-lg"><TrendingUp size={20} className="text-zinc-500" /></div>
                 </div>
@@ -233,8 +233,8 @@ export default function NegocioDashboard() {
                 {/* Días Fuertes */}
                 <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex flex-col lg:col-span-1">
                     <div className="mb-6">
-                        <h3 className="text-md font-bold font-unbounded text-white">Días Fuertes</h3>
-                        <p className="text-sm text-zinc-500">Volumen por día.</p>
+                        <h3 className="text-lg font-bold font-unbounded text-white">Días Fuertes</h3>
+                        <p className="text-base text-zinc-500">Volumen por día.</p>
                     </div>
                     <div className="flex-1 min-h-[200px] w-full">
                         {diasFuertes && diasFuertes.length > 0 ? (
@@ -256,8 +256,8 @@ export default function NegocioDashboard() {
                 {/* Servicios Estrella */}
                 <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex flex-col lg:col-span-2">
                     <div className="mb-4">
-                        <h3 className="text-md font-bold font-unbounded text-white">Servicios Estrella</h3>
-                        <p className="text-sm text-zinc-500">¿Qué compran tus clientes?</p>
+                        <h3 className="text-lg font-bold font-unbounded text-white">Servicios Estrella</h3>
+                        <p className="text-base text-zinc-500">¿Qué compran tus clientes?</p>
                     </div>
                     <div className="flex-1 min-h-[200px] w-full relative flex flex-col sm:flex-row items-center gap-6">
                         {serviciosEstrella && serviciosEstrella.length > 0 ? (
@@ -280,10 +280,10 @@ export default function NegocioDashboard() {
                                 </div>
                                 <div className="w-full sm:w-1/2 flex flex-col gap-3 justify-center">
                                     {serviciosEstrella.map((service: any, idx: number) => (
-                                        <div key={idx} className="flex justify-between items-center text-sm bg-zinc-950 p-2.5 rounded-lg border border-zinc-800/50">
+                                        <div key={idx} className="flex justify-between items-center text-base bg-zinc-950 p-2.5 rounded-lg border border-zinc-800/50">
                                             <div className="flex items-center gap-2">
                                                 <span className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
-                                                <span className="text-zinc-200 font-bold truncate font-unbounded text-xs max-w-[150px]">{service.name}</span>
+                                                <span className="text-zinc-200 font-bold truncate font-unbounded text-sm max-w-[150px]">{service.name}</span>
                                             </div>
                                             <span className="text-zinc-500 font-medium">{service.value} res.</span>
                                         </div>
@@ -304,8 +304,8 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex flex-col">
                     <div className="mb-6 flex justify-between items-center border-b border-zinc-800/50 pb-4">
                         <div>
-                            <h3 className="text-md font-bold font-unbounded text-white">Rendimiento Equipo</h3>
-                            <p className="text-sm text-zinc-500">Facturación generada por empleado.</p>
+                            <h3 className="text-lg font-bold font-unbounded text-white">Rendimiento Equipo</h3>
+                            <p className="text-base text-zinc-500">Facturación generada por empleado.</p>
                         </div>
                         <div className="p-2 bg-zinc-950 rounded-lg"><Users size={20} className="text-zinc-500" /></div>
                     </div>
@@ -328,12 +328,12 @@ export default function NegocioDashboard() {
                                         {/* Barras de progreso e Info */}
                                         <div className="flex-1">
                                             <div className="flex justify-between items-start sm:items-end mb-1.5 gap-2">
-                                                <span className="font-bold text-zinc-200 text-sm font-unbounded sm:text-sm truncate">{staff.name}</span>
+                                                <span className="font-bold text-zinc-200 text-base font-unbounded sm:text-sm truncate">{staff.name}</span>
                                                 <div className="flex flex-col items-end sm:flex-row sm:items-baseline sm:gap-1.5 shrink-0">
-                                                    <span className="font-black text-yellow-500 text-sm sm:text-base leading-none">
+                                                    <span className="font-black text-yellow-500 text-base sm:text-base leading-none">
                                                         {staff.ingresos.toFixed(2)}€
                                                     </span>
-                                                    <span className="text-zinc-500 text-[10px] sm:text-xs font-medium leading-none mt-1 sm:mt-0">
+                                                    <span className="text-zinc-500 text-xs sm:text-xs font-medium leading-none mt-1 sm:mt-0">
                                                         ({staff.citas} res)
                                                     </span>
                                                 </div>
@@ -358,8 +358,8 @@ export default function NegocioDashboard() {
                 <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl flex flex-col">
                     <div className="mb-6 flex justify-between items-center border-b border-zinc-800/50 pb-4">
                         <div>
-                            <h3 className="text-md font-bold font-unbounded text-white">Top Clientes</h3>
-                            <p className="text-sm text-zinc-500">Los clientes más rentables.</p>
+                            <h3 className="text-lg font-bold font-unbounded text-white">Top Clientes</h3>
+                            <p className="text-base text-zinc-500">Los clientes más rentables.</p>
                         </div>
                         <Crown className="text-yellow-500" />
                     </div>
@@ -368,26 +368,26 @@ export default function NegocioDashboard() {
                         {topClientes && topClientes.length > 0 ? (
                             <table className="w-full text-left border-collapse whitespace-nowrap">
                                 <thead>
-                                    <tr className="border-b border-zinc-800/50 text-[10px] font-bold text-zinc-500 uppercase tracking-wider">
+                                    <tr className="border-b border-zinc-800/50 text-xs font-bold text-zinc-500 uppercase tracking-wider">
                                         <th className="pb-3 px-2 font-medium">Cliente</th>
                                         <th className="hidden sm:table-cell pb-3 px-2 font-medium text-center">Citas</th>
                                         <th className="pb-3 px-2 font-medium text-right">Gasto</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-zinc-800/50 text-sm">
+                                <tbody className="divide-y divide-zinc-800/50 text-base">
                                     {topClientes.map((cliente: any, idx: number) => (
                                         <tr key={cliente.id} className="hover:bg-zinc-800/30 transition-colors">
                                             <td className="py-3 px-2">
                                                 <div className="flex items-center gap-3">
-                                                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${idx === 0 ? 'bg-yellow-500 text-zinc-900' : idx === 1 ? 'bg-zinc-300 text-zinc-900' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-zinc-800 text-zinc-400'}`}>
+                                                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${idx === 0 ? 'bg-yellow-500 text-zinc-900' : idx === 1 ? 'bg-zinc-300 text-zinc-900' : idx === 2 ? 'bg-amber-700 text-white' : 'bg-zinc-800 text-zinc-400'}`}>
                                                         {idx + 1}
                                                     </span>
                                                     <div>
-                                                        <p className="font-bold text-zinc-200 font-unbounded text-sm leading-tight">{cliente.name}</p>
+                                                        <p className="font-bold text-zinc-200 font-unbounded text-base leading-tight">{cliente.name}</p>
                                                         {cliente.phone ? (
-                                                            <p className="text-[11px] text-zinc-400 mt-0.5 items-center flex gap-1"> <Phone className='w-2.5 h-2.5'/> {cliente.phone}</p>
+                                                            <p className="text-xs text-zinc-400 mt-0.5 items-center flex gap-1"> <Phone className='w-2.5 h-2.5'/> {cliente.phone}</p>
                                                         ) : (
-                                                            <p className="text-[10px] text-zinc-600 mt-0.5">Sin teléfono</p>
+                                                            <p className="text-xs text-zinc-600 mt-0.5">Sin teléfono</p>
                                                         )}
                                                     </div>
                                                 </div>

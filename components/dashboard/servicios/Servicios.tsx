@@ -161,7 +161,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 stagger-container">
                 <div>
                     <h1 className="text-2xl font-bold font-unbounded text-white tracking-tight">Servicios</h1>
-                    <p className="text-zinc-400 mt-1 text-sm sm:text-base">Configura los servicios que ofreces, precios y duraciones.</p>
+                    <p className="text-zinc-400 mt-1 text-base sm:text-base">Configura los servicios que ofreces, precios y duraciones.</p>
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
@@ -178,7 +178,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                     {profile.role === 'admin' && (
                         <button 
                             onClick={handleAdd}
-                            className="flex items-center justify-center gap-2 bg-yellow-500 text-zinc-950 px-5 py-3 rounded-xl font-semibold text-xs font-unbounded hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 shrink-0 cursor-pointer"
+                            className="flex items-center justify-center gap-2 bg-yellow-500 text-zinc-950 px-5 py-2.5 rounded-xl font-bold text-sm font-unbounded hover:bg-yellow-400 transition-all shadow-lg shadow-yellow-500/10 active:scale-95 shrink-0 cursor-pointer"
                         >
                             <Plus size={18} /> Nuevo Servicio
                         </button>
@@ -194,7 +194,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                     <div className="w-16 h-16 bg-zinc-950 rounded-full flex items-center justify-center mb-4 border border-zinc-800">
                         <Scissors size={32} className="text-zinc-600" />
                     </div>
-                    <p className="font-bold font-unbounded text-zinc-300 text-md">No hay servicios configurados</p>
+                    <p className="font-bold font-unbounded text-zinc-300 text-lg">No hay servicios configurados</p>
                     <p className="text-zinc-500 text-sm mt-1">Añade tu primer servicio para empezar a recibir reservas.</p>
                 </div>
             ) : (
@@ -214,8 +214,8 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                             <Scissors size={20} />
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <div className={`font-bold text-sm font-unbounded truncate ${service.is_active ? 'text-white' : 'text-zinc-400'}`}>{service.title}</div>
-                                            <div className="text-zinc-500 text-xs mt-0.5 truncate">{service.short_desc || 'Sin descripción corta'}</div>
+                                            <div className={`font-bold text-base font-unbounded truncate ${service.is_active ? 'text-white' : 'text-zinc-400'}`}>{service.title}</div>
+                                            <div className="text-zinc-500 text-sm mt-0.5 truncate">{service.short_desc || 'Sin descripción corta'}</div>
                                         </div>
                                     </div>
                                     {profile.role === 'admin' && (
@@ -225,12 +225,12 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     )}
                                 </div>
                                 
-                                <div className="flex items-center justify-between text-sm bg-zinc-950/50 p-3.5 rounded-lg border border-zinc-800/50">
+                                <div className="flex items-center justify-between text-base bg-zinc-950/50 p-3.5 rounded-lg border border-zinc-800/50">
                                     <div className="flex items-center gap-4 text-zinc-400">
                                         <span className="flex items-center gap-1.5"><Clock size={14} className="text-zinc-500" /> {service.duration} min</span>
                                         <span className="flex items-center gap-1.5 font-bold text-yellow-500"><Euro size={14} /> {service.price}€</span>
                                     </div>
-                                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-md ${service.is_active ? 'bg-emerald-500/10 text-emerald-500' : 'bg-zinc-800 text-zinc-500'}`}>
+                                    <span className={`text-xs font-bold uppercase tracking-wider px-2 py-1 rounded-md ${service.is_active ? 'bg-emerald-500/10 text-emerald-500' : 'bg-zinc-800 text-zinc-500'}`}>
                                         {service.is_active ? 'Activo' : 'Inactivo'}
                                     </span>
                                 </div>
@@ -330,8 +330,8 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     <Scissors size={22} />
                                 </div>
                                 <div>
-                                    <h2 className="text-md font-bold font-unbounded text-white leading-tight">{selectedService.title}</h2>
-                                    <span className={`inline-block font-unbounded mt-2 text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${selectedService.is_active ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-zinc-900 text-zinc-500 border-zinc-800'}`}>
+                                    <h2 className="text-lg font-bold font-unbounded text-white leading-tight">{selectedService.title}</h2>
+                                    <span className={`inline-block font-unbounded mt-2 text-xs font-semibold px-2.5 py-0.5 rounded-full border ${selectedService.is_active ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-zinc-900 text-zinc-500 border-zinc-800'}`}>
                                         {selectedService.is_active ? 'Servicio Activo' : 'Servicio Inactivo'}
                                     </span>
                                 </div>
@@ -344,28 +344,28 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             {/* Grid Precio / Duración */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex flex-col items-center text-center">
-                                    <span className="text-sm font-bold font-unbounded text-white">{selectedService.duration}'</span>
-                                    <span className="text-xs text-zinc-500 font-unbounded font-bold mt-1">Minutos</span>
+                                    <span className="text-base font-bold font-unbounded text-white">{selectedService.duration}'</span>
+                                    <span className="text-sm text-zinc-500 font-unbounded font-bold mt-1">Minutos</span>
                                 </div>
                                 <div className="bg-yellow-500/10 border border-yellow-500/20 p-4 rounded-2xl flex flex-col items-center text-center relative overflow-hidden">
-                                    <span className="text-sm font-black font-unbounded text-yellow-500 relative z-10">{selectedService.price}€</span>
-                                    <span className="text-xs text-yellow-500/80 font-unbounded font-bold mt-1 relative z-10">Precio Base</span>
+                                    <span className="text-base font-black font-unbounded text-yellow-500 relative z-10">{selectedService.price}€</span>
+                                    <span className="text-sm text-yellow-500/80 font-unbounded font-bold mt-1 relative z-10">Precio Base</span>
                                 </div>
                             </div>
 
                             {/* Descripciones */}
                             <div className="space-y-4">
                                 <div>
-                                    <h4 className="text-xs font-bold text-zinc-500 font-unbounded mb-2 flex items-center gap-2"><AlignLeft size={14}/> Resumen</h4>
-                                    <p className="text-sm text-zinc-300 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
+                                    <h4 className="text-sm font-bold text-zinc-500 font-unbounded mb-2 flex items-center gap-2"><AlignLeft size={14}/> Resumen</h4>
+                                    <p className="text-base text-zinc-300 bg-zinc-900/80 p-4 rounded-xl border border-zinc-800">
                                         {selectedService.short_desc || 'No hay descripción corta.'}
                                     </p>
                                 </div>
                                 
                                 {selectedService.full_desc && (
                                     <div>
-                                        <h4 className="text-xs font-bold text-zinc-500 font-unbounded flex items-center gap-2 mb-2"><AlignLeft size={14}/> Descripción Completa</h4>
-                                        <p className="text-sm text-zinc-400 leading-relaxed bg-zinc-900/50 p-4 rounded-xl border border-zinc-800/50">
+                                        <h4 className="text-sm font-bold text-zinc-500 font-unbounded flex items-center gap-2 mb-2"><AlignLeft size={14}/> Descripción Completa</h4>
+                                        <p className="text-base text-zinc-400 leading-relaxed bg-zinc-900/50 p-4 rounded-xl border border-zinc-800/50">
                                             {selectedService.full_desc}
                                         </p>
                                     </div>
@@ -375,10 +375,10 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             {/* Features */}
                             {selectedService.features && selectedService.features.length > 0 && (
                                 <div>
-                                    <h4 className="text-xs font-bold text-zinc-500 font-unbounded mb-3 flex items-center gap-2"><Sparkles size={14}/> Qué incluye</h4>
+                                    <h4 className="text-sm font-bold text-zinc-500 font-unbounded mb-3 flex items-center gap-2"><Sparkles size={14}/> Qué incluye</h4>
                                     <div className="flex flex-col gap-2">
                                         {selectedService.features.map((feature, idx) => (
-                                            <div key={idx} className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 p-3 rounded-xl text-sm text-zinc-300">
+                                            <div key={idx} className="flex items-center gap-3 bg-zinc-900 border border-zinc-800 p-3 rounded-xl text-base text-zinc-300">
                                                 <Check size={16} className="text-yellow-500 shrink-0" />
                                                 {feature}
                                             </div>
@@ -394,7 +394,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             <div className="p-4 border-t border-zinc-800 bg-zinc-950 shrink-0">
                                 <button 
                                     onClick={(e) => handleEdit(selectedService, e)}
-                                    className="w-full flex items-center font-unbounded text-sm justify-center gap-2 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl font-bold text-white transition-colors cursor-pointer"
+                                    className="w-full flex items-center font-unbounded text-base justify-center gap-2 py-3.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-xl font-bold text-white transition-colors cursor-pointer"
                                 >
                                     <Edit2 size={16} /> Editar Servicio
                                 </button>
@@ -417,8 +417,8 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                         {/* Modal Header */}
                         <div className="px-6 py-5 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/50 shrink-0">
                             <div>
-                                <h2 className="text-md font-bold font-unbounded text-white">{editingService ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
-                                <p className="text-xs text-zinc-400 mt-1">Completa los detalles para tu catálogo.</p>
+                                <h2 className="text-lg font-bold font-unbounded text-white">{editingService ? 'Editar Servicio' : 'Nuevo Servicio'}</h2>
+                                <p className="text-sm text-zinc-400 mt-1">Completa los detalles para tu catálogo.</p>
                             </div>
                             <button onClick={() => setIsModalOpen(false)} className="p-2 bg-zinc-900 rounded-full hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer">
                                 <X size={18} />
@@ -431,17 +431,17 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             {/* Fila 1: Título y Estado */}
                             <div className="flex flex-col sm:flex-row gap-6">
                                 <div className="flex-1 space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Nombre del Servicio *</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Nombre del Servicio *</label>
                                     <input 
                                         type="text" 
                                         value={formData.title || ''}
                                         onChange={e => setFormData({...formData, title: e.target.value})}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 outline-none transition-all text-base"
                                         placeholder="Ej: Corte Clásico"
                                     />
                                 </div>
                                 <div className="sm:w-32 space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Estado</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Estado</label>
                                     <button 
                                         onClick={() => setFormData({...formData, is_active: !formData.is_active})}
                                         className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold font-unbounded text-sm transition-all border ${formData.is_active ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' : 'bg-zinc-900 text-zinc-500 border-zinc-800'}`}
@@ -454,20 +454,20 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             {/* Fila 2: Precio y Duración */}
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Precio (€) *</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Precio (€) *</label>
                                     <div className="relative">
                                         <Euro className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
                                         <input 
                                             type="number" 
                                             value={formData.price || ''}
                                             onChange={e => setFormData({...formData, price: parseFloat(e.target.value)})}
-                                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-white focus:border-yellow-500 outline-none transition-all"
+                                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-white focus:border-yellow-500 outline-none transition-all text-base"
                                             placeholder="0.00"
                                         />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Duración (Min) *</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Duración (Min) *</label>
                                     <div className="relative">
                                         <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
                                         <input 
@@ -475,7 +475,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                             step="5"
                                             value={formData.duration || ''}
                                             onChange={e => setFormData({...formData, duration: parseInt(e.target.value)})}
-                                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-white focus:border-yellow-500 outline-none transition-all"
+                                            className="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-white focus:border-yellow-500 outline-none transition-all text-base"
                                             placeholder="30"
                                         />
                                     </div>
@@ -485,22 +485,22 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                             {/* Descripciones */}
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Descripción Corta</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Descripción Corta</label>
                                     <input 
                                         type="text" 
                                         value={formData.short_desc || ''}
                                         onChange={e => setFormData({...formData, short_desc: e.target.value})}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-sm"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-base"
                                         placeholder="Breve resumen para la vista rápida..."
                                         maxLength={100}
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs font-bold text-zinc-400 font-unbounded">Descripción Completa</label>
+                                    <label className="text-sm font-bold text-zinc-400 font-unbounded">Descripción Completa</label>
                                     <textarea 
                                         value={formData.full_desc || ''}
                                         onChange={e => setFormData({...formData, full_desc: e.target.value})}
-                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-sm min-h-[100px] resize-none"
+                                        className="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:border-yellow-500 outline-none text-base min-h-[100px] resize-none"
                                         placeholder="Detalla todo lo que incluye el servicio..."
                                     />
                                 </div>
@@ -508,7 +508,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
 
                             {/* Características (Array of Strings) */}
                             <div className="space-y-3 bg-zinc-900/50 p-5 rounded-2xl border border-zinc-800">
-                                <label className="text-xs font-bold text-zinc-400 font-unbounded flex items-center gap-2">
+                                <label className="text-sm font-bold text-zinc-400 font-unbounded flex items-center gap-2">
                                     <Sparkles size={14}/> Qué incluye (Características)
                                 </label>
                                 
@@ -518,7 +518,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                         value={newFeature}
                                         onChange={e => setNewFeature(e.target.value)}
                                         onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addFeature())}
-                                        className="flex-1 bg-zinc-950 border col-span-2 placeholder:text-yellow-500/80 border-zinc-800 rounded-xl px-4 py-2.5 text-sm text-white focus:border-yellow-500 outline-none"
+                                        className="flex-1 bg-zinc-950 border col-span-2 placeholder:text-yellow-500/80 border-zinc-800 rounded-xl px-4 py-2.5 text-base text-white focus:border-yellow-500 outline-none"
                                         placeholder="Recomendado 2 features máximo"
                                     />
                                     <button onClick={addFeature} type="button" className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 rounded-xl text-sm font-bold transition-colors cursor-pointer">
@@ -529,7 +529,7 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                 {formData.features && formData.features.length > 0 && (
                                     <div className="flex flex-wrap gap-2 pt-2">
                                         {formData.features.map((feature, idx) => (
-                                            <span key={idx} className="flex items-center gap-1.5 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-3 py-1.5 rounded-lg text-xs font-medium">
+                                            <span key={idx} className="flex items-center gap-1.5 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-3 py-1.5 rounded-lg text-sm font-medium">
                                                 {feature}
                                                 <button onClick={() => removeFeature(idx)} className="hover:text-white transition-colors ml-1 cursor-pointer"><X size={12}/></button>
                                             </span>
@@ -566,22 +566,22 @@ export function Servicios({ servicios, profile }: ServiciosProps) {
                                     className="flex items-center gap-2 cursor-pointer">
                                     {
                                         isLoading ? (
-                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2 rounded-xl font-bold text-sm transition-colors'><LoaderCircle width={16} className='animate-spin'/>Eliminando</span>
+                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2 rounded-xl font-bold text-base transition-colors'><LoaderCircle width={16} className='animate-spin'/>Eliminando</span>
                                         ) : (
-                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2 rounded-xl font-medium font-unbounded text-xs transition-colors'><Trash2 size={16} /> Eliminar</span>
+                                            <span className='flex gap-2 items-center bg-red-500/10 text-red-500 hover:bg-red-500/20 px-4 py-2 rounded-xl font-medium font-unbounded text-sm transition-colors'><Trash2 size={16} /> Eliminar</span>
                                         )
                                     }
                                 </button>
                             ) : <div></div>}
                             
                             <div className="flex gap-1">
-                                <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-xs font-medium rounded-xl font-unbounded text-zinc-400 bg-zinc-400/5 hover:text-white transition-colors cursor-pointer">
+                                <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm font-medium rounded-xl font-unbounded text-zinc-400 bg-zinc-400/5 hover:text-white transition-colors cursor-pointer">
                                     Cancelar
                                 </button>
                                 <button 
                                     onClick={handleSave}
                                     disabled={isSaving}
-                                    className="bg-yellow-500 text-zinc-950 px-4 py-2 rounded-xl text-xs font-unbounded font-medium hover:bg-yellow-400 transition-transform active:scale-95 shadow-lg shadow-yellow-500/20 cursor-pointer">
+                                    className="bg-yellow-500 text-zinc-950 px-4 py-2 rounded-xl text-sm font-unbounded font-medium hover:bg-yellow-400 transition-transform active:scale-95 shadow-lg shadow-yellow-500/20 cursor-pointer">
                                     {
                                         isSaving ? <span className='flex gap-2 items-center'><LoaderCircle width={16} className='animate-spin' /> Guardando</span> : 'Guardar'
                                     }

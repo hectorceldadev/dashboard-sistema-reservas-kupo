@@ -89,8 +89,8 @@ const StepDate = ({ booking, setBooking }: StepDateProps) => {
         <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 stagger-container">
             
             <div className="flex flex-col items-start">
-                <h3 className="text-white font-unbounded font-bold text-md">¿Cuándo nos vemos?</h3>
-                <p className="text-zinc-400 text-sm">Selecciona el día y la hora de la cita.</p>
+                <h3 className="text-white font-unbounded font-bold text-xl">¿Cuándo nos vemos?</h3>
+                <p className="text-zinc-400 text-md">Selecciona el día y la hora de la cita.</p>
             </div>
 
             <div className="bg-zinc-900 p-2 rounded-xl shadow-lg border border-zinc-800 flex justify-center">
@@ -125,7 +125,7 @@ const StepDate = ({ booking, setBooking }: StepDateProps) => {
                 >
                     <div className="flex items-center gap-2 mb-3 text-zinc-300">
                         <Clock size={18} className="text-yellow-500" />
-                        <span className="font-bold text-xs font-unbounded">Horas disponibles</span>
+                        <span className="font-bold text-sm font-unbounded">Horas disponibles</span>
                     </div>
                     
                     {isLoading ? (

@@ -50,7 +50,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
             {/* Cabecera de los días de la semana */}
             <div className="grid grid-cols-7 bg-zinc-950/50 rounded-xl">
                 {weekDays.map(day => (
-                    <div key={day} className="py-3 text-center text-xs font-semibold font-unbounded text-yellow-500">
+                    <div key={day} className="py-3 text-center text-sm font-semibold font-unbounded text-yellow-500">
                         <span className="hidden sm:inline">{day}</span>
                         <span className="sm:hidden">{day.slice(0, 1)}</span>
                     </div>
@@ -84,7 +84,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
                             {/* Número del día */}
                             <div className="flex items-center justify-between w-full mb-2">
                                 <span className={`
-                                    flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 text-xs sm:text-sm font-bold rounded-full
+                                    flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 text-sm sm:text-sm font-bold rounded-full
                                     ${isCurrentDay 
                                         ? 'bg-yellow-500 group-focus:bg-zinc-900 text-zinc-950 group-focus:text-yellow-500 shadow-md shadow-yellow-500/20' 
                                         : isCurrentMonth ? 'text-zinc-300 group-focus:text-black' : 'text-zinc-600 group-focus:text-yellow-500'
@@ -97,7 +97,7 @@ export default function MonthView({ currentDate, selectedStaffId, bookings, onDa
                             {/* Indicador de Citas */}
                             {appointmentsCount > 0 && (
                                 <div className="mt-auto w-full">
-                                    <div className={`w-full px-1 sm:px-2 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold flex items-center justify-center sm:justify-between gap-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 group-focus:bg-black/10 group-focus:text-black group-focus:border-black`}>
+                                    <div className={`w-full px-1 sm:px-2 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-xs sm:text-xs font-bold flex items-center justify-center sm:justify-between gap-1.5 bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 group-focus:bg-black/10 group-focus:text-black group-focus:border-black`}>
                                         <span>
                                             {appointmentsCount}
                                             {/* Ocultamos la palabra "citas" en móvil para que encaje perfecto */}

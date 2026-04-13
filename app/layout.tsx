@@ -7,7 +7,7 @@ import localFont from 'next/font/local';
 
 // Configuramos Agrandir
 const agrandir = localFont({
-  src: './fonts/agrandir.otf',
+  src: './fonts/Agrandir.otf',
   variable: '--font-agrandir', // Esto será muy útil si usas Tailwind CSS
   display: 'swap',
 });

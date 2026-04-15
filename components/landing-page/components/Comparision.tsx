@@ -5,15 +5,15 @@ export default function Comparison() {
     <section className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
-            ¿Por qué salir de <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">las apps de siempre?</span>
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
+            ¿Por qué salir de <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">las apps de siempre?</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             Las aplicaciones de directorio te traen clientes, <b className="text-zinc-300">pero te cobran un precio muy alto: tu identidad y tus márgenes.</b> Es hora de independizarse.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl px-6 mx-auto">
           <div className="relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#121214]/50 border border-red-500/10 opacity-90 h-full">
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-zinc-400 font-unbounded mb-2">Apps de Directorio</h3>

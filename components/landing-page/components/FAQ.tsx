@@ -5,7 +5,7 @@ export default function FAQ() {
     <section id="faq" className="relative z-10 w-full py-20 md:py-32 border-t border-white/[0.02] bg-[#09090b]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">Resolvemos tus dudas</h2>
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">Resolvemos tus dudas</h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist">Todo lo que necesitas saber antes de dar el salto y <b className="text-zinc-300">recuperar el control de tu negocio.</b></p>
         </div>
         <div className="space-y-4">

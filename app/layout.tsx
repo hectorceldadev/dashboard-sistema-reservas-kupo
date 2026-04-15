@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Poppins, Unbounded, Geist, Raleway, Anton } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sileo";
-
 import localFont from 'next/font/local';
 
 // Configuramos Agrandir

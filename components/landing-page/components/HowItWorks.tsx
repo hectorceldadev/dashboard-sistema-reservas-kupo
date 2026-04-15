@@ -5,8 +5,8 @@ export default function HowItWorks() {
     <section id="como-funciona" className="relative z-10 w-full py-20 md:py-28 lg:py-32 border-t border-white/[0.02]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
-            Tu web lista <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">sin mover un dedo.</span>
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
+            Tu web lista <br /> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">sin mover un dedo.</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             Olvídate de tutoriales y creadores de webs complicados. <b className="text-zinc-300">Nuestro equipo se encarga de todo el trabajo técnico</b> para que tú te dediques a lo que mejor sabes hacer: tu negocio.

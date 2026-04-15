@@ -7,14 +7,14 @@ export default function Pricing() {
       <div className="absolute top-0 right-1/4 w-[60%] h-[50%] bg-yellow-500/5 blur-[150px] rounded-full pointer-events-none" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
-            Precios simples. <br className=""/> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">Sin comisiones ocultas.</span>
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
+            Precios simples. <br className=""/> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">Sin comisiones ocultas.</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             Pagas una cuota fija al mes. Sin límites de empleados ni sorpresas en la factura. Jamás nos quedaremos con un porcentaje de tu trabajo.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl px-6 mx-auto items-stretch">
           <div className="relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#18181b] border-2 border-yellow-500/50 shadow-[0_0_40px_rgba(234,179,8,0.1)] h-full z-20 md:scale-105">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-yellow-500 text-black text-xs font-bold uppercase tracking-wider rounded-full shadow-lg">El más elegido</div>
             <h3 className="text-2xl font-bold text-yellow-500 font-unbounded mb-2">Profesional</h3>

@@ -1,6 +1,7 @@
 'use client'
 
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 export default function Testimonials() {
 
@@ -12,8 +13,8 @@ export default function Testimonials() {
         
         {/* ENCABEZADO */}
         <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-6">
-            Negocios que ya <br/> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 to-yellow-600">han dado el salto.</span>
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
+            Negocios que ya <br/> <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">han dado el salto.</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             Únete a los profesionales que <b className="text-zinc-300">han dejado de pagar comisiones abusivas y han recuperado el control</b> absoluto de sus clientes.
@@ -27,11 +28,18 @@ export default function Testimonials() {
           <div className="h-full">
             <div className="relative flex flex-col p-8 rounded-3xl bg-[#121214] border border-white/[0.05] hover:border-yellow-500/30 transition-colors duration-300 h-full">
               <div className="flex gap-1 mb-6">{[1, 2, 3, 4, 5].map((star) => (<Star key={star} className="w-4 h-4 fill-yellow-500 text-yellow-500" />))}</div>
-              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`"Estaba pagando casi 300€ al mes en comisiones a otra app de reservas. Desde que uso Kupo, pago mi cuota fija y el resto es beneficio limpio. Además, mis clientes dicen que la nueva web se ve súper profesional."`}</p>
+              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`"Estaba pagando 70€ al mes en otra app de reservas. Desde que uso Kupo, pago mi cuota fija y el resto es beneficio limpio"`}</p>
               <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 border border-white/10 shrink-0" />
-                <div><p className="text-white font-bold text-sm font-unbounded">Carlos M.</p><p className="text-zinc-500 text-xs font-geist">Dueño de Barbería</p></div>
-                <div className="ml-auto text-right"><span className="block text-emerald-400 font-bold text-sm">+300€</span><span className="block text-zinc-600 text-[10px] uppercase tracking-wider">Ahorro/mes</span></div>
+                <div className="relative w-12 h-12 rounded-full  border border-white/10 " >
+                  <Image 
+                    src={'/landing/josemartinez.jpg'}
+                    alt="Jose"
+                    fill
+                    className="object-contain rounded-full"
+                  />
+                </div>
+                <div><p className="text-white font-bold text-sm font-unbounded">José Martínez</p><p className="text-zinc-500 text-xs font-geist">JS Barber</p></div>
+                <div className="ml-auto text-right"><span className="block text-emerald-400 font-bold text-sm">+45€</span><span className="block text-zinc-600 text-[10px] uppercase tracking-wider">Ahorro/mes</span></div>
               </div>
             </div>
           </div>
@@ -40,11 +48,18 @@ export default function Testimonials() {
           <div className="h-full">
             <div className="relative flex flex-col p-8 rounded-3xl bg-[#121214] border border-white/[0.05] hover:border-yellow-500/30 transition-colors duration-300 md:-translate-y-4 h-full">
               <div className="flex gap-1 mb-6">{[1, 2, 3, 4, 5].map((star) => (<Star key={star} className="w-4 h-4 fill-yellow-500 text-yellow-500" />))}</div>
-              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`"Soy malísima con la tecnología y me aterraba la idea de montar mi propia página web. El equipo de Kupo me lo dejó todo funcionando en 24 horas. Yo solo tuve que pasarles mi logo por WhatsApp. Una maravilla."`}</p>
+              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`Soy malísima con la tecnología y me aterraba la idea de montar mi propia página web. El equipo de Kupo me lo dejó todo funcionando en 24 horas`}</p>
               <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 border border-white/10 shrink-0" />
-                <div><p className="text-white font-bold text-sm font-unbounded">Laura G.</p><p className="text-zinc-500 text-xs font-geist">Centro de Estética</p></div>
-                <div className="ml-auto text-right"><span className="block text-blue-400 font-bold text-sm">24h</span><span className="block text-zinc-600 text-[10px] uppercase tracking-wider">Setup</span></div>
+                <div className="relative w-12 h-12 rounded-full  border border-white/10 " >
+                  <Image 
+                    src={'/landing/andrealopez.png'}
+                    alt="Jose"
+                    fill
+                    className="object-cover rounded-full"
+                  />
+                </div>
+                <div><p className="text-white font-bold text-sm font-unbounded">Andrea López</p><p className="text-zinc-500 text-xs font-geist">AL Nails & Beauty</p></div>
+                <div className="ml-auto text-right"><span className="block text-blue-400 font-bold text-sm">24h</span><span className="block text-zinc-600 text-[10px] uppercase tracking-wider">Instalación</span></div>
               </div>
             </div>
           </div>
@@ -53,10 +68,17 @@ export default function Testimonials() {
           <div className="h-full">
             <div className="relative flex flex-col p-8 rounded-3xl bg-[#121214] border border-white/[0.05] hover:border-yellow-500/30 transition-colors duration-300 h-full">
               <div className="flex gap-1 mb-6">{[1, 2, 3, 4, 5].map((star) => (<Star key={star} className="w-4 h-4 fill-yellow-500 text-yellow-500" />))}</div>
-              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`"Lo que más me molestaba de estar en un directorio era que mi negocio aparecía justo al lado de otros que reventaban los precios. Ahora el cliente entra a mi enlace, ve mi marca y reserva conmigo sin distracciones."`}</p>
+              <p className="text-zinc-300 font-geist text-base leading-relaxed mb-8 flex-1">{`Desde que estoy en Kupo me quito un peso de encima, antes mi negocio aparecía justo al lado de otros que reventaban los precios, ahora tengo mi espacio independiente`}</p>
               <div className="flex items-center gap-4 border-t border-white/5 pt-6 mt-auto">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 border border-white/10 shrink-0" />
-                <div><p className="text-white font-bold text-sm font-unbounded">Elena R.</p><p className="text-zinc-500 text-xs font-geist">Salón de Belleza</p></div>
+                <div className="relative w-12 h-12 rounded-full  border border-white/10 " >
+                  <Image 
+                    src={'/landing/davidiranzo.jpg'}
+                    alt="Jose"
+                    fill
+                    className="object-cover rounded-full"
+                  />
+                </div>
+                <div><p className="text-white font-bold text-sm font-unbounded">David Iranzo</p><p className="text-zinc-500 text-xs font-geist">Fisio & Tu</p></div>
                 <div className="ml-auto text-right"><span className="block text-yellow-500 font-bold text-sm">100%</span><span className="block text-zinc-600 text-[10px] uppercase tracking-wider">Propio</span></div>
               </div>
             </div>

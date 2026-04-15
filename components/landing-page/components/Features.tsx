@@ -11,9 +11,9 @@ export default function Features() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 mb-6">
             <span className="text-[10px] sm:text-xs font-semibold text-yellow-500 uppercase">El control vuelve a ti</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-unbounded text-white mb-4 sm:mb-6 leading-tight">
+          <h2 className="text-5xl lg:text-6xl font-extrabold leading-[0.90] tracking-tighter mt-4 mb-6 font-unbounded">
             Tu negocio. <br className="block sm:hidden" /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 to-yellow-500">Tus reglas.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">Tus reglas.</span>
           </h2>
           <p className="text-base sm:text-lg text-zinc-400 max-w-2xl font-geist px-2 sm:px-0">
             <b className="text-zinc-300">Todo lo que necesitas para operar como una gran marca,</b> desde tu propia página web hasta la fidelización de tu base de clientes.

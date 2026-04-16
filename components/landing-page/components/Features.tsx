@@ -86,7 +86,7 @@ export default function Features() {
                     <BellRing className="w-4 h-4 text-black" />
                   </div>
                   <div>
-                    <p className="text-[11px] sm:text-xs font-bold text-white leading-tight mb-0.5">Tu Marca Propia</p>
+                    <p className="text-[11px] sm:text-xs font-bold text-white leading-tight mb-0.5">Peluquería Ilumina</p>
                     <p className="text-[9px] sm:text-[10px] text-zinc-500 leading-tight">Justo ahora</p>
                   </div>
                 </div>

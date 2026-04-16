@@ -43,7 +43,7 @@ export default function Testimonials() {
               </div>
             </div>
           </div>
-
+          
           {/* ENVOLTORIO 2 (Este contiene la tarjeta que se eleva) */}
           <div className="h-full">
             <div className="relative flex flex-col p-8 rounded-3xl bg-[#121214] border border-white/[0.05] hover:border-yellow-500/30 transition-colors duration-300 md:-translate-y-4 h-full">
@@ -63,7 +63,7 @@ export default function Testimonials() {
               </div>
             </div>
           </div>
-
+          
           {/* ENVOLTORIO 3 */}
           <div className="h-full">
             <div className="relative flex flex-col p-8 rounded-3xl bg-[#121214] border border-white/[0.05] hover:border-yellow-500/30 transition-colors duration-300 h-full">

@@ -14,7 +14,7 @@ export default function Pricing() {
             Pagas una cuota fija al mes. Sin límites de empleados ni sorpresas en la factura. Jamás nos quedaremos con un porcentaje de tu trabajo.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl px-6 mx-auto items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl px-2 mx-auto items-stretch">
           <div className="relative flex flex-col p-8 sm:p-10 rounded-3xl bg-[#18181b] border-2 border-yellow-500/50 shadow-[0_0_40px_rgba(234,179,8,0.1)] h-full z-20 md:scale-105">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-1.5 bg-yellow-500 text-black text-xs font-bold uppercase tracking-wider rounded-full shadow-lg">El más elegido</div>
             <h3 className="text-2xl font-bold text-yellow-500 font-unbounded mb-2">Profesional</h3>
